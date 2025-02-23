@@ -27,8 +27,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
+            val navController = rememberNavController()
+            val navControllerBottom = rememberNavController()
             GardenTheme {
-                SetUpOnGraph()
+                SetUpOnGraph(navController,navControllerBottom)
             }
         }
     }
