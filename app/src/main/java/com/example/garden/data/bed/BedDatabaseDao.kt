@@ -1,11 +1,14 @@
-package com.example.garden.data
+package com.example.garden.data.bed
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.garden.models.Bed
 import kotlinx.coroutines.flow.Flow
+import java.util.UUID
 
 @Dao
 interface BedDatabaseDao {
@@ -14,4 +17,13 @@ interface BedDatabaseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun  insertBed(bed: Bed)
+
+    @Delete()
+    suspend fun  deleteBed(bed: Bed)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun uodateBed(bed: Bed)
+
+    @Query("SELECT * FROM bed_list_tbl WHERE id == :id")
+    suspend fun getBedById(id:String):Bed
 }

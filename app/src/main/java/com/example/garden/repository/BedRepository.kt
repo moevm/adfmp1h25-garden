@@ -1,7 +1,7 @@
 package com.example.garden.repository
 
 
-import com.example.garden.data.BedDatabaseDao
+import com.example.garden.data.bed.BedDatabaseDao
 import com.example.garden.models.Bed
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

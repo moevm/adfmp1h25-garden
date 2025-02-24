@@ -1,6 +1,5 @@
-package com.example.garden.screens.beds_list
+package com.example.garden.screens.bed
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -13,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun BedsListScreen(viewModel: BedListViewModel = hiltViewModel()) {
+fun BedsListScreen(viewModel: BedViewModel = hiltViewModel()) {
     Column(modifier = Modifier.fillMaxSize().padding(50.dp)) {
         Text(text = "BedList")
         Button(onClick = {

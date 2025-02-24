@@ -1,4 +1,4 @@
-package com.example.garden.screens.beds_list
+package com.example.garden.screens.bed
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -15,7 +15,7 @@ import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
-class BedListViewModel @Inject constructor(
+class BedViewModel @Inject constructor(
     private val repo: BedRepository
 ) : ViewModel() {
     private val _listBeds = MutableStateFlow<List<Bed>>(emptyList())
@@ -40,7 +40,7 @@ class BedListViewModel @Inject constructor(
                 description = "desc",
                 sort = "sort",
                 amount = 10,
-                //date_sowing = Date(2025,10,15)
+                date_sowing = Date(2025,10,15)
             )
         )
     }

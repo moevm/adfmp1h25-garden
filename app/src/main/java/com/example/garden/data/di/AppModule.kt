@@ -2,8 +2,8 @@ package com.example.garden.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.garden.data.BedDatabase
-import com.example.garden.data.BedDatabaseDao
+import com.example.garden.data.bed.BedDatabase
+import com.example.garden.data.bed.BedDatabaseDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

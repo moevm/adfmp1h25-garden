@@ -13,5 +13,5 @@ data class Bed(
     val description: String,
     val sort: String,
     val amount:Int,
-    //val date_sowing:Date
+    val date_sowing:Date
 )
