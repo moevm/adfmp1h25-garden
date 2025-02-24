@@ -8,7 +8,6 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.garden.models.Bed
 import kotlinx.coroutines.flow.Flow
-import java.util.UUID
 
 @Dao
 interface BedDatabaseDao {
@@ -22,7 +21,7 @@ interface BedDatabaseDao {
     suspend fun  deleteBed(bed: Bed)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun uodateBed(bed: Bed)
+    suspend fun updateBed(bed: Bed)
 
     @Query("SELECT * FROM bed_list_tbl WHERE id == :id")
     suspend fun getBedById(id:String):Bed
