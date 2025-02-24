@@ -23,7 +23,7 @@ fun BottomNavGraph(
             ArchiveScreen()
         }
         composable(Destination.BedsList.route) {
-            BedsListScreen()
+            BedsListScreen(navController)
         }
         composable(Destination.Notifications.route){
             NotificationScreen()

@@ -5,10 +5,11 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.garden.data.Converters
 import com.example.garden.data.gallery.GalleryDatabaseDao
+import com.example.garden.models.Bed
 import com.example.garden.models.Gallery
 import com.example.garden.models.Statistics
 
-@Database(entities = [Statistics::class],
+@Database(entities = [Statistics::class, Bed::class],
     version = 1, exportSchema = false
 )
 @TypeConverters(Converters::class)

@@ -8,7 +8,7 @@ import com.example.garden.data.bed.BedDatabaseDao
 import com.example.garden.models.Bed
 import com.example.garden.models.Changes
 
-@Database(entities = [Changes::class],
+@Database(entities = [Changes::class, Bed::class],
     version = 1, exportSchema = false
 )
 @TypeConverters(Converters::class)

@@ -2,6 +2,7 @@ package com.example.garden.models
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 import java.util.Date
 import java.util.UUID
 
@@ -15,8 +16,9 @@ import java.util.UUID
     )]
 )
 data class Statistics (
+    @PrimaryKey
     val id: UUID = UUID.randomUUID(),
     val date: Date,
     val num: Int,
-    val bed_id: UUID
+    val bed_id: String
 )
