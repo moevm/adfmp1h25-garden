@@ -20,7 +20,9 @@ import com.example.garden.screens.beds_list.BedsListScreen
 import com.example.garden.screens.calendar.CalendarScreen
 import com.example.garden.screens.navigation.SetUpOnGraph
 import com.example.garden.ui.theme.GardenTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
