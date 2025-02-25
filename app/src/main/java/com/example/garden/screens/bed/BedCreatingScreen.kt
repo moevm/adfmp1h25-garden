@@ -9,12 +9,17 @@ import androidx.navigation.NavHostController
 import com.example.garden.screens.navigation.Destination
 
 @Composable
-fun BedCreatingScreen(navController: NavHostController) {
+fun BedCreatingScreen(navController: NavHostController, bedViewModel: BedViewModel) {
     Column (){
         Button(onClick = {
             navController.navigate(Destination.Home.route)
         }) {
             Text("back")
+        }
+        Button(onClick = {
+            bedViewModel.add()
+        }) {
+            Text("add")
         }
         Text(
             text = "BedCreating"

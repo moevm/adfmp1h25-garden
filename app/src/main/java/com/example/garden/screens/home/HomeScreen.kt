@@ -12,12 +12,13 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.garden.screens.bed.BedViewModel
 import com.example.garden.screens.navigation.BottomNavGraph
 import com.example.garden.screens.navigation.bottomNav
 
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen(navController: NavHostController, bedViewModel:BedViewModel) {
     val navControllerBottom = rememberNavController()
     Scaffold(
         bottomBar = {
@@ -36,7 +37,7 @@ fun HomeScreen(navController: NavHostController) {
             }
         }
     ) { innerPadding->
-        BottomNavGraph(navControllerBottom, navController, Modifier.padding(innerPadding), )
+        BottomNavGraph(navControllerBottom, navController, Modifier.padding(innerPadding),bedViewModel )
     }
 
 }

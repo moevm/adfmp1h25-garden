@@ -20,9 +20,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
 
-
+            val bedViewModel = hiltViewModel<BedViewModel>()
             GardenTheme {
-                SetUpOnGraph(navController)
+                SetUpOnGraph(navController,bedViewModel)
             }
         }
     }

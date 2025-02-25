@@ -14,7 +14,7 @@ import androidx.navigation.NavHostController
 import com.example.garden.screens.navigation.Destination
 
 @Composable
-fun BedDetailScreen(navController: NavHostController,bed_id:String, viewModel: BedViewModel = hiltViewModel()) {
+fun BedDetailScreen(navController: NavHostController, viewModel: BedViewModel) {
     Column(modifier = Modifier.fillMaxSize().padding(50.dp)) {
         Text(text = "Bed Detail")
         Button(onClick = {
@@ -28,12 +28,12 @@ fun BedDetailScreen(navController: NavHostController,bed_id:String, viewModel: B
             Text("edit")
         }
         Button(onClick = {
-            //viewModel.addStat(bed_id)
+            viewModel.addStat()
         }) {
 
         }
-//        viewModel.listStat.collectAsState().value.forEach { el->
-//            Text(text = el.bed_id)
-//        }
+        viewModel.listStat.collectAsState().value.forEach { el->
+            Text(text = el.bed_id)
+        }
     }
 }

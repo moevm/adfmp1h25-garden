@@ -17,11 +17,13 @@ import androidx.navigation.NavHostController
 import com.example.garden.screens.navigation.Destination
 
 @Composable
-fun BedsListScreen(navController: NavHostController,viewModel: BedViewModel = hiltViewModel()) {
+fun BedsListScreen(navController: NavHostController, viewModel: BedViewModel) {
     val context = LocalContext.current
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(50.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(50.dp)
+    ) {
         Text(text = "BedList")
 
         Button(onClick = {
@@ -30,12 +32,16 @@ fun BedsListScreen(navController: NavHostController,viewModel: BedViewModel = hi
             Text("add")
         }
 
-        viewModel.listBeds.collectAsState().value.forEach { el->
-            Text(text = el.title, modifier = Modifier.clickable {
+        viewModel.listBeds.collectAsState().value.forEach { el ->
+            Column(modifier = Modifier.clickable {
                 //Toast.makeText(context, el.id.toString(), Toast.LENGTH_SHORT).show()
-                //viewModel.getStatByBedId(el.id.toString())
-                navController.navigate(Destination.BedDetail.route+"/"+el.id.toString())
-            })
+                viewModel.getStatByBedId(el.id.toString())
+                navController.navigate(Destination.BedDetail.route)
+            }) {
+                Text(text = el.title)
+                Text(text = el.id.toString())
+            }
+
         }
     }
 }

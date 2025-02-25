@@ -26,51 +26,51 @@ object AppModule {
             = Room.databaseBuilder(
         context,
         BedDatabase::class.java,
-        "notes_db",
+        "garden_db",
     ).fallbackToDestructiveMigrationFrom().build()
 
-    @Singleton
-    @Provides
-    fun provideAppChangeDatabase(@ApplicationContext context: Context): ChangesDatabase
-            = Room.databaseBuilder(
-        context,
-        ChangesDatabase::class.java,
-        "changes_tbl",
-    ).fallbackToDestructiveMigrationFrom().build()
-
-    @Singleton
-    @Provides
-    fun provideAppGalleryDatabase(@ApplicationContext context: Context): GalleryDatabase
-            = Room.databaseBuilder(
-        context,
-        GalleryDatabase::class.java,
-        "gallery_tbl",
-    ).fallbackToDestructiveMigrationFrom().build()
-
-    @Singleton
-    @Provides
-    fun provideAppStatisticsDatabase(@ApplicationContext context: Context): StatisticsDatabase
-            = Room.databaseBuilder(
-        context,
-        StatisticsDatabase::class.java,
-        "stat_tbl",
-    ).fallbackToDestructiveMigrationFrom().build()
-
-
+//    @Singleton
+//    @Provides
+//    fun provideAppChangeDatabase(@ApplicationContext context: Context): ChangesDatabase
+//            = Room.databaseBuilder(
+//        context,
+//        ChangesDatabase::class.java,
+//        "changes_tbl",
+//    ).fallbackToDestructiveMigrationFrom().build()
+//
+//    @Singleton
+//    @Provides
+//    fun provideAppGalleryDatabase(@ApplicationContext context: Context): GalleryDatabase
+//            = Room.databaseBuilder(
+//        context,
+//        GalleryDatabase::class.java,
+//        "gallery_tbl",
+//    ).fallbackToDestructiveMigrationFrom().build()
+//
+//    @Singleton
+//    @Provides
+//    fun provideAppStatisticsDatabase(@ApplicationContext context: Context): StatisticsDatabase
+//            = Room.databaseBuilder(
+//        context,
+//        StatisticsDatabase::class.java,
+//        "stat_tbl",
+//    ).fallbackToDestructiveMigrationFrom().build()
+//
+//
     @Singleton
     @Provides
     fun provideBedDao(bedDatabase: BedDatabase): BedDatabaseDao
             = bedDatabase.bedDao()
-    @Singleton
-    @Provides
-    fun provideChangeDao(changesDatabase: ChangesDatabase): ChangesDatabaseDao
-            = changesDatabase.changeDao()
-    @Singleton
-    @Provides
-    fun provideGalleryDao(galleryDatabase: GalleryDatabase): GalleryDatabaseDao
-            = galleryDatabase.galleryDao()
-    @Singleton
-    @Provides
-    fun provideStatDao(statisticsDatabase: StatisticsDatabase): StatisticsDatabaseDao
-            = statisticsDatabase.statisticsDao()
+//    @Singleton
+//    @Provides
+//    fun provideChangeDao(changesDatabase: ChangesDatabase): ChangesDatabaseDao
+//            = changesDatabase.changeDao()
+//    @Singleton
+//    @Provides
+//    fun provideGalleryDao(galleryDatabase: GalleryDatabase): GalleryDatabaseDao
+//            = galleryDatabase.galleryDao()
+//    @Singleton
+//    @Provides
+//    fun provideStatDao(statisticsDatabase: StatisticsDatabase): StatisticsDatabaseDao
+//            = statisticsDatabase.statisticsDao()
 }

@@ -19,7 +19,7 @@ import com.example.garden.screens.notifications_date.NotificationDateScreen
 
 
 @Composable
-fun SetUpOnGraph(navController: NavHostController) {
+fun SetUpOnGraph(navController: NavHostController, bedViewModel: BedViewModel) {
 
 
     NavHost(
@@ -28,18 +28,12 @@ fun SetUpOnGraph(navController: NavHostController) {
     {
 
         composable(Destination.BedCreating.route) {
-            BedCreatingScreen(navController)
+            BedCreatingScreen(navController,bedViewModel)
         }
         composable(
-            route = Destination.BedDetail.route+"/{id}",
-            arguments = listOf(
-                navArgument("id"){
-                    type = NavType.StringType
-                }
-            )
+            route = Destination.BedDetail.route,
         ) {
-            val id = it.arguments?.getString("id") ?: ""
-            BedDetailScreen(navController,id)
+            BedDetailScreen(navController,bedViewModel)
         }
         composable(Destination.BedEdit.route) {
             BedEditScreen(navController)
@@ -54,7 +48,7 @@ fun SetUpOnGraph(navController: NavHostController) {
         }
         composable(Destination.Home.route) {
             Log.d("HOME","here")
-            HomeScreen(navController)
+            HomeScreen(navController,bedViewModel)
         }
     }
 }

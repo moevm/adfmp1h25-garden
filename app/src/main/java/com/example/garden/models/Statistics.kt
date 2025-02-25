@@ -1,19 +1,21 @@
 package com.example.garden.models
 
+import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import java.util.Date
 import java.util.UUID
 
+
 @Entity(
     tableName = "stat_tbl",
-    foreignKeys = [ForeignKey(
-        entity = Bed::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("bed_id"),
-        onDelete = ForeignKey.CASCADE
-    )]
+//    foreignKeys = [androidx.room.ForeignKey(
+//        entity = Bed::class,
+//        parentColumns = arrayOf("id"),
+//        childColumns = arrayOf("bed_id"),
+//        onDelete = androidx.room.ForeignKey.CASCADE
+//    )]
 )
 data class Statistics (
     @PrimaryKey
@@ -22,3 +24,11 @@ data class Statistics (
     val num: Int,
     val bed_id: String
 )
+
+class BedWithStat {
+    @Embedded
+    var bed: Bed? = null
+
+    @Relation(parentColumn = "id", entity = Statistics::class, entityColumn = "bed_id")
+    var stats: List<Statistics>? = null //other fields
+}
