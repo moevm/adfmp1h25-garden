@@ -17,7 +17,7 @@ fun BottomNavGraph(
 ) {
     NavHost(navControllerBottom, startDestination = Destination.Calendar.route) {
         composable(Destination.Calendar.route) {
-            CalendarScreen()
+            CalendarScreen(navController)
         }
         composable(Destination.Archive.route) {
             ArchiveScreen()
@@ -26,7 +26,7 @@ fun BottomNavGraph(
             BedsListScreen(navController)
         }
         composable(Destination.Notifications.route){
-            NotificationScreen()
+            NotificationScreen(navController)
         }
 
     }

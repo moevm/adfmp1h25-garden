@@ -1,6 +1,7 @@
 package com.example.garden.screens.bed
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.garden.models.Bed
@@ -20,16 +21,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BedViewModel @Inject constructor(
-    private val repoBed: BedRepository,
-    private val repoChange: ChangesRepository,
-    private val repoGallery: GalleryRepository,
-    private val repoStat: StatisticsRepository
+    private val repoBed: BedRepository
 ) : ViewModel() {
     private val _listBeds = MutableStateFlow<List<Bed>>(emptyList())
-    private val _listStat = MutableStateFlow<List<Statistics>>(emptyList())
-
     val listBeds = _listBeds.asStateFlow()
-    val listStat = _listStat.asStateFlow()
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             repoBed.getAllBeds().distinctUntilChanged()
@@ -43,7 +39,6 @@ class BedViewModel @Inject constructor(
         }
     }
     fun add() = viewModelScope.launch{
-        Log.d("TEST","add")
         repoBed.addBed(
             Bed(
                 title = "Title",
@@ -54,25 +49,5 @@ class BedViewModel @Inject constructor(
             )
         )
     }
-    fun addStat() = viewModelScope.launch{
-//        Log.d("STAT_TEST","key:"+detail_id)
-//        repoStat.addStatistic(
-//            Statistics(
-//                num = 10,
-//                date = Date(2025,10,15),
-//                bed_id = _detail_id
-//            )
-//        )
 
-    }
-
-    fun getStatByBedId(id:String) = viewModelScope.launch(Dispatchers.IO) {
-        repoStat.getStatisticByBedId(id).distinctUntilChanged()
-            .collect() { list ->
-                if (list.isNullOrEmpty()) {
-                    Log.d("Error", "empty list")
-                }
-                _listStat.value = list
-            }
-    }
 }

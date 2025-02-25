@@ -23,16 +23,18 @@ fun BedsListScreen(navController: NavHostController,viewModel: BedViewModel = hi
         .fillMaxSize()
         .padding(50.dp)) {
         Text(text = "BedList")
-        Button(onClick = {
-            viewModel.add()
-        }) {
 
+        Button(onClick = {
+            navController.navigate(Destination.BedCreating.route)
+        }) {
+            Text("add")
         }
+
         viewModel.listBeds.collectAsState().value.forEach { el->
             Text(text = el.title, modifier = Modifier.clickable {
                 //Toast.makeText(context, el.id.toString(), Toast.LENGTH_SHORT).show()
-                viewModel.getStatByBedId(el.id.toString())
-                navController.navigate(Destination.BedDetail.route)
+                //viewModel.getStatByBedId(el.id.toString())
+                navController.navigate(Destination.BedDetail.route+"/"+el.id.toString())
             })
         }
     }

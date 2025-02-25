@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
+import com.example.garden.screens.bed.BedViewModel
 import com.example.garden.screens.navigation.SetUpOnGraph
 import com.example.garden.ui.theme.GardenTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,9 +19,10 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val navController = rememberNavController()
-            val navControllerBottom = rememberNavController()
+
+
             GardenTheme {
-                SetUpOnGraph(navController,navControllerBottom)
+                SetUpOnGraph(navController)
             }
         }
     }
