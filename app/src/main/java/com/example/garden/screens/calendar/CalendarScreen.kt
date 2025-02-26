@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,7 +20,10 @@ fun CalendarScreen(navController: NavHostController) {
         Button(onClick = {
             navController.navigate(Destination.NotificationDate.route)
         }) {
-            Text("notification date")
+            Text(
+                "notification date",
+                color = colorScheme.background
+            )
         }
     }
 }

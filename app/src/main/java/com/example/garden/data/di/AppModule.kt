@@ -4,12 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.garden.data.bed.BedDatabase
 import com.example.garden.data.bed.BedDatabaseDao
-import com.example.garden.data.changes.ChangesDatabase
-import com.example.garden.data.changes.ChangesDatabaseDao
-import com.example.garden.data.gallery.GalleryDatabase
-import com.example.garden.data.gallery.GalleryDatabaseDao
-import com.example.garden.data.statistics.StatisticsDatabase
-import com.example.garden.data.statistics.StatisticsDatabaseDao
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
