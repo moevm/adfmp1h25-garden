@@ -2,8 +2,12 @@ package com.example.garden.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.garden.data.bed.BedDatabase
-import com.example.garden.data.bed.BedDatabaseDao
+import com.example.garden.data.db.BedDatabase
+import com.example.garden.data.daos.BedDao
+import com.example.garden.data.daos.ChangeDao
+import com.example.garden.data.daos.GalleryDao
+import com.example.garden.data.daos.NotificationDao
+import com.example.garden.data.daos.StatisticDao
 
 import dagger.Module
 import dagger.Provides
@@ -54,18 +58,23 @@ object AppModule {
 //
     @Singleton
     @Provides
-    fun provideBedDao(bedDatabase: BedDatabase): BedDatabaseDao
+    fun provideBedDao(bedDatabase: BedDatabase): BedDao
             = bedDatabase.bedDao()
-//    @Singleton
-//    @Provides
-//    fun provideChangeDao(changesDatabase: ChangesDatabase): ChangesDatabaseDao
-//            = changesDatabase.changeDao()
-//    @Singleton
-//    @Provides
-//    fun provideGalleryDao(galleryDatabase: GalleryDatabase): GalleryDatabaseDao
-//            = galleryDatabase.galleryDao()
-//    @Singleton
-//    @Provides
-//    fun provideStatDao(statisticsDatabase: StatisticsDatabase): StatisticsDatabaseDao
-//            = statisticsDatabase.statisticsDao()
+    @Singleton
+    @Provides
+    fun provideChangeDao(bedDatabase: BedDatabase): ChangeDao
+            = bedDatabase.changeDao()
+    @Singleton
+    @Provides
+    fun provideGalleryDao(bedDatabase: BedDatabase): GalleryDao
+            = bedDatabase.galleryDao()
+    @Singleton
+    @Provides
+    fun provideStatDao(bedDatabase: BedDatabase): StatisticDao
+            = bedDatabase.statisticDao()
+
+    @Singleton
+    @Provides
+    fun provideNotificationDao(bedDatabase: BedDatabase): NotificationDao
+            = bedDatabase.notificationDao()
 }

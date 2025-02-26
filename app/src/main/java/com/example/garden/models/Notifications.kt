@@ -1,12 +1,20 @@
 package com.example.garden.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.util.Date
+import java.util.UUID
 
+
+@Entity(
+    tableName = "notification_tbl"
+)
 data class Notifications(
-    val id: Int,
+    @PrimaryKey
+    val id: UUID = UUID.randomUUID(),
     val dateStart: Date,
     val dateEnd: Date,
     val title: String,
-    val bed_id: Int,
+    val bed_id: String,
     val description: String
 )
