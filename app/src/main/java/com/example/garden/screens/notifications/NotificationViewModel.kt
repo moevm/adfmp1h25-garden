@@ -19,21 +19,5 @@ import javax.inject.Inject
 class NotificationViewModel @Inject constructor(
     private val repository: BedRepository
 ):ViewModel() {
-    private val _notificationsList = MutableStateFlow<List<Notifications>>(emptyList())
-    val notifications = _notificationsList.asStateFlow()
-    init {
-        viewModelScope.launch {
-            _notificationsList.value = DataSource().loadNotification()
-        }
-//        viewModelScope.launch(Dispatchers.IO) {
-//            repository.getAllNotification().distinctUntilChanged()
-//                .collect() { list ->
-//                    if (list.isNullOrEmpty()) {
-//                        Log.d("Error", "empty list")
-//                    }
-//                    _notificationsList.value = list
-//                    Log.d("DATETEST", list.toString())
-//                }
-//        }
-    }
+
 }

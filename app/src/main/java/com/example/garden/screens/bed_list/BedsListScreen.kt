@@ -1,4 +1,4 @@
-package com.example.garden.screens.bed
+package com.example.garden.screens.bed_list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -11,12 +11,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.garden.screens.BedViewModel
+import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
 
 @Composable
-fun BedsListScreen(navController: NavHostController, viewModel: BedViewModel) {
+fun BedsListScreen(
+    navController: NavHostController,
+    viewModel: DBViewModel,
+    bedListViewModel: BedListViewModel = hiltViewModel()
+) {
     val context = LocalContext.current
     Column(
         modifier = Modifier
@@ -39,7 +44,7 @@ fun BedsListScreen(navController: NavHostController, viewModel: BedViewModel) {
                 navController.navigate(Destination.BedDetail.route)
             }) {
                 Button(onClick = {
-                    viewModel.update(el)
+                    viewModel.archiveBed(el)
                 }) {
                     Text("delete")
                 }

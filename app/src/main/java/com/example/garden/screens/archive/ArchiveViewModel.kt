@@ -25,9 +25,6 @@ constructor(
     val archiveList = _archiveList.asStateFlow()
 
     init {
-//        viewModelScope.launch {
-//            _notificationsList.value = DataSource().loadNotification()
-//        }
         viewModelScope.launch(Dispatchers.IO) {
             repository.getBedArchiveList().distinctUntilChanged()
                 .collect() { list ->
