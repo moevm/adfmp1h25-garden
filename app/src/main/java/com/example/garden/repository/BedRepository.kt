@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class BedRepository @Inject constructor(
@@ -28,7 +29,10 @@ class BedRepository @Inject constructor(
     suspend fun addBed(bed: Bed) = bedDao.insertBed(bed)
     suspend fun deleteBed(bed: Bed) = bedDao.deleteBed(bed)
     suspend fun updateBed(bed: Bed) = bedDao.updateBed(bed)
-    suspend fun getBedById(id: String):Bed = bedDao.getBedById(id)
+
+    fun getBedById(id: String):Flow<Bed?> = bedDao.getBedById(id)
+
+
     fun getAllBeds():Flow<List<Bed>> = bedDao.getBedList().flowOn(Dispatchers.IO).conflate()
 
     suspend fun addChange(changes: Changes) = changeDao.insertChange(changes)

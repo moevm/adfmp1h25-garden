@@ -4,14 +4,12 @@ package com.example.garden.screens.navigation
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.example.garden.screens.bed.BedCreatingScreen
 import com.example.garden.screens.bed.BedDetailScreen
 import com.example.garden.screens.bed.BedEditScreen
-import com.example.garden.screens.bed.BedViewModel
+import com.example.garden.screens.BedViewModel
 import com.example.garden.screens.home.HomeScreen
 import com.example.garden.screens.notification_detail.NotificationDetailScreen
 import com.example.garden.screens.notifications_date.NotificationDateScreen
@@ -32,6 +30,7 @@ fun SetUpOnGraph(navController: NavHostController, bedViewModel: BedViewModel) {
         }
         composable(
             route = Destination.BedDetail.route,
+
         ) {
             BedDetailScreen(navController,bedViewModel)
         }

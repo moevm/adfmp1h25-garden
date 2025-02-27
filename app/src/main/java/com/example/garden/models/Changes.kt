@@ -18,6 +18,7 @@ import java.util.UUID
 data class Changes(
     @PrimaryKey
     val id: UUID = UUID.randomUUID(),
+    val tmp_id:Int =0,
     val date: Date,
     val amount: Int,
     val reason: String,

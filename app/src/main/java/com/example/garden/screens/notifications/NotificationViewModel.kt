@@ -3,6 +3,8 @@ package com.example.garden.screens.notifications
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.garden.data.DataSource
 import com.example.garden.models.Notifications
 import com.example.garden.repository.BedRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,15 +22,18 @@ class NotificationViewModel @Inject constructor(
     private val _notificationsList = MutableStateFlow<List<Notifications>>(emptyList())
     val notifications = _notificationsList.asStateFlow()
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.getAllNotification().distinctUntilChanged()
-                .collect() { list ->
-                    if (list.isNullOrEmpty()) {
-                        Log.d("Error", "empty list")
-                    }
-                    _notificationsList.value = list
-                    Log.d("DATETEST", list.toString())
-                }
+        viewModelScope.launch {
+            _notificationsList.value = DataSource().loadNotification()
         }
+//        viewModelScope.launch(Dispatchers.IO) {
+//            repository.getAllNotification().distinctUntilChanged()
+//                .collect() { list ->
+//                    if (list.isNullOrEmpty()) {
+//                        Log.d("Error", "empty list")
+//                    }
+//                    _notificationsList.value = list
+//                    Log.d("DATETEST", list.toString())
+//                }
+//        }
     }
 }

@@ -15,8 +15,11 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BedDao {
-    @Query("SELECT * FROM bed_list_tbl")
+    @Query("SELECT * FROM bed_list_tbl WHERE isArchive == false ")
     fun getBedList(): Flow<List<Bed>>
+
+    @Query("SELECT * FROM bed_list_tbl WHERE isArchive == true ")
+    fun getBedArchiveList(): Flow<List<Bed>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun  insertBed(bed: Bed)
@@ -28,6 +31,6 @@ interface BedDao {
     suspend fun updateBed(bed: Bed)
 
     @Query("SELECT * FROM bed_list_tbl WHERE id == :id")
-    suspend fun getBedById(id:String):Bed
+    fun getBedById(id:String): Flow<Bed?>
 
 }

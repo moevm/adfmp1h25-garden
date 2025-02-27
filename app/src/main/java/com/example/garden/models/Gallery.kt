@@ -18,6 +18,7 @@ import java.util.UUID
 data class Gallery(
     @PrimaryKey
     val id: UUID = UUID.randomUUID(),
+    val tmp_id:Int =0,
     val img: Int,
     val date: Date,
     val bed_id: String

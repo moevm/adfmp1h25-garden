@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.garden.screens.bed.BedViewModel
+import com.example.garden.screens.BedViewModel
 import com.example.garden.screens.navigation.SetUpOnGraph
 import com.example.garden.ui.theme.GardenTheme
 import dagger.hilt.android.AndroidEntryPoint

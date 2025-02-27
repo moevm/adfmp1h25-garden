@@ -12,6 +12,7 @@ import java.util.UUID
 data class Notifications(
     @PrimaryKey
     val id: UUID = UUID.randomUUID(),
+    val tmp_id:Int =0,
     val dateStart: Date,
     val dateEnd: Date,
     val title: String,

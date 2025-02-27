@@ -22,7 +22,8 @@ data class Statistics (
     val id: UUID = UUID.randomUUID(),
     val date: Date,
     val num: Int,
-    val bed_id: String
+    val bed_id: String,
+    val tmp_id:Int =0,
 )
 
 class BedWithStat {

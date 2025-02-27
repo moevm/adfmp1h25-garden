@@ -9,9 +9,11 @@ import java.util.UUID
 data class Bed(
     @PrimaryKey
     val id: UUID = UUID.randomUUID(),
+    val tmp_id:Int =0,
     val title: String,
     val description: String,
     val sort: String,
     val amount:Int,
-    val date_sowing:Date
+    val date_sowing:Date,
+    val isArchive:Boolean = false
 )

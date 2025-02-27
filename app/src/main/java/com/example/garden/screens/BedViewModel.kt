@@ -1,10 +1,8 @@
-package com.example.garden.screens.bed
+package com.example.garden.screens
 
 import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.garden.models.Bed
 import com.example.garden.models.Statistics
 import com.example.garden.repository.BedRepository
@@ -12,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -25,6 +24,16 @@ class BedViewModel @Inject constructor(
     private val _listStat = MutableStateFlow<List<Statistics>>(emptyList())
 
     private val _bed_id = MutableStateFlow<String>("")
+    private val _bed = MutableStateFlow(
+        Bed(
+            title = "none",
+            description = "",
+            sort = "",
+            amount = 10,
+            date_sowing = Date(0)
+        )
+    )
+    val bed get() = _bed
 
     val listBeds = _listBeds.asStateFlow()
     val listStat = _listStat.asStateFlow()
@@ -41,22 +50,25 @@ class BedViewModel @Inject constructor(
 
         }
     }
-    fun getBedById(){
 
+    fun saveBed(bed_new: Bed) = viewModelScope.launch() {
+        _bed.value = bed_new
     }
-    fun add() = viewModelScope.launch{
-        repoBed.addBed(
-            Bed(
-                title = "Title",
-                description = "desc",
-                sort = "sort",
-                amount = 10,
-                date_sowing = Date(2025,10,15)
+
+    fun add() = viewModelScope.launch {
+
+            repoBed.addBed(
+                Bed(
+                    title = "Title",
+                    description = "desc",
+                    sort = "sort",
+                    amount = 10,
+                    date_sowing = Date(2025, 10, 15)
+                )
             )
-        )
     }
 
-    fun getStatByBedId(bed_id:String) = viewModelScope.launch(Dispatchers.IO) {
+    fun getStatByBedId(bed_id: String) = viewModelScope.launch(Dispatchers.IO) {
         _bed_id.value = bed_id
         repoBed.getStatisticByBedId(bed_id).distinctUntilChanged()
             .collect() { list ->
@@ -68,8 +80,7 @@ class BedViewModel @Inject constructor(
 
     }
 
-    fun addStat()
-      =  viewModelScope.launch {
+    fun addStat() = viewModelScope.launch {
         repoBed.addStatistic(
             Statistics(
                 date = Date(2020358),
