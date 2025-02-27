@@ -28,7 +28,7 @@ fun NotificationScreen(
     Column (){
         TextField(value = search_text, onValueChange = {search_text = it})
         Text(
-            text = "NotificationDate"
+            text = "Notification"
         )
         Button(onClick = {
             navController.navigate(Destination.NotificationDetail.route)

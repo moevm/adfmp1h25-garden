@@ -38,6 +38,11 @@ fun BedsListScreen(navController: NavHostController, viewModel: BedViewModel) {
                 viewModel.getStatByBedId(el.id.toString())
                 navController.navigate(Destination.BedDetail.route)
             }) {
+                Button(onClick = {
+                    viewModel.update(el)
+                }) {
+                    Text("delete")
+                }
                 Text(text = el.title)
                 Text(text = el.id.toString())
             }

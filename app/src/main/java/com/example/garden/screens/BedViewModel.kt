@@ -51,6 +51,12 @@ class BedViewModel @Inject constructor(
         }
     }
 
+    fun update(bed:Bed) = viewModelScope.launch {
+        var new_bed = bed
+        new_bed.isArchive = true
+        repoBed.updateBed(new_bed)
+    }
+
     fun saveBed(bed_new: Bed) = viewModelScope.launch() {
         _bed.value = bed_new
     }

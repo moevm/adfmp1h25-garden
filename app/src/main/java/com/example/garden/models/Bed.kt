@@ -15,5 +15,5 @@ data class Bed(
     val sort: String,
     val amount:Int,
     val date_sowing:Date,
-    val isArchive:Boolean = false
+    var isArchive:Boolean = false
 )

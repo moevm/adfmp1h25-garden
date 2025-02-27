@@ -34,6 +34,7 @@ class BedRepository @Inject constructor(
 
 
     fun getAllBeds():Flow<List<Bed>> = bedDao.getBedList().flowOn(Dispatchers.IO).conflate()
+    fun getBedArchiveList():Flow<List<Bed>> = bedDao.getBedArchiveList().flowOn(Dispatchers.IO).conflate()
 
     suspend fun addChange(changes: Changes) = changeDao.insertChange(changes)
     suspend fun updateChange(changes: Changes) = changeDao.updateChange(changes)
