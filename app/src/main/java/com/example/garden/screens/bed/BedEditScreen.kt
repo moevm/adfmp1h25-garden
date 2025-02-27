@@ -1,4 +1,4 @@
-package com.example.garden.screens.notifications_date
+package com.example.garden.screens.bed
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,20 +9,15 @@ import androidx.navigation.NavHostController
 import com.example.garden.screens.navigation.Destination
 
 @Composable
-fun NotificationDateScreen(navController: NavHostController) {
+fun BedEditScreen(navController: NavHostController) {
     Column (){
-        Text(
-            text = "NotificationDate"
-        )
-        Button(onClick = {
-            navController.navigate(Destination.NotificationDetail.route)
-        }) {
-            Text(text = "detail")
-        }
         Button(onClick = {
             navController.navigate(Destination.Home.route)
         }) {
-            Text(text = "back")
+            Text("back")
         }
+        Text(
+            text = "BedEdit"
+        )
     }
 }
