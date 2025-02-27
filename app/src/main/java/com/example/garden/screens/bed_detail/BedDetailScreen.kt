@@ -1,4 +1,4 @@
-package com.example.garden.screens.bed
+package com.example.garden.screens.bed_detail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,11 +11,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.garden.screens.BedViewModel
+import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
 
 @Composable
-fun BedDetailScreen(navController: NavHostController, viewModel: BedViewModel) {
+fun BedDetailScreen(navController: NavHostController, viewModel: DBViewModel) {
     LaunchedEffect(viewModel) {
 
     }
@@ -40,7 +40,7 @@ fun BedDetailScreen(navController: NavHostController, viewModel: BedViewModel) {
         viewModel.bed.collectAsState().value?.let { Text(text = it.id.toString()) }
 
         Text("stat")
-        viewModel.listStat.collectAsState().value.forEach { el->
+        viewModel.listStatBed.collectAsState().value.forEach { el->
             Text(text = el.bed_id)
         }
     }
