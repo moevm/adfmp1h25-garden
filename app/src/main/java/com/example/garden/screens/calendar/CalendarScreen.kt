@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Button
@@ -35,8 +36,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -153,25 +157,45 @@ fun CalendarScreen(
                 Text(
                     text = stringResource(day),
                     fontWeight = FontWeight.SemiBold,
-                    fontSize = 16.sp
+                    fontSize = 20.sp
                 )
             }
         }
-        Text(calendarViewModel.start_day.collectAsState().value.toString())
 
-        //DatePicker(datePickerState)
         LazyVerticalGrid(
             modifier = Modifier.fillMaxWidth(),
-            columns = GridCells.Fixed(7)
+            columns = GridCells.Fixed(7),
+            verticalArrangement = Arrangement.spacedBy(7.dp),
+            horizontalArrangement = Arrangement.spacedBy(7.dp)
         ) {
             items(calendarViewModel.listDays.value){ day ->
-                Box(
-                    modifier = Modifier.background(day.second)
-                ) {
-                    Text(
-                        text = if(day.first<=0) "" else day.first.toString()
-                    )
+                Box(){
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(percent = 30))
+                            .background(day.second)
+                            .padding(5.dp)
+                            .fillMaxSize()
+                        ,
+                        contentAlignment = Alignment.Center
+                    ) {
+
+                        Text(
+                            modifier = Modifier.padding(vertical = 10.dp),
+                            text = if(day.first<=0) "" else day.first.toString(),
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                    if(day.first>0)
+                        Box(modifier = Modifier
+                            .clip(RoundedCornerShape(50))
+                            .background(Color.Red)
+                            .size(11.dp)
+                            .align(Alignment.TopEnd)
+                        )
                 }
+
             }
 
 

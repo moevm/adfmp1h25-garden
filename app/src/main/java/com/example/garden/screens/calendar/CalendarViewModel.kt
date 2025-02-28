@@ -12,6 +12,9 @@ import com.example.garden.data.DataSource
 import com.example.garden.models.Notifications
 import com.example.garden.repository.BedRepository
 import com.example.garden.ui.theme.IconLightGreen
+import com.example.garden.ui.theme.IconLightRed
+import com.example.garden.ui.theme.IconLightYellow
+import com.example.garden.ui.theme.White
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -75,9 +78,23 @@ class CalendarViewModel @Inject constructor(
         _month.value = calendar.get(Calendar.MONTH);
         setListDays()
     }
+
+
+
     private fun getMoonStage(day:Int):Color{
+
         if(day<=0) return Color.Transparent
-        return IconLightGreen
+
+        val phase =
+            if (_month.value == 0) ((_year.value-1)*367 + 13*28 +day)%30
+            else if(_month.value == 1) ((_year.value-1)*367 + 14*28 +day)%30
+            else (_year.value*367 + (_month.value+1)*28 +day)%30
+        when {
+            phase <= 15 -> return IconLightGreen
+            phase <= 22 -> return IconLightYellow
+            phase <= 29 -> return IconLightRed
+            else -> return White
+        }
     }
 
     private fun setListDays(){
