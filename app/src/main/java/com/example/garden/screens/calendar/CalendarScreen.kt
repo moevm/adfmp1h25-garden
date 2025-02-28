@@ -1,5 +1,6 @@
 package com.example.garden.screens.calendar
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Button
@@ -45,19 +49,26 @@ import com.example.garden.screens.navigation.Destination
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalendarScreen(navController: NavHostController,
-                   calendarViewModel: CalendarViewModel = hiltViewModel()
+fun CalendarScreen(
+    navController: NavHostController,
+    calendarViewModel: CalendarViewModel = hiltViewModel()
 ) {
     val datePickerState = rememberDatePickerState()
     var showDropDown by remember {
         mutableStateOf(false)
     }
-    Column (
-        modifier = Modifier.fillMaxSize().padding(top = 40.dp)
-    ){
-        Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 40.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 30.dp)
+        ) {
             Text(
-                text = stringResource( calendarViewModel.getMonth())
+                text = stringResource(calendarViewModel.getMonth())
             )
             IconButton(
                 onClick = {
@@ -76,7 +87,9 @@ fun CalendarScreen(navController: NavHostController,
                 onDismissRequest = {
                     showDropDown = false
                 },
-                modifier = Modifier.width(100.dp).height(350.dp)
+                modifier = Modifier
+                    .width(100.dp)
+                    .height(350.dp)
             ) {
                 Column {
                     calendarViewModel.listMonth.value.forEachIndexed { index, month ->
@@ -97,9 +110,11 @@ fun CalendarScreen(navController: NavHostController,
                 }
             ) {
                 Icon(
-                   imageVector = Icons.Default.KeyboardArrowDown,
+                    imageVector = Icons.Default.KeyboardArrowDown,
                     contentDescription = "",
-                    modifier = Modifier.size(30.dp).rotate(90f)
+                    modifier = Modifier
+                        .size(30.dp)
+                        .rotate(90f)
                 )
             }
             Text(
@@ -114,7 +129,9 @@ fun CalendarScreen(navController: NavHostController,
                 Icon(
                     imageVector = Icons.Default.KeyboardArrowDown,
                     contentDescription = "",
-                    modifier = Modifier.size(30.dp).rotate(-90f)
+                    modifier = Modifier
+                        .size(30.dp)
+                        .rotate(-90f)
                 )
             }
 
@@ -128,11 +145,11 @@ fun CalendarScreen(navController: NavHostController,
             }
 
         }
-        Row (
+        Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            calendarViewModel.listWeek.value.forEach{ day->
+            calendarViewModel.listWeek.value.forEach { day ->
                 Text(
                     text = stringResource(day),
                     fontWeight = FontWeight.SemiBold,
@@ -140,8 +157,25 @@ fun CalendarScreen(navController: NavHostController,
                 )
             }
         }
+        Text(calendarViewModel.start_day.collectAsState().value.toString())
 
         //DatePicker(datePickerState)
+        LazyVerticalGrid(
+            modifier = Modifier.fillMaxWidth(),
+            columns = GridCells.Fixed(7)
+        ) {
+            items(calendarViewModel.listDays.value){ day ->
+                Box(
+                    modifier = Modifier.background(day.second)
+                ) {
+                    Text(
+                        text = if(day.first<=0) "" else day.first.toString()
+                    )
+                }
+            }
+
+
+        }
 
 
 
@@ -154,7 +188,7 @@ fun CalendarScreen(navController: NavHostController,
                 color = colorScheme.background
             )
         }
-        calendarViewModel.listNotification.collectAsState().value.forEach{ el ->
+        calendarViewModel.listNotification.collectAsState().value.forEach { el ->
             Text(text = el.title)
 
         }
