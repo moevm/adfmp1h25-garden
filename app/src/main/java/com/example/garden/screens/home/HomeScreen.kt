@@ -19,6 +19,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.BottomNavGraph
 import com.example.garden.screens.navigation.bottomNav
+import com.example.garden.ui.theme.DarkGreen
+import com.example.garden.ui.theme.LightGreen
+import com.example.garden.ui.theme.White
 
 
 @Composable
@@ -28,8 +31,8 @@ fun HomeScreen(navController: NavHostController, bedViewModel: DBViewModel) {
     Scaffold(
         bottomBar = {
             NavigationBar(
-                containerColor = colorScheme.primary,
-                contentColor = colorScheme.primary,
+                containerColor = LightGreen,
+                contentColor = LightGreen,
                 modifier = Modifier.clip(RoundedCornerShape(size = 10.dp))
             ) {
                 val navBackStackEntry by navControllerBottom.currentBackStackEntryAsState()
@@ -46,9 +49,9 @@ fun HomeScreen(navController: NavHostController, bedViewModel: DBViewModel) {
                             navControllerBottom.navigate(item.destination.route)
                         },
                         colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = colorScheme.secondary,
-                            unselectedIconColor = colorScheme.background,
-                            indicatorColor = colorScheme.primary
+                            selectedIconColor = DarkGreen,
+                            unselectedIconColor = White,
+                            indicatorColor = LightGreen
                         )
                     )
                 }

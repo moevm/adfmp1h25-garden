@@ -1,7 +1,13 @@
 package com.example.garden.data
 
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import com.example.garden.R
 import com.example.garden.models.Bed
 import com.example.garden.models.Notifications
+import com.example.garden.ui.theme.IconLightGreen
+import com.example.garden.ui.theme.IconLightRed
+import com.example.garden.ui.theme.IconLightYellow
 import java.util.Date
 
 class DataSource {
@@ -40,6 +46,43 @@ class DataSource {
                 amount = 100,
                 date_sowing = Date(40)
             )
+        )
+    }
+
+    fun loadLegend():List<Pair<Int,Color>>{
+        return listOf(
+            Pair(R.string.good_day, IconLightGreen),
+            Pair(R.string.middle_day, IconLightYellow),
+            Pair(R.string.bad_day, IconLightRed)
+        )
+    }
+
+
+    fun getWeek():List<Int>{
+        return listOf(
+            R.string.monday,
+            R.string.tuesday,
+            R.string.wednesday,
+            R.string.thursday,
+            R.string.friday,
+            R.string.saturday,
+            R.string.sunday
+        )
+    }
+    fun getMonth():List<Int>{
+        return listOf(
+            R.string.january,
+            R.string.february,
+            R.string.march,
+            R.string.april,
+            R.string.may,
+            R.string.june,
+            R.string.jule,
+            R.string.august,
+            R.string.september,
+            R.string.october,
+            R.string.november,
+            R.string.december
         )
     }
 }
