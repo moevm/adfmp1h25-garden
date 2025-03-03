@@ -36,10 +36,13 @@ class CalendarViewModel @Inject constructor(
     private val _date = MutableStateFlow(Date(2025,3,21))
     private val _listWeek = mutableStateOf<List<Int>>(emptyList())
     private val _listMonth = mutableStateOf<List<Int>>(emptyList())
+    private val _listLegend = mutableStateOf<List<Pair<Int,Color>>>(emptyList())
     private val _listDays = MutableStateFlow<List<Pair<Int,Color>>>(emptyList())
     private val _year = MutableStateFlow(0)
     private val _month = MutableStateFlow(0)
     private val _start_day = MutableStateFlow(0)
+
+
 
     val listWeek get()= _listWeek
     val listMonth get() = _listMonth
@@ -47,6 +50,7 @@ class CalendarViewModel @Inject constructor(
     val month get() =_month
     val start_day get() = _start_day
     val listDays get() = _listDays
+    val legend get() = _listLegend
     init {
         viewModelScope.launch(Dispatchers.IO) {
 //            repository.getNotificationByDate(
@@ -71,6 +75,7 @@ class CalendarViewModel @Inject constructor(
         }
     }
     init {
+        _listLegend.value = DataSource().loadLegend()
         val calendar = Calendar.getInstance()
         _listWeek.value = DataSource().getWeek()
         _listMonth.value = DataSource().getMonth()

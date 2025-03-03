@@ -1,9 +1,13 @@
 package com.example.garden.data
 
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.example.garden.R
 import com.example.garden.models.Bed
 import com.example.garden.models.Notifications
+import com.example.garden.ui.theme.IconLightGreen
+import com.example.garden.ui.theme.IconLightRed
+import com.example.garden.ui.theme.IconLightYellow
 import java.util.Date
 
 class DataSource {
@@ -44,6 +48,15 @@ class DataSource {
             )
         )
     }
+
+    fun loadLegend():List<Pair<Int,Color>>{
+        return listOf(
+            Pair(R.string.good_day, IconLightGreen),
+            Pair(R.string.middle_day, IconLightYellow),
+            Pair(R.string.bad_day, IconLightRed)
+        )
+    }
+
 
     fun getWeek():List<Int>{
         return listOf(
