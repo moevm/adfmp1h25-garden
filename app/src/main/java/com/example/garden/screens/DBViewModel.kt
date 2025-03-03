@@ -132,5 +132,23 @@ class DBViewModel @Inject constructor(
         )
     }
 
+    fun addNotification(
+        title:String,
+        bed_id:String,
+        description:String,
+        dateStart: Date,
+        dateEnd: Date,
+    ) = viewModelScope.launch {
+        repoBed.addNotification(
+            Notifications(
+                dateStart = dateStart,
+                dateEnd = dateEnd,
+                title = title,
+                description = description,
+                bed_id = bed_id
+            )
+        )
+    }
+
 
 }

@@ -131,26 +131,6 @@ class CalendarViewModel @Inject constructor(
         setListDays()
     }
 
-    fun addNotification() = viewModelScope.launch {
-        repository.addNotification(
-            Notifications(
-                dateStart = Date(2025,2,21),
-                dateEnd = Date(2025,3,5),
-                title = "title",
-                description = "desc",
-                bed_id = "1"
-            )
-        )
-        repository.addNotification(
-            Notifications(
-                dateStart = Date(2026,3,21),
-                dateEnd = Date(2026,4,5),
-                title = "title1",
-                description = "desc1",
-                bed_id = "1"
-            )
-        )
-    }
 
     fun changeDate() = viewModelScope.launch {
         _date.value = Date(2026,3,21)

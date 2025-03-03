@@ -13,6 +13,6 @@ fun ChapterText(text:String) {
         text = text,
         color = FontBlackColor,
         fontWeight = FontWeight.Medium,
-        fontSize = 20.sp
+        fontSize = 24.sp
     )
 }
