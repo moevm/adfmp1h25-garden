@@ -5,6 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+
+
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +18,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -50,22 +54,26 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.garden.R
+import com.example.garden.models.Bed
 import com.example.garden.models.Day
 import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
 import com.example.garden.screens.widgets.AddNotificationAlertDialog
+import com.example.garden.ui.theme.FontBlackColor
+import com.example.garden.ui.theme.FontGrayColor
 import com.example.garden.ui.theme.IconLightGreen
 import com.example.garden.ui.theme.LightGreen
 import com.example.garden.ui.theme.Red
 import com.example.garden.ui.theme.White
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.DayOfWeek
+import java.util.Date
 
 
 @Composable
 fun CalendarScreen(
     navController: NavHostController,
-    dbViewModel:DBViewModel,
+    dbViewModel: DBViewModel,
     calendarViewModel: CalendarViewModel = hiltViewModel()
 ) {
 
@@ -92,7 +100,8 @@ fun CalendarScreen(
 
                 )
             AddNotificationButton(
-                addNotification = calendarViewModel::addNotification
+                addNotification = dbViewModel::addNotification,
+                listBeds = dbViewModel.listBeds.collectAsState().value
             )
         }
 
@@ -103,9 +112,11 @@ fun CalendarScreen(
                 .padding(vertical = 15.dp)
 
         )
-        Column(Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 10.dp)) {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp)
+        ) {
             DayOfWeek(calendarViewModel.listWeek.value)
             DateGrid(calendarViewModel.listDays.collectAsState().value)
             Legend(calendarViewModel.legend.value)
@@ -133,12 +144,17 @@ fun CalendarScreen(
 
 @Composable
 fun Legend(
-    legend:List<Pair<Int,Color>>
+    legend: List<Pair<Int, Color>>
 ) {
 
-    Column(modifier = Modifier.fillMaxWidth().padding(top = 10.dp)) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(top = 10.dp)) {
         legend.forEach { line ->
-            Row(modifier = Modifier.fillMaxWidth().padding(vertical = 7.dp),
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 7.dp),
                 verticalAlignment = Alignment.CenterVertically
 
             ) {
@@ -155,7 +171,8 @@ fun Legend(
                     text = stringResource(line.first),
                     fontSize = 15.sp,
                     lineHeight = 15.sp,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    color = FontBlackColor
                 )
             }
         }
@@ -175,7 +192,8 @@ fun DayOfWeek(listWeek: List<Int>) {
                 text = stringResource(day),
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 20.sp,
-                modifier = Modifier.alpha(70f)
+                modifier = Modifier.alpha(70f),
+                color = FontGrayColor
             )
         }
     }
@@ -196,14 +214,17 @@ fun MonthYearPicker(
 
     Row(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .background(White),
         horizontalArrangement = Arrangement.Start,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+        verticalAlignment = Alignment.CenterVertically,
+
+        ) {
         Text(
             text = stringResource(month),
             fontSize = 20.sp,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
+            color = FontBlackColor
         )
         IconButton(
             onClick = {
@@ -224,9 +245,11 @@ fun MonthYearPicker(
             modifier = Modifier
                 .clip(RoundedCornerShape(percent = 30))
         ) {
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 10.dp)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 10.dp)
+            ) {
                 listMonth.forEachIndexed { index, month ->
                     Text(
                         modifier = Modifier.clickable {
@@ -234,7 +257,8 @@ fun MonthYearPicker(
                             showDropDown = false
                         },
                         text = stringResource(month),
-                        fontSize = 18.sp
+                        fontSize = 18.sp,
+                        color = FontBlackColor
                     )
                 }
             }
@@ -254,7 +278,8 @@ fun MonthYearPicker(
         Text(
             text = year.toString(),
             fontSize = 20.sp,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
+            color = FontBlackColor
         )
 
         IconButton(
@@ -273,7 +298,16 @@ fun MonthYearPicker(
 }
 
 @Composable
-fun AddNotificationButton(addNotification: () -> Unit) {
+fun AddNotificationButton(
+    addNotification: (
+        title:String,
+        bed_id:String,
+        description:String,
+        dateStart: Date,
+        dateEnd: Date,
+    ) -> Unit,
+    listBeds: List<Bed>
+) {
     var addAlert by remember {
         mutableStateOf(false)
     }
@@ -304,18 +338,19 @@ fun AddNotificationButton(addNotification: () -> Unit) {
         }
     }
 
-    if(addAlert)
+    if (addAlert)
         AddNotificationAlertDialog(
             onDismissRequest = {
                 addAlert = false
             },
-            onConfirmation = {
-
-            },
+            onConfirmation = addNotification,
+            listBeds = listBeds
         )
 
 
 }
+
+
 
 @Preview
 @Composable
@@ -363,7 +398,8 @@ fun DateGrid(listDays: List<Day>) {
                         modifier = Modifier.padding(vertical = 10.dp),
                         text = if (day.day <= 0) "" else day.day.toString(),
                         fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold
+                        fontWeight = FontWeight.SemiBold,
+                        color = FontBlackColor
                     )
                 }
                 if (day.notification)
