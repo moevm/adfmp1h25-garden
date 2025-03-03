@@ -80,14 +80,13 @@ fun CalendarScreen(
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 50.dp)
+            .fillMaxSize().background(White)
     ) {
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp),
+                .padding(start = 20.dp,end = 20.dp, top = 50.dp),
             contentAlignment = Alignment.Center
         ) {
             MonthYearPicker(
@@ -118,26 +117,19 @@ fun CalendarScreen(
                 .padding(horizontal = 10.dp)
         ) {
             DayOfWeek(calendarViewModel.listWeek.value)
-            DateGrid(calendarViewModel.listDays.collectAsState().value)
+            DateGrid(
+                calendarViewModel.listDays.collectAsState().value,
+                onClick = {
+                    navController.navigate(Destination.NotificationDate.route)
+                }
+            )
             Legend(calendarViewModel.legend.value)
         }
 
-
-
-
-
-        Button(onClick = {
-            navController.navigate(Destination.NotificationDate.route)
-        }) {
-            Text(
-                "notification date",
-                color = colorScheme.background
-            )
-        }
-        calendarViewModel.listNotification.collectAsState().value.forEach { el ->
-            Text(text = el.title)
-
-        }
+//        calendarViewModel.listNotification.collectAsState().value.forEach { el ->
+//            Text(text = el.title)
+//
+//        }
 
     }
 }
@@ -374,7 +366,7 @@ private fun Prev() {
 }
 
 @Composable
-fun DateGrid(listDays: List<Day>) {
+fun DateGrid(listDays: List<Day>, onClick:(Day)->Unit) {
     LazyVerticalGrid(
         modifier = Modifier
             .fillMaxWidth()
@@ -390,7 +382,9 @@ fun DateGrid(listDays: List<Day>) {
                         .clip(RoundedCornerShape(percent = 30))
                         .background(day.color)
                         .padding(5.dp)
-                        .fillMaxSize(),
+                        .fillMaxSize().clickable {
+                            onClick(day)
+                        },
                     contentAlignment = Alignment.Center
                 ) {
 
