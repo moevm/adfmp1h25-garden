@@ -50,9 +50,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.garden.R
+import com.example.garden.models.Day
+import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
+import com.example.garden.screens.widgets.AddNotificationAlertDialog
 import com.example.garden.ui.theme.IconLightGreen
 import com.example.garden.ui.theme.LightGreen
+import com.example.garden.ui.theme.Red
 import com.example.garden.ui.theme.White
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.DayOfWeek
@@ -61,6 +65,7 @@ import java.time.DayOfWeek
 @Composable
 fun CalendarScreen(
     navController: NavHostController,
+    dbViewModel:DBViewModel,
     calendarViewModel: CalendarViewModel = hiltViewModel()
 ) {
 
@@ -217,17 +222,19 @@ fun MonthYearPicker(
                 showDropDown = false
             },
             modifier = Modifier
-                .width(100.dp)
-                .height(350.dp)
+                .clip(RoundedCornerShape(percent = 30))
         ) {
-            Column {
+            Column(modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 10.dp)) {
                 listMonth.forEachIndexed { index, month ->
                     Text(
                         modifier = Modifier.clickable {
                             changeMonth(index)
                             showDropDown = false
                         },
-                        text = stringResource(month)
+                        text = stringResource(month),
+                        fontSize = 18.sp
                     )
                 }
             }
@@ -267,13 +274,21 @@ fun MonthYearPicker(
 
 @Composable
 fun AddNotificationButton(addNotification: () -> Unit) {
+    var addAlert by remember {
+        mutableStateOf(false)
+    }
+
+
+
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End
     ) {
         IconButton(
-            onClick = addNotification,
+            onClick = {
+                addAlert = true
+            },
             modifier = Modifier
                 .clip(RoundedCornerShape(percent = 50))
                 .background(LightGreen),
@@ -288,6 +303,16 @@ fun AddNotificationButton(addNotification: () -> Unit) {
                 )
         }
     }
+
+    if(addAlert)
+        AddNotificationAlertDialog(
+            onDismissRequest = {
+                addAlert = false
+            },
+            onConfirmation = {
+
+            },
+        )
 
 
 }
@@ -314,7 +339,7 @@ private fun Prev() {
 }
 
 @Composable
-fun DateGrid(listDays: List<Pair<Int, Color>>) {
+fun DateGrid(listDays: List<Day>) {
     LazyVerticalGrid(
         modifier = Modifier
             .fillMaxWidth()
@@ -328,7 +353,7 @@ fun DateGrid(listDays: List<Pair<Int, Color>>) {
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(percent = 30))
-                        .background(day.second)
+                        .background(day.color)
                         .padding(5.dp)
                         .fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -336,16 +361,16 @@ fun DateGrid(listDays: List<Pair<Int, Color>>) {
 
                     Text(
                         modifier = Modifier.padding(vertical = 10.dp),
-                        text = if (day.first <= 0) "" else day.first.toString(),
+                        text = if (day.day <= 0) "" else day.day.toString(),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold
                     )
                 }
-                if (day.first > 0)
+                if (day.notification)
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(50))
-                            .background(Color.Red)
+                            .background(Red)
                             .size(11.dp)
                             .align(Alignment.TopEnd)
                     )

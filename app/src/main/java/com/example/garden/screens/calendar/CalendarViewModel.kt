@@ -1,14 +1,12 @@
 package com.example.garden.screens.calendar
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.garden.data.DataSource
+import com.example.garden.models.Day
 import com.example.garden.models.Notifications
 import com.example.garden.repository.BedRepository
 import com.example.garden.ui.theme.IconLightGreen
@@ -21,7 +19,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import java.util.Calendar
 import java.util.Date
 import javax.inject.Inject
@@ -37,7 +34,7 @@ class CalendarViewModel @Inject constructor(
     private val _listWeek = mutableStateOf<List<Int>>(emptyList())
     private val _listMonth = mutableStateOf<List<Int>>(emptyList())
     private val _listLegend = mutableStateOf<List<Pair<Int,Color>>>(emptyList())
-    private val _listDays = MutableStateFlow<List<Pair<Int,Color>>>(emptyList())
+    private val _listDays = MutableStateFlow<List<Day>>(emptyList())
     private val _year = MutableStateFlow(0)
     private val _month = MutableStateFlow(0)
     private val _start_day = MutableStateFlow(0)
@@ -108,8 +105,11 @@ class CalendarViewModel @Inject constructor(
         _start_day.value =  (calendar.get(Calendar.DAY_OF_WEEK)+5)%7
 
         _listDays.value = ((1 - _start_day.value)..calendar.getActualMaximum(Calendar.DAY_OF_MONTH)).map { day ->
-            val color = getMoonStage(day)
-            day to color
+            Day(
+                day = day,
+                color = getMoonStage(day),
+                notification = false
+                )
         }
 
     }
@@ -134,8 +134,8 @@ class CalendarViewModel @Inject constructor(
     fun addNotification() = viewModelScope.launch {
         repository.addNotification(
             Notifications(
-                dateStart = Date(2025,3,21),
-                dateEnd = Date(2025,4,5),
+                dateStart = Date(2025,2,21),
+                dateEnd = Date(2025,3,5),
                 title = "title",
                 description = "desc",
                 bed_id = "1"

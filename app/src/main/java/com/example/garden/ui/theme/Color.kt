@@ -17,3 +17,8 @@ val White = Color(0xFFFFFFFF)
 val IconLightGreen = Color(0xFFDDF5DB)
 val IconLightYellow = Color(0xFFFFEECC)
 val IconLightRed = Color(0xFFFFD9D9)
+
+val Red = Color(0xFFFF0000)
+
+val FontBlackColor = Color(0xFF000000)
+val FontGrayColor = Color(0xFF3C3C43)

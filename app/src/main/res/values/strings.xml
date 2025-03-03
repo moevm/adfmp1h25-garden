@@ -22,4 +22,12 @@
     <string name="good_day">Благоприятные дни для посева, посадки, пересадки</string>
     <string name="middle_day">Благоприятные дни для ухода и посадки корнеплодов</string>
     <string name="bad_day">Неблагоприятные дни для посева, посадки, пересадки</string>
+    <string name="alert_add_event_title">Новое событие</string>
+    <string name="alert_add_event_name">Название</string>
+    <string name="alert_add_event_start">Начало</string>
+    <string name="alert_add_event_end">Конец</string>
+    <string name="alert_add_event_description">Описание</string>
+    <string name="alert_add_event_bed">Грядка</string>
+    <string name="alert_save">Сохранить</string>
+    <string name="alert_dismiss">Отмена</string>
 </resources>

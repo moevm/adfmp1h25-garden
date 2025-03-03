@@ -23,4 +23,12 @@
     <string name="good_day">Good days for plant</string>
     <string name="middle_day">Good days only for plant care</string>
     <string name="bad_day">Bad days for plants</string>
+    <string name="alert_add_event_title">New event</string>
+    <string name="alert_add_event_name">Title</string>
+    <string name="alert_add_event_start">Start</string>
+    <string name="alert_add_event_end">End</string>
+    <string name="alert_add_event_description">Description</string>
+    <string name="alert_add_event_bed">Bed</string>
+    <string name="alert_save">Save</string>
+    <string name="alert_dismiss">Dismiss</string>
 </resources>
