@@ -41,6 +41,7 @@ fun BedsListScreen(
                 //Toast.makeText(context, el.id.toString(), Toast.LENGTH_SHORT).show()
                 viewModel.saveBed(el)
                 viewModel.getStatByBedId(el.id.toString())
+                viewModel.getGalleryByBedId(el.id.toString())
                 navController.navigate(Destination.BedDetail.route)
             }) {
                 Button(onClick = {

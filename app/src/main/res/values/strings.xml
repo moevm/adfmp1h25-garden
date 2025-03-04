@@ -33,4 +33,7 @@
     <string name="gallery">Галерея</string>
     <string name="statistics">Статистика</string>
     <string name="changes">Изменения кол-ва</string>
+    <string name="check_data">Все поля должны быть корректно заполнены</string>
+    <string name="alert_camera" >камера</string>
+    <string name="alert_gallery">галерея</string>
 </resources>

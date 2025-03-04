@@ -1,10 +1,13 @@
 package com.example.garden.screens
 
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.garden.models.Bed
 import com.example.garden.models.Changes
+import com.example.garden.models.Gallery
 import com.example.garden.models.Notifications
 import com.example.garden.models.Statistics
 import com.example.garden.repository.BedRepository
@@ -23,9 +26,11 @@ class DBViewModel @Inject constructor(
 ) : ViewModel() {
     private val _listBeds = MutableStateFlow<List<Bed>>(emptyList())
     private val _listStatBed = MutableStateFlow<List<Statistics>>(emptyList())
+    private val _listGalleryBed = MutableStateFlow<List<Gallery>>(emptyList())
+    private val _listChangesBed = MutableStateFlow<List<Changes>>(emptyList())
     private val _notificationsList = MutableStateFlow<List<Notifications>>(emptyList())
 
-    private val _bed_id = MutableStateFlow<String>("")
+    //private val _bed_id = MutableStateFlow<String>("")
     private val _bed = MutableStateFlow(
         Bed(
             title = "none",
@@ -51,6 +56,8 @@ class DBViewModel @Inject constructor(
 
     val listBeds = _listBeds.asStateFlow()
     val listStatBed = _listStatBed.asStateFlow()
+    val listGalleryBed = _listGalleryBed.asStateFlow()
+    val listChangesBed = _listChangesBed.asStateFlow()
     val notifications = _notificationsList.asStateFlow()
 
 
@@ -110,7 +117,7 @@ class DBViewModel @Inject constructor(
     }
 
     fun getStatByBedId(bed_id: String) = viewModelScope.launch(Dispatchers.IO) {
-        _bed_id.value = bed_id
+        //_bed_id.value = bed_id
         repoBed.getStatisticByBedId(bed_id).distinctUntilChanged()
             .collect() { list ->
                 if (list.isNullOrEmpty()) {
@@ -120,13 +127,37 @@ class DBViewModel @Inject constructor(
             }
 
     }
+    fun getGalleryByBedId(bed_id: String) = viewModelScope.launch(Dispatchers.IO) {
+        //_bed_id.value = bed_id
+        repoBed.getImageByBedId(bed_id).distinctUntilChanged()
+            .collect() { list ->
+                if (list.isNullOrEmpty()) {
+                    Log.d("Error", "empty list")
+                }
+                _listGalleryBed.value = list
+            }
+
+    }
+
+    fun getChangesByBedId(bed_id: String) = viewModelScope.launch(Dispatchers.IO) {
+        //_bed_id.value = bed_id
+        repoBed.getChangeByBedId(bed_id).distinctUntilChanged()
+            .collect() { list ->
+                if (list.isNullOrEmpty()) {
+                    Log.d("Error", "empty list")
+                }
+                _listChangesBed.value = list
+            }
+
+    }
+
 
     fun addStat() = viewModelScope.launch {
         repoBed.addStatistic(
             Statistics(
                 date = Date(2020358),
                 num = 19,
-                bed_id = _bed_id.value
+                bed_id = _bed.value.id.toString()
             )
 
         )
@@ -145,6 +176,19 @@ class DBViewModel @Inject constructor(
                 dateEnd = dateEnd,
                 title = title,
                 description = description,
+                bed_id = bed_id
+            )
+        )
+    }
+
+    fun addImage(
+        img:Bitmap,
+        bed_id: String
+    ) = viewModelScope.launch{
+        repoBed.addImage(
+            Gallery(
+                img = img,
+                date = Date(),
                 bed_id = bed_id
             )
         )
