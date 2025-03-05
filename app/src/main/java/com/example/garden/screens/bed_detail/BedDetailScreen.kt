@@ -1,10 +1,6 @@
 package com.example.garden.screens.bed_detail
 
-import android.graphics.Bitmap
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,22 +11,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,30 +28,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.room.Delete
 import com.example.garden.R
-import com.example.garden.models.Gallery
 import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
-import com.example.garden.screens.widgets.CameraView
+import com.example.garden.screens.widgets.AddNotificationAlertDialog
 import com.example.garden.screens.widgets.ImageAlertDialog
 import com.example.garden.screens.widgets.text.ChapterText
 import com.example.garden.screens.widgets.text.ContentText
 import com.example.garden.screens.widgets.text.DropMenuText
 import com.example.garden.screens.widgets.text.TitleText
-import com.example.garden.ui.theme.Black
 import com.example.garden.ui.theme.DarkGreen
-import com.example.garden.ui.theme.FontBlackColor
 import com.example.garden.ui.theme.LightGreen
 import com.example.garden.ui.theme.White
 import java.text.SimpleDateFormat
@@ -70,7 +50,10 @@ import java.text.SimpleDateFormat
 @Composable
 fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel) {
     val bed by dbViewModel.bed.collectAsState()
-    var alertShow by remember {
+    var alertImageShow by remember {
+        mutableStateOf(false)
+    }
+    var alertAddNotificationShow by remember {
         mutableStateOf(false)
     }
     var showDropDown by remember {
@@ -131,7 +114,7 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel) 
                             showDropDown = false
                         },
                         onClickAddNotification = {
-
+                            alertAddNotificationShow = true
                         },
                         onClickArchive = {
                             dbViewModel.archiveBed(bed)
@@ -175,7 +158,7 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel) 
             ContentText(text = bed.description)
             Gallery(
                 listGallery = dbViewModel.listGalleryBed.collectAsState().value,
-                onAddClick = { alertShow = true },
+                onAddClick = { alertImageShow = true },
 
                 )
 
@@ -218,21 +201,25 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel) 
             }
 
         }
-
-
-//        Text("stat")
-//        viewModel.listStatBed.collectAsState().value.forEach { el->
-//            Text(text = el.bed_id)
-//        }
     }
-    if (alertShow)
+
+    if(alertAddNotificationShow)
+        AddNotificationAlertDialog(
+            onDismissRequest = {
+                alertAddNotificationShow = false
+            },
+            onConfirmation = dbViewModel::addNotification,
+            listBeds = dbViewModel.listBeds.collectAsState().value,
+            currentBed = bed
+        )
+    if (alertImageShow)
         ImageAlertDialog(
             onDismiss = {
-                alertShow = false
+                alertImageShow = false
             },
             onConfirmation = {
                 dbViewModel.addImage(it, bed.id.toString())
-                alertShow = false
+                alertImageShow = false
             }
         )
 

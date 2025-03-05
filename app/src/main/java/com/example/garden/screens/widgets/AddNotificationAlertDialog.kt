@@ -41,7 +41,8 @@ fun AddNotificationAlertDialog(
         dateStart: Date,
         dateEnd: Date,
     ) -> Unit,
-    listBeds: List<Bed>
+    listBeds: List<Bed>,
+    currentBed:Bed? = /*if(listBeds.isNotEmpty())listBeds[0] else*/ null
 ) {
 
     val context = LocalContext.current
@@ -60,15 +61,7 @@ fun AddNotificationAlertDialog(
         mutableStateOf("")
     }
     var bed by remember {
-        mutableStateOf(
-            Bed(
-                title = "",
-                description = "",
-                sort = "",
-                amount = 0,
-                date_sowing = Date(0)
-            ),
-        )
+       mutableStateOf(currentBed)
     }
     val datePickerStateStart = rememberDatePickerState()
     dateStart = datePickerStateStart.selectedDateMillis?.let {
@@ -115,7 +108,7 @@ fun AddNotificationAlertDialog(
 
 
                 AlertTextField(
-                    value = bed.title,
+                    value = bed?.title ?: "",
                     listBeds = listBeds,
                     label = stringResource(R.string.alert_add_event_bed) + ":",
                     onChange = {
@@ -131,13 +124,13 @@ fun AddNotificationAlertDialog(
         confirmButton = {
             TextButton(
                 onClick = {
-                    if (name.isNotEmpty() && description.isNotEmpty() && bed.title.isNotEmpty()
+                    if (name.isNotEmpty() && description.isNotEmpty() && bed!=null && bed!!.title.isNotEmpty()
                         && dateStart.isNotEmpty() && dateEnd.isNotEmpty() &&
                         datePickerStateStart.selectedDateMillis!! <= datePickerStateEnd.selectedDateMillis!!
                     ){
                         onConfirmation(
                             name,
-                            bed.id.toString(),
+                            bed!!.id.toString(),
                             description,
                             datePickerStateStart.selectedDateMillis?.let { Date(it) } ?: Date(0),
                             datePickerStateEnd.selectedDateMillis?.let { Date(it) } ?: Date(0),
