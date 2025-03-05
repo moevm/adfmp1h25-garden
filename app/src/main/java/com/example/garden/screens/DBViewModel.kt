@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.garden.models.Bed
 import com.example.garden.models.Changes
 import com.example.garden.models.Gallery
@@ -101,9 +100,24 @@ class DBViewModel @Inject constructor(
         repoBed.updateBed(new_bed)
     }
 
+    fun deleteBed(bed:Bed) = viewModelScope.launch {
+        getStatByBedId(bed_id = bed.id.toString())
+        getGalleryByBedId(bed_id = bed.id.toString())
+        getChangesByBedId(bed_id = bed.id.toString())
+        listStatBed.value.forEach { stat->
+            repoBed.deleteStatistic(stat)
+        }
+        listGalleryBed.value.forEach { img->
+            repoBed.deleteImage(img)
+        }
+        listChangesBed.value.forEach { change->
+            repoBed.deleteChange(change)
+        }
+        repoBed.deleteBed(bed)
+    }
 
 
-    fun add() = viewModelScope.launch {
+    fun addBed() = viewModelScope.launch {
 
             repoBed.addBed(
                 Bed(
@@ -138,7 +152,6 @@ class DBViewModel @Inject constructor(
             }
 
     }
-
     fun getChangesByBedId(bed_id: String) = viewModelScope.launch(Dispatchers.IO) {
         //_bed_id.value = bed_id
         repoBed.getChangeByBedId(bed_id).distinctUntilChanged()

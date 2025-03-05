@@ -36,4 +36,13 @@
     <string name="check_data">Все поля должны быть корректно заполнены</string>
     <string name="alert_camera" >камера</string>
     <string name="alert_gallery">галерея</string>
+    <string name="sort">Сорт</string>
+    <string name="amount">Количество</string>
+    <string name="sowing_date">Дата посева</string>
+    <string name="description">Описание</string>
+    <string name="archive_bed">Архивировать</string>
+    <string name="delete_bed">Удалить</string>
+    <string name="edit_bed">Редактировать</string>
+    <string name="change_amount_bed">Изменение количества</string>
+    <string name="add_notification">Создание напоминания</string>
 </resources>

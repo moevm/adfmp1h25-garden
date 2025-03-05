@@ -37,4 +37,13 @@
     <string name="check_data">Fill all data</string>
     <string name="alert_camera">camera</string>
     <string name="alert_gallery">gallery</string>
+    <string name="sort">Sort</string>
+    <string name="amount">Amount</string>
+    <string name="sowing_date">Sowing date</string>
+    <string name="description">Description</string>
+    <string name="archive_bed">Archive</string>
+    <string name="delete_bed">Delete</string>
+    <string name="edit_bed">Edit</string>
+    <string name="change_amount_bed">Change amount</string>
+    <string name="add_notification">Create reminders</string>
 </resources>

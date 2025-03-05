@@ -3,11 +3,15 @@ package com.example.garden.screens.widgets.text
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -85,22 +89,27 @@ fun AlertTextField(
             },
             modifier = Modifier
                 .background(White)
+                .heightIn(0.dp,300.dp)
                 .clip(RoundedCornerShape(percent = 30))
 
 
         ) {
             Column(modifier = Modifier
-                .padding(horizontal = 20.dp)) {
+                .padding(horizontal = 20.dp)
+                .horizontalScroll(rememberScrollState())
+            ) {
                 listBeds.forEach{ bed ->
-                    Text(
-                        modifier = Modifier.clickable {
-                            onChange(bed)
-                            showDropDown = false
-                        },
-                        text = bed.title,
-                        fontSize = 18.sp,
-                        color = FontBlackColor
-                    )
+                    DropMenuText(bed.title) {  onChange(bed)
+                        showDropDown = false}
+//                    Text(
+//                        modifier = Modifier.clickable {
+//                            onChange(bed)
+//                            showDropDown = false
+//                        },
+//                        text = bed.title,
+//                        fontSize = 18.sp,
+//                        color = FontBlackColor
+//                    )
                 }
             }
         }

@@ -17,7 +17,7 @@ fun BedCreatingScreen(navController: NavHostController, dbViewModel: DBViewModel
             Text("back")
         }
         Button(onClick = {
-            dbViewModel.add()
+            dbViewModel.addBed()
         }) {
             Text("add")
         }

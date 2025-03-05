@@ -42,6 +42,7 @@ fun BedsListScreen(
                 viewModel.saveBed(el)
                 viewModel.getStatByBedId(el.id.toString())
                 viewModel.getGalleryByBedId(el.id.toString())
+                viewModel.getChangesByBedId(el.id.toString())
                 navController.navigate(Destination.BedDetail.route)
             }) {
                 Button(onClick = {
