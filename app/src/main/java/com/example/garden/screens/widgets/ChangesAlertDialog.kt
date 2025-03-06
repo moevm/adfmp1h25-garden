@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.core.text.isDigitsOnly
 import com.example.garden.R
 import com.example.garden.data.DataSource
 import com.example.garden.screens.widgets.text.AlertConfirmText
@@ -95,7 +96,7 @@ fun ChangesAlertDialog(
         confirmButton = {
             TextButton(
                 onClick = {
-                    if (reason.isNotEmpty() && amount.isNotEmpty()
+                    if (reason.isNotEmpty() && amount.isNotEmpty() && amount.isDigitsOnly()
                         && date.isNotEmpty() && type_reason != R.string.none
 
                     ){

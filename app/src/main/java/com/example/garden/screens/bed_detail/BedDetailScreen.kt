@@ -1,5 +1,6 @@
 package com.example.garden.screens.bed_detail
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,15 +21,18 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
@@ -47,6 +51,7 @@ import com.example.garden.screens.widgets.text.TitleText
 import com.example.garden.ui.theme.DarkGreen
 import com.example.garden.ui.theme.LightGreen
 import com.example.garden.ui.theme.White
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
 @Composable
@@ -57,6 +62,12 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel, 
     val showDropDown by bedDetailViewModel.showDropDown.collectAsState()
     val alertShowAddChanges by bedDetailViewModel.alertShowAddChanges.collectAsState()
 
+    val context = LocalContext.current
+
+    val listChange = dbViewModel.listChangesBed.collectAsState().value
+    val listGallery = dbViewModel.listGalleryBed.collectAsState().value
+
+    Log.d("IMAGE LIST",listGallery.toString())
 //    var alertImageShow by remember {
 //        mutableStateOf(false)
 //    }
@@ -94,7 +105,7 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel, 
                 }
                 Spacer(modifier = Modifier.width(10.dp))
                 TitleText(bed.title)
-
+                //TitleText(bed.id.toString())
             }
 
             Row(
@@ -167,8 +178,10 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel, 
             ContentText(stringResource(R.string.description) + ": ")
             ContentText(text = bed.description)
             Gallery(
-                listGallery = dbViewModel.listGalleryBed.collectAsState().value,
-                onAddClick = {bedDetailViewModel.changeImageShow(true) },
+                listGallery = listGallery,
+                onAddClick = {
+                    bedDetailViewModel.changeImageShow(true)
+                             },
 
                 )
 
@@ -191,24 +204,11 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel, 
                     )
                 }
             }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                ChapterText(stringResource(R.string.changes))
-                IconButton(
-                    onClick = {
 
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.KeyboardArrowDown,
-                        contentDescription = null,
-                        modifier = Modifier.size(35.dp)
-                    )
-                }
-            }
+            Changes(
+                listChanges = listChange,
+                onDeleteClick = dbViewModel::deleteChange
+            )
 
         }
     }
@@ -231,7 +231,7 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel, 
             },
             onConfirmation = {
                 dbViewModel.addImage(it, bed.id.toString())
-                bedDetailViewModel.changeImageShow(true)
+                bedDetailViewModel.changeImageShow(false)
                 //alertImageShow = false
             }
         )

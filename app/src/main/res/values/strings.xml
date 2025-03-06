@@ -53,4 +53,6 @@
     <string name="type_reason">Тип причины</string>
     <string name="date">Дата</string>
     <string name="none" translatable="false"></string>
+    <string name="killed_plant">Кол-во пораженных растений</string>
+    <string name="new_plant">Кол-во новых растений</string>
 </resources>

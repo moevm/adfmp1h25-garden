@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.garden.R
 import com.example.garden.models.Bed
 import com.example.garden.models.Changes
 import com.example.garden.models.Gallery
@@ -143,6 +144,7 @@ class DBViewModel @Inject constructor(
     }
     fun getGalleryByBedId(bed_id: String) = viewModelScope.launch(Dispatchers.IO) {
         //_bed_id.value = bed_id
+        //Log.d("IMAGE LIST","add list")
         repoBed.getImageByBedId(bed_id).distinctUntilChanged()
             .collect() { list ->
                 if (list.isNullOrEmpty()) {
@@ -205,6 +207,25 @@ class DBViewModel @Inject constructor(
                 bed_id = bed_id
             )
         )
+
+    }
+
+    fun deleteChange(changes: Changes) = viewModelScope.launch {
+        repoBed.deleteChange(changes)
+        val c = if(changes.reason_type == R.string.type_reason_present) -1 else 1
+        val new_bed = Bed(
+            id = _bed.value.id,
+            title = _bed.value.title,
+            sort = _bed.value.sort,
+            isArchive = _bed.value.isArchive,
+            amount = _bed.value.amount + changes.amount*c,
+            description = _bed.value.description,
+            date_sowing =_bed.value.date_sowing
+        )
+        _bed.value = new_bed
+        repoBed.updateBed(
+            new_bed
+        )
     }
 
     fun addChanges(
@@ -221,6 +242,20 @@ class DBViewModel @Inject constructor(
                 reason_type = type,
                 bed_id = bed.value.id.toString()
             )
+        )
+        val c = if(type == R.string.type_reason_present) 1 else -1
+        val new_bed = Bed(
+            id = _bed.value.id,
+            title = _bed.value.title,
+            sort = _bed.value.sort,
+            isArchive = _bed.value.isArchive,
+            amount = _bed.value.amount + amount.toInt()*c,
+            description = _bed.value.description,
+            date_sowing =_bed.value.date_sowing
+        )
+        _bed.value = new_bed
+        repoBed.updateBed(
+            new_bed
         )
     }
 
