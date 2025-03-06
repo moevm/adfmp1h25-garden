@@ -31,6 +31,7 @@ fun BedsListScreen(
         Text(text = "BedList")
 
         Button(onClick = {
+            //не удалять
             navController.navigate(Destination.BedCreating.route)
         }) {
             Text("add")
@@ -39,6 +40,7 @@ fun BedsListScreen(
         viewModel.listBeds.collectAsState().value.forEach { el ->
             Column(modifier = Modifier.clickable {
                 //Toast.makeText(context, el.id.toString(), Toast.LENGTH_SHORT).show()
+                //не удалять
                 viewModel.saveBed(el)
                 viewModel.getStatByBedId(el.id.toString())
                 viewModel.getGalleryByBedId(el.id.toString())
@@ -46,6 +48,7 @@ fun BedsListScreen(
                 navController.navigate(Destination.BedDetail.route)
             }) {
                 Button(onClick = {
+                    //не удалять
                     viewModel.archiveBed(el)
                 }) {
                     Text("delete")

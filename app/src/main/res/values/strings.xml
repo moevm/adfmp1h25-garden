@@ -45,4 +45,12 @@
     <string name="edit_bed">Редактировать</string>
     <string name="change_amount_bed">Изменение количества</string>
     <string name="add_notification">Создание напоминания</string>
+    <string name="confirm_dismiss">Подтвердить отмену</string>
+    <string name="type_reason_frost">заморозки</string>
+    <string name="type_reason_inspects">вредители</string>
+    <string name="type_reason_present">подарок</string>
+    <string name="reason">Причина</string>
+    <string name="type_reason">Тип причины</string>
+    <string name="date">Дата</string>
+    <string name="none" translatable="false"></string>
 </resources>

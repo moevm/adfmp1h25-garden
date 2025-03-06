@@ -32,11 +32,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.garden.R
 import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
 import com.example.garden.screens.widgets.AddNotificationAlertDialog
+import com.example.garden.screens.widgets.ChangesAlertDialog
 import com.example.garden.screens.widgets.ImageAlertDialog
 import com.example.garden.screens.widgets.text.ChapterText
 import com.example.garden.screens.widgets.text.ContentText
@@ -48,17 +50,22 @@ import com.example.garden.ui.theme.White
 import java.text.SimpleDateFormat
 
 @Composable
-fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel) {
+fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel, bedDetailViewModel: BedDetailViewModel = hiltViewModel()) {
     val bed by dbViewModel.bed.collectAsState()
-    var alertImageShow by remember {
-        mutableStateOf(false)
-    }
-    var alertAddNotificationShow by remember {
-        mutableStateOf(false)
-    }
-    var showDropDown by remember {
-        mutableStateOf(false)
-    }
+    val alertImageShow by bedDetailViewModel.alertImageShow.collectAsState()
+    val alertAddNotificationShow by bedDetailViewModel.alertAddNotificationShow.collectAsState()
+    val showDropDown by bedDetailViewModel.showDropDown.collectAsState()
+    val alertShowAddChanges by bedDetailViewModel.alertShowAddChanges.collectAsState()
+
+//    var alertImageShow by remember {
+//        mutableStateOf(false)
+//    }
+//    var alertAddNotificationShow by remember {
+//        mutableStateOf(false)
+//    }
+//    var showDropDown by remember {
+//        mutableStateOf(false)
+//    }
     val sdf = SimpleDateFormat("dd.MM.yyyy")
     Column(
         modifier = Modifier
@@ -98,7 +105,8 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel) 
                 Box() {
                     IconButton(
                         onClick = {
-                            showDropDown = true
+                            bedDetailViewModel.changeShowDropDown(true)
+                            //showDropDown = true
                         },
                     ) {
                         Icon(
@@ -111,17 +119,19 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel) 
                     DropMenu(
                         showDropDown = showDropDown,
                         onDismiss = {
-                            showDropDown = false
+                            bedDetailViewModel.changeShowDropDown(false)
+                        //showDropDown = false
                         },
                         onClickAddNotification = {
-                            alertAddNotificationShow = true
+                            bedDetailViewModel.changeAddNotificationShow(true)
+                            //alertAddNotificationShow = true
                         },
                         onClickArchive = {
                             dbViewModel.archiveBed(bed)
                             navController.navigate(Destination.Home.route)
                         },
                         onClickChangeAmount = {
-
+                            bedDetailViewModel.changeShowAddChanges(true)
                         },
                         onClickDelete = {
                             dbViewModel.deleteBed(bed)
@@ -158,7 +168,7 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel) 
             ContentText(text = bed.description)
             Gallery(
                 listGallery = dbViewModel.listGalleryBed.collectAsState().value,
-                onAddClick = { alertImageShow = true },
+                onAddClick = {bedDetailViewModel.changeImageShow(true) },
 
                 )
 
@@ -206,7 +216,8 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel) 
     if(alertAddNotificationShow)
         AddNotificationAlertDialog(
             onDismissRequest = {
-                alertAddNotificationShow = false
+                bedDetailViewModel.changeAddNotificationShow(false)
+               // alertAddNotificationShow = false
             },
             onConfirmation = dbViewModel::addNotification,
             listBeds = dbViewModel.listBeds.collectAsState().value,
@@ -215,14 +226,25 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel) 
     if (alertImageShow)
         ImageAlertDialog(
             onDismiss = {
-                alertImageShow = false
+                bedDetailViewModel.changeImageShow(false)
+                //alertImageShow = false
             },
             onConfirmation = {
                 dbViewModel.addImage(it, bed.id.toString())
-                alertImageShow = false
+                bedDetailViewModel.changeImageShow(true)
+                //alertImageShow = false
             }
         )
 
+    if(alertShowAddChanges)
+        ChangesAlertDialog (
+            onDismiss = {
+                bedDetailViewModel.changeShowAddChanges(false)
+                // alertAddNotificationShow = false
+            },
+            onConfirm = dbViewModel::addChanges
+            ,
+        )
 
 }
 

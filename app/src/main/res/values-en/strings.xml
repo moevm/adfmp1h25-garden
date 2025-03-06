@@ -46,4 +46,11 @@
     <string name="edit_bed">Edit</string>
     <string name="change_amount_bed">Change amount</string>
     <string name="add_notification">Create reminders</string>
+    <string name="confirm_dismiss">Confirm cancelation</string>
+    <string name="type_reason_frost">frost</string>
+    <string name="type_reason_inspects">inspects</string>
+    <string name="type_reason_present">present</string>
+    <string name="reason">Reason</string>
+    <string name="type_reason">Reason type</string>
+    <string name="date">Date</string>
 </resources>

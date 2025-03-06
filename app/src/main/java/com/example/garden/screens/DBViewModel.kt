@@ -207,5 +207,22 @@ class DBViewModel @Inject constructor(
         )
     }
 
+    fun addChanges(
+        date:Date,
+        type: Int,
+        reason:String,
+        amount:String
+    ) = viewModelScope.launch{
+        repoBed.addChange(
+            Changes(
+                date = date,
+                reason = reason,
+                amount = amount.toInt(),
+                reason_type = type,
+                bed_id = bed.value.id.toString()
+            )
+        )
+    }
+
 
 }

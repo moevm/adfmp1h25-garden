@@ -1,19 +1,16 @@
 package com.example.garden.screens.widgets
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.net.Uri
-import android.util.Log
-import android.view.ViewGroup
+import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.core.Preview
-import androidx.camera.core.takePicture
 import androidx.camera.view.PreviewView
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -32,26 +29,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.sharp.AddCircle
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -65,22 +54,12 @@ import androidx.compose.ui.window.PopupProperties
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.garden.R
-import com.example.garden.screens.widgets.text.AlertConfirmText
-import com.example.garden.screens.widgets.text.AlertDataTextField
-import com.example.garden.screens.widgets.text.AlertDismissText
-import com.example.garden.screens.widgets.text.AlertTextField
-import com.example.garden.screens.widgets.text.AlertTitle
-import com.example.garden.ui.theme.DarkGreen
 import com.example.garden.ui.theme.FontBlackColor
 import com.example.garden.ui.theme.Gray
 import com.example.garden.ui.theme.White
-import kotlinx.coroutines.launch
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
+
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -89,9 +68,22 @@ fun ImageAlertDialog(
     onDismiss: () -> Unit,
     onConfirmation: (Bitmap) -> Unit,
 ) {
+    var checkPermission by remember {
+        mutableStateOf(false)
+    }
     var shouldShowCamera by remember { mutableStateOf(false) }
     //var photoBitmap by remember { mutableStateOf<Bitmap?>(null) }
     val cameraExecutor = Executors.newSingleThreadExecutor()
+    val context = LocalContext.current
+    LaunchedEffect(true) {
+        if(ContextCompat.checkSelfPermission(
+                context,
+                android.Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED ) {
+            checkPermission = true
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -134,6 +126,10 @@ fun ImageAlertDialog(
                                 .clip(RoundedCornerShape(5))
                                 .background(Gray)
                                 .size(85.dp, 100.dp)
+                                .clickable {
+                                    Toast.makeText(context, "in progress", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
                         ) {
                             Icon(
                                 imageVector = ImageVector.vectorResource(R.drawable.image),
@@ -164,7 +160,10 @@ fun ImageAlertDialog(
                                 .background(Gray)
                                 .size(85.dp, 100.dp)
                                 .clickable {
-                                    shouldShowCamera = true
+                                    if (checkPermission)
+                                        shouldShowCamera = true
+                                    else
+                                        Toast.makeText(context, "give permission", Toast.LENGTH_SHORT).show()
                                 }
                         ) {
                             Icon(

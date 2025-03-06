@@ -11,7 +11,7 @@ import com.example.garden.ui.theme.IconLightYellow
 import java.util.Date
 
 class DataSource {
-    fun loadNotification():List<Notifications>{
+    fun loadNotification(): List<Notifications> {
         return listOf(
             Notifications(
                 dateStart = Date(0),
@@ -30,7 +30,7 @@ class DataSource {
         )
     }
 
-    fun loadBed():List<Bed>{
+    fun loadBed(): List<Bed> {
         return listOf(
             Bed(
                 title = "Bed1",
@@ -49,7 +49,7 @@ class DataSource {
         )
     }
 
-    fun loadLegend():List<Pair<Int,Color>>{
+    fun loadLegend(): List<Pair<Int, Color>> {
         return listOf(
             Pair(R.string.good_day, IconLightGreen),
             Pair(R.string.middle_day, IconLightYellow),
@@ -58,7 +58,7 @@ class DataSource {
     }
 
 
-    fun getWeek():List<Int>{
+    fun getWeek(): List<Int> {
         return listOf(
             R.string.monday,
             R.string.tuesday,
@@ -69,7 +69,8 @@ class DataSource {
             R.string.sunday
         )
     }
-    fun getMonth():List<Int>{
+
+    fun getMonth(): List<Int> {
         return listOf(
             R.string.january,
             R.string.february,
@@ -83,6 +84,14 @@ class DataSource {
             R.string.october,
             R.string.november,
             R.string.december
+        )
+    }
+
+    fun getReasons(): List<Int> {
+        return listOf(
+            R.string.type_reason_frost,
+            R.string.type_reason_inspects,
+            R.string.type_reason_present
         )
     }
 }

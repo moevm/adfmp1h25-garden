@@ -20,9 +20,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.garden.R
 import com.example.garden.models.Bed
 import com.example.garden.screens.widgets.text.AlertConfirmText
-import com.example.garden.screens.widgets.text.AlertContentText
 import com.example.garden.screens.widgets.text.AlertDataTextField
 import com.example.garden.screens.widgets.text.AlertDismissText
+import com.example.garden.screens.widgets.text.AlertListTextField
 import com.example.garden.screens.widgets.text.AlertTextField
 import com.example.garden.screens.widgets.text.AlertTitle
 import com.example.garden.ui.theme.White
@@ -107,7 +107,7 @@ fun AddNotificationAlertDialog(
                 )
 
 
-                AlertTextField(
+                AlertListTextField(
                     value = bed?.title ?: "",
                     listBeds = listBeds,
                     label = stringResource(R.string.alert_add_event_bed) + ":",

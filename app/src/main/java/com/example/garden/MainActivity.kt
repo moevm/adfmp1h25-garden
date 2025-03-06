@@ -30,7 +30,6 @@ class MainActivity : ComponentActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
-
            // shouldShowCamera.value = true
         }
 
@@ -43,8 +42,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val navController = rememberNavController()
-
             val dbViewModel = hiltViewModel<DBViewModel>()
+
             GardenTheme {
                 SetUpOnGraph(navController, dbViewModel)
             }
