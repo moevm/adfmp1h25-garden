@@ -122,6 +122,10 @@ class DBViewModel @Inject constructor(
 
             repoBed.addBed(value)
     }
+    fun updateBed(value: Bed) = viewModelScope.launch {
+        _bed.value = value
+        repoBed.updateBed(value)
+    }
 
     fun getStatByBedId(bed_id: String) = viewModelScope.launch(Dispatchers.IO) {
         //_bed_id.value = bed_id

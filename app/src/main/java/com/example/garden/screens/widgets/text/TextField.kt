@@ -32,6 +32,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 import com.example.garden.ui.theme.DarkGreen
 import com.example.garden.ui.theme.FontBlackColor
 import com.example.garden.ui.theme.FontGrayColor
@@ -136,34 +137,49 @@ fun DataTextField(value: String, label: String, datePickerState: DatePickerState
 
     if (showDatePicker) {
         Popup(
-            onDismissRequest = { showDatePicker = false},
-            alignment = Alignment.Center
+            onDismissRequest = { showDatePicker = false },
+            alignment = Alignment.Center,
+            properties = PopupProperties(
+                focusable = true,
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false,
+                excludeFromSystemGesture = true,
+            )
         ) {
-            Column(
+            Box(
+                contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxSize()
+                    .background(Gray.copy(0.5f))
+            ) {
+                // Your content code is here
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
 //                        .offset(y = 64.dp)
 //                        .shadow(elevation = 4.dp)
-                    .background(White)
-                    .padding(16.dp)
-            ) {
-                IconButton(
-                    onClick = {
-                        showDatePicker = false
-                    },
-                    modifier = Modifier.align(Alignment.End)
+                        .background(White)
+                        .padding(16.dp)
                 ) {
-                    Icon(imageVector = Icons.Default.Close, contentDescription = null)
-                }
-                DatePicker(
-                    state = datePickerState,
-                    showModeToggle = false,
-                    colors = DatePickerDefaults.colors(
-                        selectedDayContainerColor = DarkGreen,
-                        todayDateBorderColor = DarkGreen,
-                        todayContentColor = DarkGreen
+                    IconButton(
+                        onClick = {
+                            showDatePicker = false
+                        },
+                        modifier = Modifier.align(Alignment.End)
+                    ) {
+                        Icon(imageVector = Icons.Default.Close, contentDescription = null)
+                    }
+                    DatePicker(
+                        state = datePickerState,
+                        showModeToggle = false,
+                        colors = DatePickerDefaults.colors(
+                            selectedDayContainerColor = DarkGreen,
+                            todayDateBorderColor = DarkGreen,
+                            todayContentColor = DarkGreen
+                        )
                     )
-                )
+                }
             }
         }
     }

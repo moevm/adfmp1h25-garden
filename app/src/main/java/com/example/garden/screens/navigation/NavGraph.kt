@@ -34,7 +34,7 @@ fun SetUpOnGraph(navController: NavHostController, dbViewModel: DBViewModel) {
             BedDetailScreen(navController,dbViewModel)
         }
         composable(Destination.BedEdit.route) {
-            BedEditScreen(navController)
+            BedEditScreen(navController, dbViewModel)
         }
 
         composable(Destination.NotificationDetail.route) {
