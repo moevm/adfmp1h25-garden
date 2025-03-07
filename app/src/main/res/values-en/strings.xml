@@ -34,7 +34,6 @@
     <string name="gallery">Gallery</string>
     <string name="statistics">Statistics</string>
     <string name="changes">Change amount</string>
-<<<<<<< Updated upstream
     <string name="check_data">Fill all data</string>
     <string name="alert_camera">camera</string>
     <string name="alert_gallery">gallery</string>
@@ -56,16 +55,10 @@
     <string name="date">Date</string>
     <string name="killed_plant">Killed plants amount</string>
     <string name="new_plant">New plants amount</string>
-=======
->>>>>>> Stashed changes
     <string name="notifications">Notifications</string>
     <string name="search">Search</string>
     <string name="today">Today</string>
     <string name="on_week">On week</string>
     <string name="start">Start</string>
     <string name="end">End</string>
-<<<<<<< Updated upstream
 </resources>
-=======
-</resources>
->>>>>>> Stashed changes
