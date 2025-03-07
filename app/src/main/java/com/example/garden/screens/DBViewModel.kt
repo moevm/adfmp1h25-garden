@@ -118,17 +118,9 @@ class DBViewModel @Inject constructor(
     }
 
 
-    fun addBed() = viewModelScope.launch {
+    fun addBed(value:Bed) = viewModelScope.launch {
 
-            repoBed.addBed(
-                Bed(
-                    title = "Title",
-                    description = "desc",
-                    sort = "sort",
-                    amount = 10,
-                    date_sowing = Date(2025, 10, 15)
-                )
-            )
+            repoBed.addBed(value)
     }
 
     fun getStatByBedId(bed_id: String) = viewModelScope.launch(Dispatchers.IO) {
