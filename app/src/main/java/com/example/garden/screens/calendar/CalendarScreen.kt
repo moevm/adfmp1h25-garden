@@ -121,6 +121,7 @@ fun CalendarScreen(
             DateGrid(
                 calendarViewModel.listDays.collectAsState().value,
                 onClick = {
+                    dbViewModel.saveDate(calendarViewModel.getDate(it))
                     navController.navigate(Destination.NotificationDate.route)
                 }
             )

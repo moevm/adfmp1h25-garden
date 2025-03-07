@@ -114,6 +114,11 @@ class CalendarViewModel @Inject constructor(
 
     }
 
+    fun getDate(day: Day):Date{
+        val calendar = Calendar.getInstance()
+        calendar.set(_year.value, _month.value, day.day)
+        return Date(calendar.timeInMillis)
+    }
     fun getMonth():Int{
         return _listMonth.value[_month.value]
     }

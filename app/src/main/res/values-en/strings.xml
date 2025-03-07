@@ -61,4 +61,8 @@
     <string name="bed">Bed</string>
     <string name="alert_title_dismiss_create">Agree with cancel add</string>
     <string name="alert_title_dismiss_edit">Agree with cancel</string>
+    <string name="archive">Archive</string>
+    <string name="restore_title">Restore bed</string>
+    <string name="restore_mes">You want to restore</string>
+    <string name="restore">Restore</string>
 </resources>
