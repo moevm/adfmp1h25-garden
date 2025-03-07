@@ -19,18 +19,22 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.garden.R
 import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
+import com.example.garden.screens.widgets.text.ContentText
 import com.example.garden.screens.widgets.text.TitleText
 import com.example.garden.ui.theme.LightGreen
+import java.text.SimpleDateFormat
 
 @Composable
 fun NotificationDetailScreen(navController: NavHostController,dbViewModel: DBViewModel) {
-
+    val sdf = SimpleDateFormat("dd.MM.yyyy")
+    val note = dbViewModel.note.collectAsState().value
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(vertical = 50.dp)) {
@@ -62,10 +66,12 @@ fun NotificationDetailScreen(navController: NavHostController,dbViewModel: DBVie
 
         )
 
-        Column(modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp)) {
-            Text(
-                text = dbViewModel.note.collectAsState().value.title
-            )
+        Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)) {
+            TitleText(note.title)
+            ContentText(stringResource(R.string.alert_add_event_start)+": " + sdf.format(note.dateStart))
+            ContentText(stringResource(R.string.alert_add_event_end) +": "+ sdf.format(note.dateEnd))
+            ContentText(stringResource(R.string.alert_add_event_bed) +": "+note.bed_id)
+            ContentText(stringResource(R.string.alert_add_event_description) +": \n"+note.description)
         }
     }
 }
