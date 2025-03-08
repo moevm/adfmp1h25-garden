@@ -27,27 +27,27 @@ import javax.inject.Inject
 @HiltViewModel
 class CalendarViewModel @Inject constructor(
     private val repository: BedRepository
-) : ViewModel(){
+) : ViewModel() {
     private val _listNotifications = MutableStateFlow<List<Notifications>>(emptyList())
-    val listNotification  = _listNotifications.asStateFlow()
-    private val _date = MutableStateFlow(Date(2025,3,21))
+    val listNotification = _listNotifications.asStateFlow()
+    private val _date = MutableStateFlow(Date(2025, 3, 21))
     private val _listWeek = mutableStateOf<List<Int>>(emptyList())
     private val _listMonth = mutableStateOf<List<Int>>(emptyList())
-    private val _listLegend = mutableStateOf<List<Pair<Int,Color>>>(emptyList())
+    private val _listLegend = mutableStateOf<List<Pair<Int, Color>>>(emptyList())
     private val _listDays = MutableStateFlow<List<Day>>(emptyList())
     private val _year = MutableStateFlow(0)
     private val _month = MutableStateFlow(0)
     private val _start_day = MutableStateFlow(0)
 
 
-
-    val listWeek get()= _listWeek
+    val listWeek get() = _listWeek
     val listMonth get() = _listMonth
-    val year get() =_year
-    val month get() =_month
+    val year get() = _year
+    val month get() = _month
     val start_day get() = _start_day
     val listDays get() = _listDays
     val legend get() = _listLegend
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
 //            repository.getNotificationByDate(
@@ -71,6 +71,7 @@ class CalendarViewModel @Inject constructor(
                 }
         }
     }
+
     init {
         _listLegend.value = DataSource().loadLegend()
         val calendar = Calendar.getInstance()
@@ -82,15 +83,14 @@ class CalendarViewModel @Inject constructor(
     }
 
 
+    private fun getMoonStage(day: Int): Color {
 
-    private fun getMoonStage(day:Int):Color{
-
-        if(day<=0) return Color.Transparent
+        if (day <= 0) return Color.Transparent
 
         val phase =
-            if (_month.value == 0) ((_year.value-1)*367 + 13*28 +day)%30
-            else if(_month.value == 1) ((_year.value-1)*367 + 14*28 +day)%30
-            else (_year.value*367 + (_month.value+1)*28 +day)%30
+            if (_month.value == 0) ((_year.value - 1) * 367 + 13 * 28 + day) % 30
+            else if (_month.value == 1) ((_year.value - 1) * 367 + 14 * 28 + day) % 30
+            else (_year.value * 367 + (_month.value + 1) * 28 + day) % 30
         when {
             phase <= 15 -> return IconLightGreen
             phase <= 22 -> return IconLightYellow
@@ -99,44 +99,42 @@ class CalendarViewModel @Inject constructor(
         }
     }
 
-    private fun setListDays(){
+    private fun setListDays() {
         val calendar = Calendar.getInstance()
         calendar.set(_year.value, _month.value, 1)
-        _start_day.value =  (calendar.get(Calendar.DAY_OF_WEEK)+5)%7
+        _start_day.value = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7
 
-        _listDays.value = ((1 - _start_day.value)..calendar.getActualMaximum(Calendar.DAY_OF_MONTH)).map { day ->
-            Day(
-                day = day,
-                color = getMoonStage(day),
-                notification = false
+        _listDays.value =
+            ((1 - _start_day.value)..calendar.getActualMaximum(Calendar.DAY_OF_MONTH)).map { day ->
+                Day(
+                    day = day,
+                    color = getMoonStage(day),
+                    notification = false
                 )
-        }
-
+            }
     }
 
-    fun getMonth():Int{
+    fun getMonth(): Int {
         return _listMonth.value[_month.value]
     }
 
-    fun setMonth(index:Int){
+    fun setMonth(index: Int) {
         _month.value = index
         setListDays()
     }
-    fun incYear(){
+
+    fun incYear() {
         _year.value++
         setListDays()
     }
-    fun decYear(){
+
+    fun decYear() {
         _year.value--
         setListDays()
     }
 
 
     fun changeDate() = viewModelScope.launch {
-        _date.value = Date(2026,3,21)
+        _date.value = Date(2026, 3, 21)
     }
-
-
-
-
 }

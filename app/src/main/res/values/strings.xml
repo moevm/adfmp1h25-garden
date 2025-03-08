@@ -61,4 +61,7 @@
     <string name="bed">Грядка</string>
     <string name="alert_title_dismiss_create">Подтвердить отмену создания</string>
     <string name="alert_title_dismiss_edit">Подтвердить отмену</string>
+    <string name="no_beds_available">No beds available. Add a new bed to get started!</string>
+    <string name="my_beds">My beds</string>
+    <string name="image">Image</string>
 </resources>
