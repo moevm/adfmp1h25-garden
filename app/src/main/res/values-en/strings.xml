@@ -61,4 +61,9 @@
     <string name="bed">Bed</string>
     <string name="alert_title_dismiss_create">Agree with cancel add</string>
     <string name="alert_title_dismiss_edit">Agree with cancel</string>
+    <string name="my_beds">My beds</string>
+    <string name="no_beds_available">No beds available. Add a new bed to get started!</string>
+    <string name="image">Image</string>
+    <string name="has_been_moved_to_the_archive">" has been moved to the archive"</string>
+    <string name="amount_must_be_a_number">Amount must be a number!</string>
 </resources>

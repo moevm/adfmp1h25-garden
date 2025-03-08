@@ -1,5 +1,6 @@
 package com.example.garden.screens.bed_list
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -95,7 +96,14 @@ fun BedsListScreen(
             {
                 viewModel.listBeds.collectAsState().value.forEach { bed ->
 
-                    val deleteFunction: () -> Unit = { viewModel.archiveBed(bed) }
+                    val deleteFunction: () -> Unit = {
+                        viewModel.archiveBed(bed)
+                        Toast.makeText(
+                            context,
+                            bed.title + context.getString(R.string.has_been_moved_to_the_archive),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     BedItem(
                         bed = bed,
                         onDeleteClick = deleteFunction,
@@ -169,7 +177,7 @@ fun BedItem(
     bed: Bed, onDeleteClick: () -> Unit, modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .shadow(
                 elevation = 5.dp,

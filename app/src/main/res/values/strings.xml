@@ -58,10 +58,12 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="add">Добавить</string>
-    <string name="bed">Грядка</string>
+    <string name="bed" translatable="false">Грядка</string>
     <string name="alert_title_dismiss_create">Подтвердить отмену создания</string>
     <string name="alert_title_dismiss_edit">Подтвердить отмену</string>
-    <string name="no_beds_available">No beds available. Add a new bed to get started!</string>
-    <string name="my_beds">My beds</string>
-    <string name="image">Image</string>
+    <string name="no_beds_available" translatable="false">Тут пока нет грядок. Создайте, чтобы начать!</string>
+    <string name="my_beds">Мои грядки</string>
+    <string name="image">Картинка</string>
+    <string name="has_been_moved_to_the_archive">" была перемещена в архив"</string>
+    <string name="amount_must_be_a_number">Количество должно быть числом!</string>
 </resources>

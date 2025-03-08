@@ -53,9 +53,10 @@ import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BedCreatingScreen(navController: NavHostController,
-                      dbViewModel: DBViewModel,
-                      bedCreatingViewModel: BedCreatingViewModel = hiltViewModel()
+fun BedCreatingScreen(
+    navController: NavHostController,
+    dbViewModel: DBViewModel,
+    bedCreatingViewModel: BedCreatingViewModel = hiltViewModel()
 ) {
     val showImagePicker = bedCreatingViewModel.showImageAlert.collectAsState().value
     val showWarning = bedCreatingViewModel.showWarningAlert.collectAsState().value
@@ -71,16 +72,20 @@ fun BedCreatingScreen(navController: NavHostController,
     } ?: "")
     val context = LocalContext.current
     val toast_mes = stringResource(R.string.check_data)
-    Column (modifier = Modifier.fillMaxSize()){
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 20.dp, top = 50.dp),
-            horizontalArrangement = Arrangement.Start){
+    Column(modifier = Modifier.fillMaxSize()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp, top = 50.dp),
+            horizontalArrangement = Arrangement.Start
+        ) {
             IconButton(onClick = {
                 bedCreatingViewModel.changeShowWarningAlert(true)
             }) {
-                Icon(imageVector = ImageVector.vectorResource(R.drawable.arrow_back),
-                    contentDescription = null)
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.arrow_back),
+                    contentDescription = null
+                )
             }
 
         }
@@ -91,67 +96,102 @@ fun BedCreatingScreen(navController: NavHostController,
                 .padding(vertical = 15.dp)
 
         )
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp)) {
-            Box( modifier = Modifier
-                .clip(RoundedCornerShape(20))
-                .size(150.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(20))
+                    .size(150.dp)
 
-                .clickable {
-                    bedCreatingViewModel.changeShowImageAlert(true)
-                }) {
-                if(img==null)
-                    Icon(imageVector = ImageVector.vectorResource(R.drawable.image),
+                    .clickable {
+                        bedCreatingViewModel.changeShowImageAlert(true)
+                    }) {
+                if (img == null)
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.image),
                         contentDescription = null,
-                        modifier =Modifier.fillMaxSize())
+                        modifier = Modifier.fillMaxSize()
+                    )
                 else
-                    Image(bitmap = img.asImageBitmap(),
+                    Image(
+                        bitmap = img.asImageBitmap(),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.rotate(90f))
+                        modifier = Modifier.rotate(90f)
+                    )
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-            TitleTextField(value = title, onChange = {bedCreatingViewModel.changeTitle(it)}, label = stringResource(R.string.alert_add_event_bed))
-            ContentTextField(value = sort, onChange = {bedCreatingViewModel.changeSort(it)}, label = stringResource(R.string.sort))
-            ContentTextField(value = amount, onChange = {bedCreatingViewModel.changeAmount(it)}, label = stringResource(R.string.amount), isNumber = true)
-            DataTextField(value = date,  label = stringResource(R.string.sowing_date), datePicker)
-            ContentTextField(value = desc, onChange = {bedCreatingViewModel.changeDesc(it)}, label = stringResource(R.string.description))
+            TitleTextField(
+                value = title,
+                onChange = { bedCreatingViewModel.changeTitle(it) },
+                label = stringResource(R.string.alert_add_event_bed)
+            )
+            ContentTextField(
+                value = sort,
+                onChange = { bedCreatingViewModel.changeSort(it) },
+                label = stringResource(R.string.sort)
+            )
+            ContentTextField(
+                value = amount,
+                onChange = { bedCreatingViewModel.changeAmount(it) },
+                label = stringResource(R.string.amount),
+                isNumber = true
+            )
+            DataTextField(value = date, label = stringResource(R.string.sowing_date), datePicker)
+            ContentTextField(
+                value = desc,
+                onChange = { bedCreatingViewModel.changeDesc(it) },
+                label = stringResource(R.string.description)
+            )
         }
 
 
-
     }
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .padding(bottom = 40.dp, start = 20.dp, end = 20.dp)){
-        BottomButton(text = stringResource(R.string.add),
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 40.dp, start = 20.dp, end = 20.dp)
+    ) {
+        BottomButton(
+            text = stringResource(R.string.add),
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
         ) {
-            if(title.isNotEmpty() && sort.isNotEmpty() && amount.isNotEmpty()&&
-                amount.isDigitsOnly() && desc.isNotEmpty() && date.isNotEmpty()){
+            if (!amount.isDigitsOnly()) {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.amount_must_be_a_number), Toast.LENGTH_SHORT
+                ).show()
+                return@BottomButton
+            }
+
+            if (title.isNotEmpty() && sort.isNotEmpty() &&
+                date.isNotEmpty()
+            ) {
                 val bed = Bed(
                     title = title,
                     description = desc,
-                    date_sowing = datePicker.selectedDateMillis?.let {  Date(it) }?:Date(),
-                    amount = amount.toInt(),
+                    date_sowing = datePicker.selectedDateMillis?.let { Date(it) } ?: Date(),
+                    amount = getAmount(amount),
                     sort = sort
                 )
                 dbViewModel.addBed(bed)
-                if(img!=null)
-                    dbViewModel.addImage(img,bed.id.toString())
+                if (img != null)
+                    dbViewModel.addImage(img, bed.id.toString())
 
                 navController.navigate(Destination.Home.route)
-            }else{
+            } else {
                 Toast.makeText(context, toast_mes, Toast.LENGTH_SHORT).show()
             }
 
         }
     }
-    if(showImagePicker)
+    if (showImagePicker)
         ImageAlertDialog(
             onDismiss = {
                 bedCreatingViewModel.changeShowImageAlert(false)
@@ -161,7 +201,7 @@ fun BedCreatingScreen(navController: NavHostController,
                 bedCreatingViewModel.changeShowImageAlert(false)
             }
         )
-    if(showWarning)
+    if (showWarning)
         WarningAlertDialog(
             title = stringResource(R.string.alert_title_dismiss_create),
             onDismiss = {
@@ -175,10 +215,21 @@ fun BedCreatingScreen(navController: NavHostController,
 
 }
 
+fun getAmount(amount: String): Int {
+    if (!amount.isDigitsOnly()) {
+        throw IllegalArgumentException()
+    }
+    return if (amount.isEmpty()) {
+        0
+    } else {
+        amount.toInt()
+    }
+}
+
 @Preview
 @Composable
 private fun Prev() {
     val nav = rememberNavController()
-    val bd:DBViewModel = hiltViewModel()
-    BedCreatingScreen(nav,bd)
+    val bd: DBViewModel = hiltViewModel()
+    BedCreatingScreen(nav, bd)
 }
