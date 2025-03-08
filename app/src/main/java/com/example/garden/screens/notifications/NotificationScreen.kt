@@ -52,7 +52,9 @@ import com.example.garden.R
 import com.example.garden.models.Notifications
 
 import com.example.garden.screens.navigation.Destination
+import com.example.garden.screens.widgets.NotificationCard
 import com.example.garden.screens.widgets.text.ChapterText
+import com.example.garden.screens.widgets.text.TitleText
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
@@ -90,7 +92,7 @@ fun NotificationScreen(
             .padding(start = 10.dp, end = 10.dp, top = 65.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        ChapterText(
+        TitleText(
             text = stringResource(R.string.notifications)
         )
         Spacer(Modifier.height(5.dp))
@@ -109,91 +111,57 @@ fun NotificationScreen(
                 .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            NotificationList(label = stringResource(R.string.today), todayNotifications)
-            NotificationList(label = stringResource(R.string.on_week), onWeekNotifications)
+            NotificationList(
+                label = stringResource(R.string.today),
+                todayNotifications,
+                onClickCard = {
+                    dbViewModel.saveNote(it)
+                    navController.navigate(Destination.NotificationDetail.route)
+                },
+                onDeleteClick = {
+                    dbViewModel.deleteNotification(it)
+                })
+            NotificationList(label = stringResource(R.string.on_week),
+                onWeekNotifications,
+                onClickCard = {
+                    dbViewModel.saveNote(it)
+                    navController.navigate(Destination.NotificationDetail.route)
+                },
+                onDeleteClick = {
+                    dbViewModel.deleteNotification(it)
+                })
         }
+        Spacer(modifier = Modifier.height(120.dp))
     }
 }
 
 @Composable
-fun NotificationList(label: String, notifications: List<Notifications>) {
+fun NotificationList(label: String,
+                     notifications: List<Notifications>,
+                     onClickCard: (Notifications)->Unit,
+                     onDeleteClick:(Notifications)->Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        Text(
+        ChapterText(
             text = label,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier
-                .padding(start = 5.dp)
         )
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             notifications.forEach { item ->
-                NotificationCard(title = item.title, dateStart = item.dateStart, dateEnd = item.dateEnd)
+                NotificationCard(title = item.title,
+                    dateStart = item.dateStart,
+                    dateEnd = item.dateEnd,
+                   modifier = Modifier.clickable {
+                       onClickCard(item)
+                   },
+                    onDeleteClick ={ onDeleteClick(item)}
+                )
             }
         }
     }
 }
 
-@Composable
-fun NotificationCard(title: String, dateStart: Date, dateEnd: Date) {
-    // TODO: is it ok?????
-    val sdf = SimpleDateFormat("dd.MM.yyyy")
-
-    val onDeleteClick = { println("delete") }
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(10.dp))
-            .background(color = Color.White)
-    ) {
-        Icon(
-            imageVector = Icons.Default.Close,
-            null,
-            modifier = Modifier
-                .padding(12.dp)
-                .fillMaxWidth()
-                .size(15.dp)
-                .wrapContentWidth(Alignment.End)
-                .clickable(onClick = onDeleteClick)
-        )
-        Column(
-            modifier = Modifier
-                .padding(12.dp)
-        ) {
-            Text(
-                text = title,
-                fontSize = 13.sp
-            )
-            Row() {
-                Column() {
-                    Text(
-                        text = stringResource(R.string.start),
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Text(
-                        text = stringResource(R.string.end),
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-                Spacer(modifier = Modifier.width(2.dp))
-                Column() {
-                    Text(
-                        text = sdf.format(dateStart),
-                        fontSize = 11.sp
-                    )
-                    Text(
-                        text = sdf.format(dateEnd),
-                        fontSize = 11.sp
-                    )
-                }
-            }
-        }
-    }
-}

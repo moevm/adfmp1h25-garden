@@ -122,6 +122,8 @@ class DBViewModel @Inject constructor(
     }
 
 
+
+
     fun restoreBed(bed:Bed) = viewModelScope.launch {
         var new_bed = bed
         new_bed.isArchive = false
@@ -132,6 +134,7 @@ class DBViewModel @Inject constructor(
         getStatByBedId(bed_id = bed.id.toString())
         getGalleryByBedId(bed_id = bed.id.toString())
         getChangesByBedId(bed_id = bed.id.toString())
+
         listStatBed.value.forEach { stat->
             repoBed.deleteStatistic(stat)
         }
@@ -141,6 +144,7 @@ class DBViewModel @Inject constructor(
         listChangesBed.value.forEach { change->
             repoBed.deleteChange(change)
         }
+        notifications
         repoBed.deleteBed(bed)
     }
 
@@ -217,6 +221,9 @@ class DBViewModel @Inject constructor(
                 bed_id = bed_id
             )
         )
+    }
+    fun deleteNotification(notifications: Notifications) = viewModelScope.launch {
+        repoBed.deleteNotification(notifications)
     }
 
     fun addImage(

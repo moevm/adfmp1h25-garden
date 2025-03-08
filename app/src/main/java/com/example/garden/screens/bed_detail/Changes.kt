@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -43,7 +44,9 @@ import androidx.compose.ui.unit.sp
 import com.example.garden.R
 import com.example.garden.models.Changes
 import com.example.garden.models.Gallery
+import com.example.garden.screens.widgets.text.BigCardText
 import com.example.garden.screens.widgets.text.ChapterText
+import com.example.garden.screens.widgets.text.SmallCardText
 import com.example.garden.ui.theme.Black
 import com.example.garden.ui.theme.Gray
 import com.example.garden.ui.theme.White
@@ -87,17 +90,19 @@ fun Changes(
     if (changesShow)
         Column(
             modifier = Modifier
-                .fillMaxWidth().padding(bottom = 50.dp)
+                .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
             //.horizontalScroll(rememberScrollState())
 
             ,
-            verticalArrangement = Arrangement.spacedBy(15.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
 
             ) {
+            Spacer(Modifier.size(10.dp))
             listChanges.forEach { change ->
                 ChangeCard(change, onDeleteClick)
             }
+            Spacer(Modifier.size(50.dp))
 
         }
 }
@@ -106,8 +111,8 @@ fun Changes(
 fun ChangeCard(changes: Changes, onDeleteClick: (Changes) -> Unit) {
     val sdf = SimpleDateFormat("dd.MM.yyyy")
     Box(modifier = Modifier.fillMaxWidth()
-        .shadow(elevation = 10.dp, spotColor = Gray,shape = RoundedCornerShape(8.dp))
-        .background(White).padding(bottom = 20.dp)) {
+        .shadow(elevation = 5.dp, shape = RoundedCornerShape(10.dp))
+        .background(White).padding(bottom = 10.dp)) {
         IconButton(
             onClick = {onDeleteClick(changes)},
             modifier = Modifier.size(40.dp).align(Alignment.TopEnd)
@@ -116,37 +121,27 @@ fun ChangeCard(changes: Changes, onDeleteClick: (Changes) -> Unit) {
             Icon(imageVector = Icons.Default.Close, contentDescription = "")
         }
         Column (modifier = Modifier.fillMaxWidth().padding(20.dp)){
-            Text(
+            BigCardText(
                 text = sdf.format(changes.date),
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 16.sp
             )
             Row {
-                Text(
+                SmallCardText(
                     text =
                     if (changes.reason_type == R.string.type_reason_present)
                         stringResource(R.string.new_plant) + ": "
                     else
                         stringResource(R.string.killed_plant) + ": ",
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 16.sp
                 )
-                Text(
+                SmallCardText(
                     text = changes.amount.toString(),
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 16.sp
                 )
             }
             Row {
-                Text(
+                SmallCardText(
                     text = stringResource(R.string.reason) + ": ",
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 16.sp
                 )
-                Text(
+                SmallCardText(
                     text = changes.reason,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 16.sp
                 )
             }
         }

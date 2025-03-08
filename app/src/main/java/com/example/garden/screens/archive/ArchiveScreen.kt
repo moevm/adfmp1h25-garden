@@ -1,10 +1,15 @@
 package com.example.garden.screens.archive
 
 import android.icu.text.CaseMap.Title
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -19,7 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.garden.R
 import com.example.garden.screens.DBViewModel
+import com.example.garden.screens.navigation.Destination
 import com.example.garden.screens.widgets.ArchiveAlertDialog
+import com.example.garden.screens.widgets.BedItem
 import com.example.garden.screens.widgets.text.TitleText
 
 @Composable
@@ -33,34 +40,39 @@ fun ArchiveScreen(
 //    LaunchedEffect(true) {
 //        archiveViewModel.getFilterDates(archiveList)
 //    }
-    Column(
-        modifier = Modifier.fillMaxSize().padding(horizontal = 50.dp, vertical = 20.dp)
-            .verticalScroll(rememberScrollState()),
-
-        ){
+    Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 50.dp)) {
         TitleText(
             text = stringResource(R.string.archive)
         )
-        archiveList.forEach { el->
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
 
-            Button(onClick = {
-                dbViewModel.deleteBed(el)
-            }) {
-                Text("delete")
-            }
-            Button(onClick = {
-                archiveViewModel.changeWarningShow(true)
-                archiveViewModel.saveBed(el)
-                //dbViewModel.restoreBed(el)
-            }) {
-                Text("восстановить")
-            }
-            Text(text = el.title)
-            Text(text = el.id.toString())
+        ) {
 
+            Spacer(modifier = Modifier.size(20.dp))
+            archiveList.forEach { bed ->
+
+                BedItem(
+                    bed = bed,
+                    onDeleteClick = {
+
+                        dbViewModel.deleteBed(bed)
+                    },
+                    modifier = Modifier.clickable {
+                        archiveViewModel.changeWarningShow(true)
+                        archiveViewModel.saveBed(bed)
+                    }
+                )
+
+            }
+            Spacer(modifier = Modifier.size(60.dp))
         }
     }
-    if(archiveViewModel.showWarning.value){
+
+    if (archiveViewModel.showWarning.value) {
         bed?.title?.let {
             ArchiveAlertDialog(
                 onConfirm = {

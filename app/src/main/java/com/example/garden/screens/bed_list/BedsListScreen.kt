@@ -46,7 +46,9 @@ import com.example.garden.R
 import com.example.garden.models.Bed
 import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
+import com.example.garden.screens.widgets.BedItem
 import com.example.garden.screens.widgets.text.ChapterText
+import com.example.garden.screens.widgets.text.TitleText
 import com.example.garden.ui.theme.Black
 import com.example.garden.ui.theme.LightGreen
 import com.example.garden.ui.theme.White
@@ -136,7 +138,7 @@ fun Header(onAddClick: () -> Unit, modifier: Modifier = Modifier) {
                 end = 16.dp
             )
     ) {
-        ChapterText(
+        TitleText(
             text = stringResource(R.string.my_beds)
         )
         IconButton(
@@ -172,75 +174,3 @@ fun Prew(modifier: Modifier = Modifier) {
     Header(onAddClick)
 }
 
-@Composable
-fun BedItem(
-    bed: Bed, onDeleteClick: () -> Unit, modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .shadow(
-                elevation = 5.dp,
-                shape = RoundedCornerShape(10.dp),
-            )
-            .background(
-                color = Color.White
-            )
-    ) {
-        IconButton(
-            onClick = onDeleteClick,
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .clip(RoundedCornerShape(percent = 50))
-        ) {
-            Icon(
-                imageVector = Icons.Default.Close,
-                null,
-                modifier = Modifier
-                    .size(15.dp),
-                tint = Black
-            )
-        }
-
-        Column(
-            modifier = Modifier
-                .padding(12.dp)
-        ) {
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Column(
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Image( // TODO: другая картинка
-                        painterResource(R.drawable.image),
-                        contentDescription = stringResource(R.string.image),
-                        modifier = Modifier
-                            .size(96.dp)
-                            .fillMaxSize()
-                    )
-                }
-                Spacer(modifier = Modifier.width(16.dp))
-
-                Column() {
-                    Text(
-                        text = bed.title,
-                        fontSize = 26.sp
-                    )
-                    Text(
-                        text = bed.sort,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-
-            }
-            Text(
-                text = bed.description,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Medium,
-                textAlign = TextAlign.Justify,
-                color = Color.Gray
-            )
-        }
-    }
-}
