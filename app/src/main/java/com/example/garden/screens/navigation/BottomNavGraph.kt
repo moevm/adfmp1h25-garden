@@ -21,7 +21,7 @@ fun BottomNavGraph(
             CalendarScreen(navController,dbViewModel)
         }
         composable(Destination.Archive.route) {
-            ArchiveScreen()
+            ArchiveScreen(dbViewModel)
         }
         composable(Destination.BedsList.route) {
             BedsListScreen(navController, dbViewModel)

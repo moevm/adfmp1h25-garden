@@ -2,6 +2,7 @@ package com.example.garden.screens.widgets
 
 
 import android.widget.Button
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -9,6 +10,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,10 +22,11 @@ import com.example.garden.ui.theme.White
 @Composable
 fun BottomButton(
     text:String,
+    modifier: Modifier = Modifier,
     onClick: ()->Unit
 ) {
     Button(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         colors = ButtonDefaults.buttonColors(
             containerColor = LightGreen
         ),
@@ -42,5 +45,5 @@ fun BottomButton(
 @Preview
 @Composable
 private fun Button() {
-    BottomButton("TEST",{})
+    //BottomButton("TEST",{})
 }

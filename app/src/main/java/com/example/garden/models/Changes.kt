@@ -22,5 +22,6 @@ data class Changes(
     val date: Date,
     val amount: Int,
     val reason: String,
+    val reason_type:Int,
     val bed_id: String
 )

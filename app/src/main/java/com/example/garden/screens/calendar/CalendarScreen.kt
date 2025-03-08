@@ -59,6 +59,7 @@ import com.example.garden.models.Day
 import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
 import com.example.garden.screens.widgets.AddNotificationAlertDialog
+import com.example.garden.screens.widgets.text.DropMenuText
 import com.example.garden.ui.theme.FontBlackColor
 import com.example.garden.ui.theme.FontGrayColor
 import com.example.garden.ui.theme.IconLightGreen
@@ -120,6 +121,7 @@ fun CalendarScreen(
             DateGrid(
                 calendarViewModel.listDays.collectAsState().value,
                 onClick = {
+                    dbViewModel.saveDate(calendarViewModel.getDate(it))
                     navController.navigate(Destination.NotificationDate.route)
                 }
             )
@@ -243,15 +245,21 @@ fun MonthYearPicker(
                     .padding(horizontal = 10.dp)
             ) {
                 listMonth.forEachIndexed { index, month ->
-                    Text(
-                        modifier = Modifier.clickable {
-                            changeMonth(index)
-                            showDropDown = false
-                        },
-                        text = stringResource(month),
-                        fontSize = 18.sp,
-                        color = FontBlackColor
-                    )
+                    DropMenuText(
+                        stringResource(month)
+                    ) {
+                        changeMonth(index)
+                        showDropDown = false
+                    }
+//                    Text(
+//                        modifier = Modifier.clickable {
+//                            changeMonth(index)
+//                            showDropDown = false
+//                        },
+//                        text = stringResource(month),
+//                        fontSize = 18.sp,
+//                        color = FontBlackColor
+//                    )
                 }
             }
         }

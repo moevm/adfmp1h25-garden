@@ -1,4 +1,4 @@
-package com.example.garden.screens.bed_edit
+package com.example.garden.screens.bed_creating
 
 import android.graphics.Bitmap
 import androidx.compose.runtime.mutableStateOf
@@ -8,8 +8,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class BedEditViewModel @Inject constructor():ViewModel() {
+class BedCreatingViewModel @Inject constructor() :ViewModel(){
+    private val _showImageAlert = MutableStateFlow(false)
     private val _showWarningAlert = MutableStateFlow(false)
+    private val _image = MutableStateFlow<Bitmap?>(null)
 
     private val _bedTitle = mutableStateOf("")
     private val _sort = mutableStateOf("")
@@ -17,7 +19,8 @@ class BedEditViewModel @Inject constructor():ViewModel() {
     private val _amount = mutableStateOf("")
     private val _sowingDate = mutableStateOf("")
 
-
+    val image get() = _image
+    val showImageAlert get() = _showImageAlert
     val showWarningAlert get() = _showWarningAlert
     val bedTitle get() = _bedTitle
     val sort get() = _sort
@@ -25,6 +28,9 @@ class BedEditViewModel @Inject constructor():ViewModel() {
     val amount get() = _amount
     val sowingDate get() = _sowingDate
 
+    fun changeShowImageAlert(value:Boolean){
+            _showImageAlert.value = value
+    }
     fun changeShowWarningAlert(value:Boolean){
         _showWarningAlert.value = value
     }
@@ -44,4 +50,9 @@ class BedEditViewModel @Inject constructor():ViewModel() {
     fun changeDate(value:String){
         _sowingDate.value = value
     }
+
+    fun saveImage(value:Bitmap){
+        _image.value = value
+    }
+
 }

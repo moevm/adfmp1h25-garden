@@ -1,6 +1,7 @@
 package com.example.garden.screens.widgets
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -11,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
@@ -18,9 +20,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.garden.R
 import com.example.garden.models.Bed
 import com.example.garden.screens.widgets.text.AlertConfirmText
-import com.example.garden.screens.widgets.text.AlertContentText
 import com.example.garden.screens.widgets.text.AlertDataTextField
 import com.example.garden.screens.widgets.text.AlertDismissText
+import com.example.garden.screens.widgets.text.AlertListTextField
 import com.example.garden.screens.widgets.text.AlertTextField
 import com.example.garden.screens.widgets.text.AlertTitle
 import com.example.garden.ui.theme.White
@@ -39,9 +41,12 @@ fun AddNotificationAlertDialog(
         dateStart: Date,
         dateEnd: Date,
     ) -> Unit,
-    listBeds: List<Bed>
+    listBeds: List<Bed>,
+    currentBed:Bed? = /*if(listBeds.isNotEmpty())listBeds[0] else*/ null
 ) {
 
+    val context = LocalContext.current
+    var toast_text = stringResource(R.string.check_data)
     var name by remember {
         mutableStateOf("")
     }
@@ -56,15 +61,7 @@ fun AddNotificationAlertDialog(
         mutableStateOf("")
     }
     var bed by remember {
-        mutableStateOf(
-            Bed(
-                title = "",
-                description = "",
-                sort = "",
-                amount = 0,
-                date_sowing = Date(0)
-            ),
-        )
+       mutableStateOf(currentBed)
     }
     val datePickerStateStart = rememberDatePickerState()
     dateStart = datePickerStateStart.selectedDateMillis?.let {
@@ -110,8 +107,8 @@ fun AddNotificationAlertDialog(
                 )
 
 
-                AlertTextField(
-                    value = bed.title,
+                AlertListTextField(
+                    value = bed?.title ?: "",
                     listBeds = listBeds,
                     label = stringResource(R.string.alert_add_event_bed) + ":",
                     onChange = {
@@ -127,18 +124,20 @@ fun AddNotificationAlertDialog(
         confirmButton = {
             TextButton(
                 onClick = {
-                    if (name.isNotEmpty() && description.isNotEmpty() && bed.title.isNotEmpty()
+                    if (name.isNotEmpty() && description.isNotEmpty() && bed!=null && bed!!.title.isNotEmpty()
                         && dateStart.isNotEmpty() && dateEnd.isNotEmpty() &&
                         datePickerStateStart.selectedDateMillis!! <= datePickerStateEnd.selectedDateMillis!!
                     ){
                         onConfirmation(
                             name,
-                            bed.id.toString(),
+                            bed!!.id.toString(),
                             description,
                             datePickerStateStart.selectedDateMillis?.let { Date(it) } ?: Date(0),
                             datePickerStateEnd.selectedDateMillis?.let { Date(it) } ?: Date(0),
                         )
                         onDismissRequest()
+                    }else{
+                        Toast.makeText(context, toast_text, Toast.LENGTH_SHORT).show()
                     }
 
                 }

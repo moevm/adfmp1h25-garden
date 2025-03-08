@@ -12,7 +12,14 @@ navigationCompose = "2.9.0-alpha06"
 navigationRuntimeKtx = "2.8.7"
 hilt = "2.51.1"
 coreSplashscreen = "1.0.1"
-
+cameraCamera2 = "1.5.0-alpha06"
+cameraLifecycle = "1.5.0-alpha06"
+cameraExtensions = "1.5.0-alpha06"
+cameraView = "1.5.0-alpha06"
+accompanist = "0.37.2"
+runner = "1.6.1"
+cameraCore = "1.5.0-alpha06"
+materialIconsExtended = "1.7.8"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -31,7 +38,14 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashscreen" }
-
+androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "cameraCamera2" }
+androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "cameraLifecycle" }
+androidx-camera-extensions = { group = "androidx.camera", name = "camera-extensions", version.ref = "cameraExtensions" }
+androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "cameraView" }
+com-google-accompanist = {group="com.google.accompanist", name="accompanist-permissions", version.ref= "accompanist"}
+androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
+androidx-camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "cameraCore" }
+androidx-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIconsExtended" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
