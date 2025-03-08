@@ -61,6 +61,11 @@
     <string name="bed">Грядка</string>
     <string name="alert_title_dismiss_create">Подтвердить отмену создания</string>
     <string name="alert_title_dismiss_edit">Подтвердить отмену</string>
+    <string name="no_beds_available">Тут пока нет грядок. Создайте, чтобы начать!</string>
+    <string name="my_beds">Мои грядки</string>
+    <string name="image">Картинка</string>
+    <string name="has_been_moved_to_the_archive">" была перемещена в архив"</string>
+    <string name="amount_must_be_a_number">Количество должно быть числом!</string>
     <string name="archive">Архив</string>
     <string name="restore_title">Восстановление грядки</string>
     <string name="restore_mes">Вы хотите восстановить</string>
