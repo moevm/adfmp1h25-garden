@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import java.util.Date
+
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,7 +30,9 @@ class DBViewModel @Inject constructor(
     private val _listGalleryBed = MutableStateFlow<List<Gallery>>(emptyList())
     private val _listChangesBed = MutableStateFlow<List<Changes>>(emptyList())
     private val _notificationsList = MutableStateFlow<List<Notifications>>(emptyList())
-
+    private val _archiveList = MutableStateFlow<List<Bed>>(emptyList())
+    private val _date = MutableStateFlow<Date>(Date())
+    val archiveList = _archiveList.asStateFlow()
     //private val _bed_id = MutableStateFlow<String>("")
     private val _bed = MutableStateFlow(
         Bed(
@@ -52,6 +55,7 @@ class DBViewModel @Inject constructor(
 
     val bed get() = _bed
     val note get() = _note
+    val date get() = _date
 
 
     val listBeds = _listBeds.asStateFlow()
@@ -74,6 +78,18 @@ class DBViewModel @Inject constructor(
         }
     }
 
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            repoBed.getBedArchiveList().distinctUntilChanged()
+                .collect() { list ->
+                    if (list.isNullOrEmpty()) {
+                        Log.d("Error", "empty list")
+                    }
+                    _archiveList.value = list
+                }
+
+        }
+    }
     init {
         viewModelScope.launch(Dispatchers.IO) {
             repoBed.getAllNotification().distinctUntilChanged()
@@ -101,6 +117,17 @@ class DBViewModel @Inject constructor(
         repoBed.updateBed(new_bed)
     }
 
+    fun saveDate(date: Date){
+        _date.value = date
+    }
+
+
+    fun restoreBed(bed:Bed) = viewModelScope.launch {
+        var new_bed = bed
+        new_bed.isArchive = false
+        repoBed.updateBed(new_bed)
+    }
+
     fun deleteBed(bed:Bed) = viewModelScope.launch {
         getStatByBedId(bed_id = bed.id.toString())
         getGalleryByBedId(bed_id = bed.id.toString())
@@ -118,17 +145,13 @@ class DBViewModel @Inject constructor(
     }
 
 
-    fun addBed() = viewModelScope.launch {
+    fun addBed(value:Bed) = viewModelScope.launch {
 
-            repoBed.addBed(
-                Bed(
-                    title = "Title",
-                    description = "desc",
-                    sort = "sort",
-                    amount = 10,
-                    date_sowing = Date(2025, 10, 15)
-                )
-            )
+            repoBed.addBed(value)
+    }
+    fun updateBed(value: Bed) = viewModelScope.launch {
+        _bed.value = value
+        repoBed.updateBed(value)
     }
 
     fun getStatByBedId(bed_id: String) = viewModelScope.launch(Dispatchers.IO) {

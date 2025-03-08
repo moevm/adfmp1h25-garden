@@ -78,35 +78,38 @@ fun AlertDataTextField(value:String,  label:String,datePickerState: DatePickerSt
         )
 
         if (showDatePicker) {
-            Popup(
-                onDismissRequest = {  },
-                alignment = Alignment.Center
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
+            Box(){
+                Popup(
+                    onDismissRequest = {  },
+                    alignment = Alignment.Center
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
 //                        .offset(y = 64.dp)
 //                        .shadow(elevation = 4.dp)
-                        .background(White)
-                        .padding(16.dp)
-                ) {
-                    IconButton(onClick = {
-                        showDatePicker = false
-                    },
-                        modifier = Modifier.align(Alignment.End)) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = null)
-                    }
-                    DatePicker(
-                        state = datePickerState,
-                        showModeToggle = false,
-                        colors = DatePickerDefaults.colors(
-                            selectedDayContainerColor = DarkGreen,
-                            todayDateBorderColor = DarkGreen,
-                            todayContentColor = DarkGreen
+                            .background(White)
+                            .padding(16.dp)
+                    ) {
+                        IconButton(onClick = {
+                            showDatePicker = false
+                        },
+                            modifier = Modifier.align(Alignment.End)) {
+                            Icon(imageVector = Icons.Default.Close, contentDescription = null)
+                        }
+                        DatePicker(
+                            state = datePickerState,
+                            showModeToggle = false,
+                            colors = DatePickerDefaults.colors(
+                                selectedDayContainerColor = DarkGreen,
+                                todayDateBorderColor = DarkGreen,
+                                todayContentColor = DarkGreen
+                            )
                         )
-                    )
+                    }
                 }
             }
+
         }
     }
 }

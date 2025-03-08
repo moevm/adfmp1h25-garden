@@ -34,7 +34,7 @@ fun SetUpOnGraph(navController: NavHostController, dbViewModel: DBViewModel) {
             BedDetailScreen(navController,dbViewModel)
         }
         composable(Destination.BedEdit.route) {
-            BedEditScreen(navController)
+            BedEditScreen(navController, dbViewModel)
         }
 
         composable(Destination.NotificationDetail.route) {
@@ -42,7 +42,7 @@ fun SetUpOnGraph(navController: NavHostController, dbViewModel: DBViewModel) {
         }
 
         composable(Destination.NotificationDate.route) {
-            NotificationDateScreen(navController)
+            NotificationDateScreen(navController, dbViewModel)
         }
         composable(Destination.Home.route) {
             HomeScreen(navController,dbViewModel)
