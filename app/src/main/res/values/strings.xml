@@ -76,4 +76,9 @@
     <string name="restore_title">Восстановление грядки</string>
     <string name="restore_mes">Вы хотите восстановить</string>
     <string name="restore">Восстановить</string>
+    <string name="authors">Aвторы:</string>
+    <string name="vinogradova_margarita">Виноградова Маргарита</string>
+    <string name="horoshkova_alexandra">Хорошкова Александра</string>
+    <string name="starodubov_maxim">Стародубов Максим</string>
+    <string name="about">О приложении</string>
 </resources>
