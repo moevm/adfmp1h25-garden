@@ -22,6 +22,7 @@ sealed class Destination(val route:String){
     data object BedCreating : Destination("BedCreating")
     data object NotificationDate : Destination("NotificationDate")
     data object Home : Destination("Home")
+    data object About : Destination("About")
 }
 
 sealed class BottomDestination(val destination: Destination, val icon: Int){

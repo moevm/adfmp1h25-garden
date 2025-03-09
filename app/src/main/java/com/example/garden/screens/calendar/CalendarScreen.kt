@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -78,61 +80,77 @@ fun CalendarScreen(
     calendarViewModel: CalendarViewModel = hiltViewModel()
 ) {
 
+    Box() {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize().background(White)
-    ) {
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 20.dp,end = 20.dp, top = 50.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            MonthYearPicker(
-                month = calendarViewModel.getMonth(),
-                year = calendarViewModel.year.collectAsState().value,
-                listMonth = calendarViewModel.listMonth.value,
-                changeMonth = calendarViewModel::setMonth,
-                decYear = calendarViewModel::decYear,
-                incYear = calendarViewModel::incYear,
-
-                )
-            AddNotificationButton(
-                addNotification = dbViewModel::addNotification,
-                listBeds = dbViewModel.listBeds.collectAsState().value
-            )
-        }
-
-        HorizontalDivider(
-            color = LightGreen,
-            thickness = 2.dp,
-            modifier = Modifier
-                .padding(vertical = 15.dp)
-
-        )
         Column(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .background(White)
         ) {
-            DayOfWeek(calendarViewModel.listWeek.value)
-            DateGrid(
-                calendarViewModel.listDays.collectAsState().value,
-                onClick = {
-                    dbViewModel.saveDate(calendarViewModel.getDate(it))
-                    navController.navigate(Destination.NotificationDate.route)
-                }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp, top = 50.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                MonthYearPicker(
+                    month = calendarViewModel.getMonth(),
+                    year = calendarViewModel.year.collectAsState().value,
+                    listMonth = calendarViewModel.listMonth.value,
+                    changeMonth = calendarViewModel::setMonth,
+                    decYear = calendarViewModel::decYear,
+                    incYear = calendarViewModel::incYear,
+
+                    )
+                AddNotificationButton(
+                    addNotification = dbViewModel::addNotification,
+                    listBeds = dbViewModel.listBeds.collectAsState().value
+                )
+            }
+
+            HorizontalDivider(
+                color = LightGreen,
+                thickness = 2.dp,
+                modifier = Modifier
+                    .padding(vertical = 15.dp)
+
             )
-            Legend(calendarViewModel.legend.value)
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp)
+            ) {
+                DayOfWeek(calendarViewModel.listWeek.value)
+                DateGrid(
+                    calendarViewModel.listDays.collectAsState().value,
+                    onClick = {
+                        dbViewModel.saveDate(calendarViewModel.getDate(it))
+                        navController.navigate(Destination.NotificationDate.route)
+                    }
+                )
+                Legend(calendarViewModel.legend.value)
+            }
+
+            //        calendarViewModel.listNotification.collectAsState().value.forEach { el ->
+            //            Text(text = el.title)
+            //
+            //        }
+
         }
-
-//        calendarViewModel.listNotification.collectAsState().value.forEach { el ->
-//            Text(text = el.title)
-//
-//        }
-
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 120.dp, horizontal = 20.dp)
+                .wrapContentWidth(Alignment.End)
+                .wrapContentHeight(Alignment.Bottom)
+        ) {
+            Button(
+                onClick = { navController.navigate(Destination.About.route) },
+            ) {
+                Text(text = stringResource(R.string.about))
+            }
+        }
     }
 }
 
@@ -390,7 +408,8 @@ fun DateGrid(listDays: List<Day>, onClick:(Day)->Unit) {
                         .clip(RoundedCornerShape(percent = 30))
                         .background(day.color)
                         .padding(5.dp)
-                        .fillMaxSize().clickable {
+                        .fillMaxSize()
+                        .clickable {
                             onClick(day)
                         },
                     contentAlignment = Alignment.Center

@@ -76,4 +76,9 @@
     <string name="restore_title">Restore bed</string>
     <string name="restore_mes">You want to restore</string>
     <string name="restore">Restore</string>
+    <string name="authors">Authors:</string>
+    <string name="vinogradova_margarita">Vinogradova Margarita</string>
+    <string name="horoshkova_alexandra">Horoshkova Alexandra</string>
+    <string name="starodubov_maxim">Starodubov Maxim</string>
+    <string name="about">About</string>
 </resources>
