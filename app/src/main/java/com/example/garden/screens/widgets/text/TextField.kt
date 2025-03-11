@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -26,8 +27,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,8 +49,10 @@ import com.example.garden.ui.theme.White
 fun TitleTextField(
     value: String,
     label: String,
-    onChange: (String) -> Unit
+    onChange: (String) -> Unit,
+    imeAction: ImeAction = ImeAction.Next,
 ) {
+    val focusManager = LocalFocusManager.current
     OutlinedTextField(
         value = value,
         onValueChange = onChange,
@@ -64,6 +72,13 @@ fun TitleTextField(
             color = FontBlackColor
         ),
         modifier = Modifier.fillMaxWidth(),
+        keyboardOptions = KeyboardOptions(imeAction = imeAction),
+        keyboardActions = if (imeAction == ImeAction.Done)
+            KeyboardActions(
+                onDone = { focusManager.clearFocus() }
+            ) else KeyboardActions(
+            onNext = { focusManager.moveFocus(FocusDirection.Down) }
+        )
     )
 
 }
@@ -73,8 +88,10 @@ fun ContentTextField(
     value: String,
     label: String,
     onChange: (String) -> Unit,
-    isNumber: Boolean = false
+    isNumber: Boolean = false,
+    imeAction: ImeAction = ImeAction.Next,
 ) {
+    val focusManager = LocalFocusManager.current
     OutlinedTextField(
         value = value,
         onValueChange = onChange,
@@ -94,14 +111,30 @@ fun ContentTextField(
             color = FontBlackColor,
         ),
         modifier = Modifier.fillMaxWidth(),
-        keyboardOptions = if (isNumber) KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number) else KeyboardOptions.Default
+        keyboardOptions = KeyboardOptions(
+            imeAction = imeAction,
+            keyboardType = if (isNumber) KeyboardType.Number else KeyboardType.Text
+        ),
+        keyboardActions = if (imeAction == ImeAction.Done)
+            KeyboardActions(
+                onDone = { focusManager.clearFocus() }
+            ) else KeyboardActions(
+            onNext = { focusManager.moveFocus(FocusDirection.Down) }
+        )
     )
 
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DataTextField(value: String, label: String, datePickerState: DatePickerState) {
+fun DataTextField(
+    value: String,
+    label: String,
+    datePickerState: DatePickerState,
+    imeAction: ImeAction = ImeAction.Next,
+) {
+    val focusRequester = remember { FocusRequester() }
+    val focusManager = LocalFocusManager.current
     var showDatePicker by remember { mutableStateOf(false) }
 
 
@@ -111,7 +144,10 @@ fun DataTextField(value: String, label: String, datePickerState: DatePickerState
         label = { Text(text = label) },
         readOnly = true,
         trailingIcon = {
-            IconButton(onClick = { showDatePicker = !showDatePicker }) {
+            IconButton(onClick = {
+                focusRequester.requestFocus()
+                showDatePicker = !showDatePicker
+            }) {
                 Icon(
                     imageVector = Icons.Default.DateRange,
                     contentDescription = "Select date"
@@ -119,7 +155,7 @@ fun DataTextField(value: String, label: String, datePickerState: DatePickerState
             }
         },
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth().focusRequester(focusRequester),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = White,
             focusedContainerColor = White,
@@ -132,6 +168,12 @@ fun DataTextField(value: String, label: String, datePickerState: DatePickerState
             fontWeight = FontWeight.Normal,
             fontSize = 20.sp,
             color = FontBlackColor,
+        ),
+        keyboardActions = if (imeAction == ImeAction.Done)
+            KeyboardActions(
+                onDone = { focusManager.clearFocus() }
+            ) else KeyboardActions(
+            onNext = { focusManager.moveFocus(FocusDirection.Down) }
         )
     )
 
@@ -165,6 +207,7 @@ fun DataTextField(value: String, label: String, datePickerState: DatePickerState
                     IconButton(
                         onClick = {
                             showDatePicker = false
+                            focusManager.moveFocus(FocusDirection.Down)
                         },
                         modifier = Modifier.align(Alignment.End)
                     ) {

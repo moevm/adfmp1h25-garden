@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.core.text.isDigitsOnly
 import com.example.garden.R
 import com.example.garden.data.DataSource
@@ -85,7 +86,8 @@ fun ChangesAlertDialog(
                     value = amount,
                     onChange = { amount = it},
                     label = stringResource(R.string.amount),
-                    isNumber = true
+                    isNumber = true,
+                    imeAction = ImeAction.Done
                 )
 
             }
