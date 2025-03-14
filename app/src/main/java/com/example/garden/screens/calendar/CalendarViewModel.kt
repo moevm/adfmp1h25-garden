@@ -65,7 +65,7 @@ class CalendarViewModel @Inject constructor(
 //                }
             repository.getAllNotification().distinctUntilChanged()
                 .collect() { list ->
-                    if (list.isNullOrEmpty()) {
+                    if (list.isEmpty()) {
                         Log.d("Error", "empty list")
                     }
                     _listNotifications.value = list

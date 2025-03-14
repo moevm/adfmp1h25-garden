@@ -78,12 +78,14 @@ fun NotificationScreen(
         val datesDifference = Period.between(notificationDate, currentDate)
 
         return@filter datesDifference.days == 0 && it.title.lowercase().contains(textInput.lowercase())
+
     }
     val onWeekNotifications = dbViewModel.notifications.collectAsState().value.filter {
         val notificationDate = it.dateStart.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
         val datesDifference = Period.between(notificationDate, currentDate)
 
         return@filter datesDifference.days < 7 && it.title.lowercase().contains(textInput.lowercase())
+
     }
 
     Column(

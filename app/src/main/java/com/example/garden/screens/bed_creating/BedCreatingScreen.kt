@@ -180,7 +180,8 @@ fun BedCreatingScreen(
                     description = desc,
                     date_sowing = datePicker.selectedDateMillis?.let { Date(it) } ?: Date(),
                     amount = getAmount(amount),
-                    sort = sort
+                    sort = sort,
+                     img = img
                 )
                 dbViewModel.addBed(bed)
 

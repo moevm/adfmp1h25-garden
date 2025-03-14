@@ -23,7 +23,7 @@ import com.example.garden.models.Statistics
         Statistics::class,
         Notifications::class
     ],
-    version = 3, exportSchema = false
+    version = 4, exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class BedDatabase : RoomDatabase() {
