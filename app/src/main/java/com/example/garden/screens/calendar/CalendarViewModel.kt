@@ -69,7 +69,8 @@ class CalendarViewModel @Inject constructor(
                         Log.d("Error", "empty list")
                     }
                     _listNotifications.value = list
-                    Log.d("DATETEST", list.toString())
+                    setListDays()
+                    //Log.d("DATETEST", list.toString())
                 }
         }
     }
@@ -80,7 +81,7 @@ class CalendarViewModel @Inject constructor(
         _listMonth.value = DataSource().getMonth()
         _year.value = calendar.get(Calendar.YEAR);
         _month.value = calendar.get(Calendar.MONTH);
-        setListDays()
+
     }
 
 

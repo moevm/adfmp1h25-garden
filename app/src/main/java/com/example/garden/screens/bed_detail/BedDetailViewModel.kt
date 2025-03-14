@@ -3,6 +3,8 @@ package com.example.garden.screens.bed_detail
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.garden.R
+import com.example.garden.models.Changes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -35,6 +37,21 @@ class BedDetailViewModel @Inject constructor():ViewModel() {
 
     fun changeShowAddChanges(alertShowAddChanges:Boolean){
         _alertShowAddChanges.value =  alertShowAddChanges
+    }
+
+    fun getMax(list:List<Changes>):Int{
+        var max = 0
+        list.forEach {
+            if(max<it.amount && it.reason_type == R.string.type_reason_present) max = it.amount
+        }
+        return max
+    }
+    fun getMin(list:List<Changes>):Int{
+        var min = 0
+        list.forEach {
+            if(min < it.amount && it.reason_type != R.string.type_reason_present) min = it.amount
+        }
+        return min
     }
 }
 

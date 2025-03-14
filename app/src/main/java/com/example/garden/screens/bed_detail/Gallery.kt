@@ -88,7 +88,6 @@ fun Gallery(listGallery: List<Gallery>, onAddClick: () -> Unit) {
                         modifier = Modifier
                             .size(75.dp)
                             .clip(RoundedCornerShape(20))
-                            .rotate(90f)
                     ) {
                         Image(
                             bitmap = img.img.asImageBitmap(),

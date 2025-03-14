@@ -40,6 +40,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.garden.R
 import com.example.garden.models.Bed
+import com.example.garden.models.Statistics
 import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
 import com.example.garden.screens.widgets.BottomButton
@@ -121,7 +122,6 @@ fun BedCreatingScreen(
                         bitmap = img.asImageBitmap(),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.rotate(90f)
                     )
             }
 
@@ -183,6 +183,7 @@ fun BedCreatingScreen(
                     sort = sort
                 )
                 dbViewModel.addBed(bed)
+
                 if (img != null)
                     dbViewModel.addImage(img, bed.id.toString())
 

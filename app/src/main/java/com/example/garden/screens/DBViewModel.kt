@@ -194,15 +194,8 @@ class DBViewModel @Inject constructor(
     }
 
 
-    fun addStat() = viewModelScope.launch {
-        repoBed.addStatistic(
-            Statistics(
-                date = Date(2020358),
-                num = 19,
-                bed_id = _bed.value.id.toString()
-            )
-
-        )
+    fun addStat(statistics: Statistics) = viewModelScope.launch {
+        repoBed.addStatistic(statistics)
     }
 
     fun addNotification(
@@ -287,6 +280,7 @@ class DBViewModel @Inject constructor(
         repoBed.updateBed(
             new_bed
         )
+
     }
 
 
