@@ -3,6 +3,8 @@ package com.example.garden.screens.notifications
 import androidx.lifecycle.ViewModel
 import com.example.garden.repository.BedRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
