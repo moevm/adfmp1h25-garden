@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.sp
 import com.example.garden.ui.theme.FontBlackColor
 
 @Composable
-fun ContentText(text:String) {
+fun ContentText(text: String) {
     Text(
         text = text,
         color = FontBlackColor,

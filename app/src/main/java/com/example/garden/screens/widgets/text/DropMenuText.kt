@@ -4,14 +4,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import com.example.garden.ui.theme.FontBlackColor
 
 @Composable
-fun DropMenuText(text:String,onClick:()->Unit) {
+fun DropMenuText(text: String, onClick: () -> Unit) {
     Text(
-        modifier = Modifier.clickable{
+        modifier = Modifier.clickable {
             onClick()
         },
         text = text,

@@ -8,8 +8,8 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
-import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -45,7 +45,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -59,7 +58,6 @@ import com.example.garden.ui.theme.Gray
 import com.example.garden.ui.theme.White
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
-
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -76,10 +74,11 @@ fun ImageAlertDialog(
     val cameraExecutor = Executors.newSingleThreadExecutor()
     val context = LocalContext.current
     LaunchedEffect(true) {
-        if(ContextCompat.checkSelfPermission(
+        if (ContextCompat.checkSelfPermission(
                 context,
                 android.Manifest.permission.CAMERA
-            ) == PackageManager.PERMISSION_GRANTED ) {
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             checkPermission = true
         }
     }
@@ -163,7 +162,11 @@ fun ImageAlertDialog(
                                     if (checkPermission)
                                         shouldShowCamera = true
                                     else
-                                        Toast.makeText(context, "give permission", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(
+                                            context,
+                                            "give permission",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                 }
                         ) {
                             Icon(
@@ -206,13 +209,13 @@ fun ImageAlertDialog(
 
                 executor = cameraExecutor,
                 onImageCaptured =
-                {
-                    shouldShowCamera = false
+                    {
+                        shouldShowCamera = false
 //                photoBitmap = it
-                    onConfirmation(it)
+                        onConfirmation(it)
 
-                    // Log.d("kilo", "saved image")
-                },
+                        // Log.d("kilo", "saved image")
+                    },
             )
     }
 
@@ -292,7 +295,8 @@ fun takePhoto(
 //    )
 
     // val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-    imageCapture.takePicture(executor,
+    imageCapture.takePicture(
+        executor,
         object : ImageCapture.OnImageCapturedCallback() {
             override fun onCaptureSuccess(image: ImageProxy) {
                 //   Log.d("kilo","captureImage")

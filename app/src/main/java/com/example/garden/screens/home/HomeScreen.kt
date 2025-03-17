@@ -3,9 +3,10 @@ package com.example.garden.screens.home
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.*
-import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -40,10 +41,11 @@ fun HomeScreen(navController: NavHostController, bedViewModel: DBViewModel) {
                 bottomNav.forEach { item ->
                     NavigationBarItem(
                         icon = {
-                            Icon(imageVector = ImageVector.vectorResource(item.icon),
+                            Icon(
+                                imageVector = ImageVector.vectorResource(item.icon),
                                 contentDescription = "",
-                                )
-                               },
+                            )
+                        },
                         selected = currentDestination?.route == item.destination.route,
                         onClick = {
                             navControllerBottom.navigate(item.destination.route)
@@ -58,8 +60,13 @@ fun HomeScreen(navController: NavHostController, bedViewModel: DBViewModel) {
             }
         },
 
-    ) { innerPadding->
-        BottomNavGraph(navControllerBottom, navController, Modifier.padding(innerPadding),bedViewModel )
+        ) { innerPadding ->
+        BottomNavGraph(
+            navControllerBottom,
+            navController,
+            Modifier.padding(innerPadding),
+            bedViewModel
+        )
     }
 
 }

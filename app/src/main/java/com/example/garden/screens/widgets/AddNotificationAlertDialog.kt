@@ -42,7 +42,7 @@ fun AddNotificationAlertDialog(
         dateEnd: Date,
     ) -> Unit,
     listBeds: List<Bed>,
-    currentBed:Bed? = /*if(listBeds.isNotEmpty())listBeds[0] else*/ null
+    currentBed: Bed? = /*if(listBeds.isNotEmpty())listBeds[0] else*/ null
 ) {
 
     val context = LocalContext.current
@@ -61,7 +61,7 @@ fun AddNotificationAlertDialog(
         mutableStateOf("")
     }
     var bed by remember {
-       mutableStateOf(currentBed)
+        mutableStateOf(currentBed)
     }
     val datePickerStateStart = rememberDatePickerState()
     dateStart = datePickerStateStart.selectedDateMillis?.let {
@@ -124,10 +124,10 @@ fun AddNotificationAlertDialog(
         confirmButton = {
             TextButton(
                 onClick = {
-                    if (name.isNotEmpty() && description.isNotEmpty() && bed!=null && bed!!.title.isNotEmpty()
+                    if (name.isNotEmpty() && description.isNotEmpty() && bed != null && bed!!.title.isNotEmpty()
                         && dateStart.isNotEmpty() && dateEnd.isNotEmpty() &&
                         datePickerStateStart.selectedDateMillis!! <= datePickerStateEnd.selectedDateMillis!!
-                    ){
+                    ) {
                         onConfirmation(
                             name,
                             bed!!.id.toString(),
@@ -136,7 +136,7 @@ fun AddNotificationAlertDialog(
                             datePickerStateEnd.selectedDateMillis?.let { Date(it) } ?: Date(0),
                         )
                         onDismissRequest()
-                    }else{
+                    } else {
                         Toast.makeText(context, toast_text, Toast.LENGTH_SHORT).show()
                     }
 

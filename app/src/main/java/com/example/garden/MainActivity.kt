@@ -1,14 +1,11 @@
 package com.example.garden
 
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -19,8 +16,6 @@ import com.example.garden.screens.navigation.SetUpOnGraph
 import com.example.garden.ui.theme.GardenTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -30,9 +25,8 @@ class MainActivity : ComponentActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
-           // shouldShowCamera.value = true
+            // shouldShowCamera.value = true
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +43,6 @@ class MainActivity : ComponentActivity() {
             }
         }
         requestCameraPermission()
-
     }
 
     private fun requestCameraPermission() {
@@ -58,21 +51,15 @@ class MainActivity : ComponentActivity() {
                 this,
                 android.Manifest.permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED -> {
-
             }
 
             ActivityCompat.shouldShowRequestPermissionRationale(
                 this,
                 android.Manifest.permission.CAMERA
             ) -> {
-
             }
 
             else -> requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
         }
     }
-
-
-
-
 }

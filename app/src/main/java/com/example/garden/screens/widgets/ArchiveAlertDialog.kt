@@ -13,7 +13,7 @@ import com.example.garden.ui.theme.White
 
 @Composable
 fun ArchiveAlertDialog(
-onDismiss:()->Unit, onConfirm:()->Unit, bed_title:String
+    onDismiss: () -> Unit, onConfirm: () -> Unit, bed_title: String
 ) {
     AlertDialog(
         containerColor = White,
@@ -21,7 +21,7 @@ onDismiss:()->Unit, onConfirm:()->Unit, bed_title:String
             AlertTitle(stringResource(R.string.restore_title))
         },
         text = {
-            AlertContentText(stringResource(R.string.restore_mes)+" "+bed_title+" ?")
+            AlertContentText(stringResource(R.string.restore_mes) + " " + bed_title + " ?")
         },
         onDismissRequest = {
             //onDismissRequest()

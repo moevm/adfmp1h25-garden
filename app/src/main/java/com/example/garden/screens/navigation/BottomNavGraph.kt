@@ -5,8 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.garden.screens.archive.ArchiveScreen
 import com.example.garden.screens.DBViewModel
+import com.example.garden.screens.archive.ArchiveScreen
 import com.example.garden.screens.bed_list.BedsListScreen
 import com.example.garden.screens.calendar.CalendarScreen
 import com.example.garden.screens.notifications.NotificationScreen
@@ -18,7 +18,7 @@ fun BottomNavGraph(
 ) {
     NavHost(navControllerBottom, startDestination = Destination.Calendar.route) {
         composable(Destination.Calendar.route) {
-            CalendarScreen(navController,dbViewModel)
+            CalendarScreen(navController, dbViewModel)
         }
         composable(Destination.Archive.route) {
             ArchiveScreen(dbViewModel)
@@ -26,9 +26,8 @@ fun BottomNavGraph(
         composable(Destination.BedsList.route) {
             BedsListScreen(navController, dbViewModel)
         }
-        composable(Destination.Notifications.route){
+        composable(Destination.Notifications.route) {
             NotificationScreen(navController, dbViewModel)
         }
-
     }
 }

@@ -21,13 +21,8 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -51,11 +46,14 @@ import com.example.garden.screens.widgets.text.TitleText
 import com.example.garden.ui.theme.DarkGreen
 import com.example.garden.ui.theme.LightGreen
 import com.example.garden.ui.theme.White
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
 @Composable
-fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel, bedDetailViewModel: BedDetailViewModel = hiltViewModel()) {
+fun BedDetailScreen(
+    navController: NavHostController,
+    dbViewModel: DBViewModel,
+    bedDetailViewModel: BedDetailViewModel = hiltViewModel()
+) {
     val bed by dbViewModel.bed.collectAsState()
     val alertImageShow by bedDetailViewModel.alertImageShow.collectAsState()
     val alertAddNotificationShow by bedDetailViewModel.alertAddNotificationShow.collectAsState()
@@ -67,7 +65,7 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel, 
     val listChange = dbViewModel.listChangesBed.collectAsState().value
     val listGallery = dbViewModel.listGalleryBed.collectAsState().value
 
-    Log.d("IMAGE LIST",listGallery.toString())
+    Log.d("IMAGE LIST", listGallery.toString())
 //    var alertImageShow by remember {
 //        mutableStateOf(false)
 //    }
@@ -131,7 +129,7 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel, 
                         showDropDown = showDropDown,
                         onDismiss = {
                             bedDetailViewModel.changeShowDropDown(false)
-                        //showDropDown = false
+                            //showDropDown = false
                         },
                         onClickAddNotification = {
                             bedDetailViewModel.changeAddNotificationShow(true)
@@ -151,7 +149,7 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel, 
                         onClickEdit = {
                             navController.navigate(Destination.BedEdit.route)
                         }
-                        )
+                    )
                 }
 
             }
@@ -181,7 +179,7 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel, 
                 listGallery = listGallery,
                 onAddClick = {
                     bedDetailViewModel.changeImageShow(true)
-                             },
+                },
 
                 )
 
@@ -213,11 +211,11 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel, 
         }
     }
 
-    if(alertAddNotificationShow)
+    if (alertAddNotificationShow)
         AddNotificationAlertDialog(
             onDismissRequest = {
                 bedDetailViewModel.changeAddNotificationShow(false)
-               // alertAddNotificationShow = false
+                // alertAddNotificationShow = false
             },
             onConfirmation = dbViewModel::addNotification,
             listBeds = dbViewModel.listBeds.collectAsState().value,
@@ -236,18 +234,16 @@ fun BedDetailScreen(navController: NavHostController, dbViewModel: DBViewModel, 
             }
         )
 
-    if(alertShowAddChanges)
-        ChangesAlertDialog (
+    if (alertShowAddChanges)
+        ChangesAlertDialog(
             onDismiss = {
                 bedDetailViewModel.changeShowAddChanges(false)
                 // alertAddNotificationShow = false
             },
-            onConfirm = dbViewModel::addChanges
-            ,
+            onConfirm = dbViewModel::addChanges,
         )
 
 }
-
 
 
 @Composable

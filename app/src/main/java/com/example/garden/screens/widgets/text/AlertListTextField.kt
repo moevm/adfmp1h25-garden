@@ -34,10 +34,10 @@ import com.example.garden.ui.theme.White
 
 @Composable
 fun AlertListTextField(
-    value:String,
-    listBeds:List<Bed>,
-    label:String,
-    onChange:(Bed)->Unit
+    value: String,
+    listBeds: List<Bed>,
+    label: String,
+    onChange: (Bed) -> Unit
 ) {
     var showDropDown by remember { mutableStateOf(false) }
     Box(
@@ -78,18 +78,21 @@ fun AlertListTextField(
             },
             modifier = Modifier
                 .background(White)
-                .heightIn(0.dp,300.dp)
+                .heightIn(0.dp, 300.dp)
                 .clip(RoundedCornerShape(percent = 30))
 
 
         ) {
-            Column(modifier = Modifier
-                .padding(horizontal = 20.dp)
-                .horizontalScroll(rememberScrollState())
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+                    .horizontalScroll(rememberScrollState())
             ) {
-                listBeds.forEach{ bed ->
-                    DropMenuText(bed.title) {  onChange(bed)
-                        showDropDown = false}
+                listBeds.forEach { bed ->
+                    DropMenuText(bed.title) {
+                        onChange(bed)
+                        showDropDown = false
+                    }
 //                    Text(
 //                        modifier = Modifier.clickable {
 //                            onChange(bed)
@@ -107,10 +110,10 @@ fun AlertListTextField(
 
 @Composable
 fun AlertListReasonTextField(
-    value:String,
-    list:List<Int>,
-    label:String,
-    onChange:(Int)->Unit
+    value: String,
+    list: List<Int>,
+    label: String,
+    onChange: (Int) -> Unit
 ) {
     var showDropDown by remember { mutableStateOf(false) }
     Box(
@@ -151,16 +154,17 @@ fun AlertListReasonTextField(
             },
             modifier = Modifier
                 .background(White)
-                .heightIn(0.dp,300.dp)
+                .heightIn(0.dp, 300.dp)
                 .clip(RoundedCornerShape(percent = 30))
 
 
         ) {
-            Column(modifier = Modifier
-                .padding(horizontal = 20.dp)
-                .horizontalScroll(rememberScrollState())
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+                    .horizontalScroll(rememberScrollState())
             ) {
-                list.forEach{ el ->
+                list.forEach { el ->
                     DropMenuText(stringResource(el)) {
                         onChange(el)
                         showDropDown = false

@@ -29,13 +29,13 @@ import java.util.Date
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChangesAlertDialog(
-    onConfirm:(
-            date:Date,
-            type:Int,
-            reason:String,
-            amount:String
-            )->Unit,
-    onDismiss:()->Unit
+    onConfirm: (
+        date: Date,
+        type: Int,
+        reason: String,
+        amount: String
+    ) -> Unit,
+    onDismiss: () -> Unit
 ) {
     val datePicker = rememberDatePickerState()
     var date by remember {
@@ -72,18 +72,18 @@ fun ChangesAlertDialog(
                 AlertListReasonTextField(
                     value = stringResource(type_reason),
                     list = DataSource().getReasons(),
-                    onChange = {type_reason = it},
-                    label = stringResource(R.string.type_reason)+ ":"
+                    onChange = { type_reason = it },
+                    label = stringResource(R.string.type_reason) + ":"
                 )
 
                 AlertTextField(
                     value = reason,
-                    onChange = {reason = it},
+                    onChange = { reason = it },
                     label = stringResource(R.string.reason)
                 )
                 AlertTextField(
                     value = amount,
-                    onChange = { amount = it},
+                    onChange = { amount = it },
                     label = stringResource(R.string.amount),
                     isNumber = true
                 )
@@ -99,7 +99,7 @@ fun ChangesAlertDialog(
                     if (reason.isNotEmpty() && amount.isNotEmpty() && amount.isDigitsOnly()
                         && date.isNotEmpty() && type_reason != R.string.none
 
-                    ){
+                    ) {
                         onConfirm(
                             datePicker.selectedDateMillis?.let { Date(it) } ?: Date(0),
                             type_reason,
@@ -107,7 +107,7 @@ fun ChangesAlertDialog(
                             amount
                         )
                         onDismiss()
-                    }else{
+                    } else {
                         Toast.makeText(context, toast_text, Toast.LENGTH_SHORT).show()
                     }
                 }
