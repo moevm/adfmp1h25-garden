@@ -138,11 +138,14 @@ class CalendarViewModel @Inject constructor(
         return true
     }
 
-    fun decYear() {
+    fun decYear(): Boolean {
+        if (_year.value > Calendar.YEAR - 1) {
+            return false
+        }
         _year.value--
         setListDays()
+        return true
     }
-
 
     fun changeDate() = viewModelScope.launch {
         _date.value = Date(2026, 3, 21)

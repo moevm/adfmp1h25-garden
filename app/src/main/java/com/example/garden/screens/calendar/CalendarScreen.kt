@@ -87,7 +87,10 @@ fun CalendarScreen(
                 year = calendarViewModel.year.collectAsState().value,
                 listMonth = calendarViewModel.listMonth.value,
                 changeMonth = calendarViewModel::setMonth,
-                decYear = calendarViewModel::decYear,
+                decYear = { if(!calendarViewModel.decYear()){
+                    Toast.makeText(context,
+                        context.getString(R.string.too_early_a_year), Toast.LENGTH_SHORT).show()
+                }},
                 incYear = { if(!calendarViewModel.incYear()){
                     Toast.makeText(context,
                         context.getString(R.string.too_late_a_year), Toast.LENGTH_SHORT).show()
