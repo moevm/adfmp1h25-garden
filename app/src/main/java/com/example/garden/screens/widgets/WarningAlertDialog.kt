@@ -11,7 +11,7 @@ import com.example.garden.screens.widgets.text.AlertTitle
 import com.example.garden.ui.theme.White
 
 @Composable
-fun WarningAlertDialog(title:String, onDismiss:()->Unit, onConfirm:()->Unit) {
+fun WarningAlertDialog(title: String, onDismiss: () -> Unit, onConfirm: () -> Unit) {
     AlertDialog(
         containerColor = White,
         title = {

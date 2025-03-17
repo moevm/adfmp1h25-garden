@@ -51,7 +51,6 @@ fun ArchiveScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
 
         ) {
-
             Spacer(modifier = Modifier.size(20.dp))
             ChapterText(stringResource(R.string.this_year))
             archiveListThisYear.forEach { bed ->

@@ -1,7 +1,6 @@
 package com.example.garden.models
 
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import java.util.Date
 import java.util.UUID
@@ -18,10 +17,10 @@ import java.util.UUID
 data class Changes(
     @PrimaryKey
     val id: UUID = UUID.randomUUID(),
-    val tmp_id:Int =0,
+    val tmp_id: Int = 0,
     val date: Date,
     val amount: Int,
     val reason: String,
-    val reason_type:Int,
+    val reason_type: Int,
     val bed_id: String
 )

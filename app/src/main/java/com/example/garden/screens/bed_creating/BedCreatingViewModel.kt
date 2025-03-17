@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class BedCreatingViewModel @Inject constructor() :ViewModel(){
+class BedCreatingViewModel @Inject constructor() : ViewModel() {
     private val _showImageAlert = MutableStateFlow(false)
     private val _showWarningAlert = MutableStateFlow(false)
     private val _image = MutableStateFlow<Bitmap?>(null)
@@ -28,30 +28,35 @@ class BedCreatingViewModel @Inject constructor() :ViewModel(){
     val amount get() = _amount
     val sowingDate get() = _sowingDate
 
-    fun changeShowImageAlert(value:Boolean){
-            _showImageAlert.value = value
+    fun changeShowImageAlert(value: Boolean) {
+        _showImageAlert.value = value
     }
-    fun changeShowWarningAlert(value:Boolean){
+
+    fun changeShowWarningAlert(value: Boolean) {
         _showWarningAlert.value = value
     }
 
-    fun changeTitle(value:String){
+    fun changeTitle(value: String) {
         _bedTitle.value = value
     }
-    fun changeSort(value:String){
+
+    fun changeSort(value: String) {
         _sort.value = value
     }
-    fun changeDesc(value:String){
+
+    fun changeDesc(value: String) {
         _desc.value = value
     }
-    fun changeAmount(value:String){
+
+    fun changeAmount(value: String) {
         _amount.value = value
     }
-    fun changeDate(value:String){
+
+    fun changeDate(value: String) {
         _sowingDate.value = value
     }
 
-    fun saveImage(value:Bitmap){
+    fun saveImage(value: Bitmap) {
         _image.value = value
     }
 

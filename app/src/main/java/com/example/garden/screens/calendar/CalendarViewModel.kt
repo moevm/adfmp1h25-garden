@@ -50,6 +50,7 @@ class CalendarViewModel @Inject constructor(
     val start_day get() = _start_day
     val listDays get() = _listDays
     val legend get() = _listLegend
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
 //            repository.getNotificationByDate(
@@ -74,6 +75,7 @@ class CalendarViewModel @Inject constructor(
                 }
         }
     }
+
     init {
         _listLegend.value = DataSource().loadLegend()
         val calendar = Calendar.getInstance()
@@ -116,28 +118,47 @@ class CalendarViewModel @Inject constructor(
             }
     }
 
-    fun getDate(day: Day):Date{
+    fun getDate(day: Day): Date {
         val calendar = Calendar.getInstance()
         calendar.set(_year.value, _month.value, day.day)
         return Date(calendar.timeInMillis)
     }
-    fun getMonth():Int{
+
+    fun getMonth(): Int {
         return _listMonth.value[_month.value]
     }
 
-    fun setMonth(index:Int){
+    fun setMonth(index: Int) {
         _month.value = index
         setListDays()
     }
-    fun incYear(){
+
+    fun incYear(): Boolean {
+        if (_year.value > getCurrentYear() + 5) {
+            return false
+        }
         _year.value++
         setListDays()
-    }
-    fun decYear(){
-        _year.value--
-        setListDays()
+        return true
     }
 
+    fun decYear(): Boolean {
+        if (_year.value < getCurrentYear() - 1) {
+            return false
+        }
+        _year.value--
+        setListDays()
+        return true
+    }
+
+    private fun getCurrentYear(): Int {
+        val calendar = Calendar.getInstance()
+        return calendar.get(Calendar.YEAR)
+    }
+
+    fun changeDate() = viewModelScope.launch {
+        _date.value = Date(2026, 3, 21)
+    }
     fun checkDay(day:Int):Boolean{
         if(day<=0)return false
 

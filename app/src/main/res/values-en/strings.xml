@@ -67,6 +67,7 @@
     <string name="bed">Bed</string>
     <string name="alert_title_dismiss_create">Agree with cancel add</string>
     <string name="alert_title_dismiss_edit">Agree with cancel</string>
+    <string name="no_notification_date_available">No notifications available. Add a new notification to get started!</string>
     <string name="my_beds">My beds</string>
     <string name="no_beds_available">No beds available. Add a new bed to get started!</string>
     <string name="image">Image</string>
@@ -76,6 +77,8 @@
     <string name="restore_title">Restore bed</string>
     <string name="restore_mes">You want to restore</string>
     <string name="restore">Restore</string>
+    <string name="too_late_a_year">Too late a year!</string>
+    <string name="too_early_a_year">Too early a year</string>
     <string name="authors">Authors:</string>
     <string name="vinogradova_margarita">Vinogradova Margarita</string>
     <string name="horoshkova_alexandra">Horoshkova Alexandra</string>

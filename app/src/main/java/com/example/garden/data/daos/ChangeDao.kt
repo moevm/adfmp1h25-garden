@@ -24,5 +24,5 @@ interface ChangeDao {
     suspend fun deleteChange(changes: Changes)
 
     @Query("SELECT * FROM changes_tbl WHERE bed_id == :id")
-    fun getChangeByBed(id:String): Flow<List<Changes>>
+    fun getChangeByBed(id: String): Flow<List<Changes>>
 }

@@ -6,6 +6,7 @@ import com.example.garden.models.Bed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import javax.inject.Inject
@@ -55,12 +56,7 @@ constructor(
         _showWarningDelete.value = value
     }
 
-    fun saveBed(value:Bed){
+    fun saveBed(value: Bed) {
         _bed.value = value
     }
-
-
-
-
-
 }

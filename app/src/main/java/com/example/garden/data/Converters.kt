@@ -10,15 +10,17 @@ import java.util.Date
 
 class Converters {
     @TypeConverter
-    fun fromTimeStamp (value: Long?): Date?{
+    fun fromTimeStamp(value: Long?): Date? {
         return value?.let {
             Date(it)
         }
     }
+
     @TypeConverter
-    fun dateToTimeStamp (date: Date?): Long?{
+    fun dateToTimeStamp(date: Date?): Long? {
         return date?.time?.toLong()
     }
+
     @TypeConverter
     fun bitmapToStart(bitmap: Bitmap?):String{
         val output = ByteArrayOutputStream()
@@ -26,12 +28,13 @@ class Converters {
 
         return Base64.encodeToString(output.toByteArray(),Base64.DEFAULT)
     }
+
     @TypeConverter
-    fun fromStringToBitmap(base64: String):Bitmap?{
+    fun fromStringToBitmap(base64: String): Bitmap? {
         return try {
-            val byteArray = Base64.decode(base64,Base64.DEFAULT)
-            BitmapFactory.decodeByteArray(byteArray,0,byteArray.size)
-        }catch (e:Exception){
+            val byteArray = Base64.decode(base64, Base64.DEFAULT)
+            BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        } catch (e: Exception) {
             e.printStackTrace()
             null
         }

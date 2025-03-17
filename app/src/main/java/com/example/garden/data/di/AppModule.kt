@@ -2,13 +2,12 @@ package com.example.garden.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.garden.data.db.BedDatabase
 import com.example.garden.data.daos.BedDao
 import com.example.garden.data.daos.ChangeDao
 import com.example.garden.data.daos.GalleryDao
 import com.example.garden.data.daos.NotificationDao
 import com.example.garden.data.daos.StatisticDao
-
+import com.example.garden.data.db.BedDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,14 +20,14 @@ import javax.inject.Singleton
 object AppModule {
     @Singleton
     @Provides
-    fun provideAppDatabase(@ApplicationContext context: Context): BedDatabase
-            = Room.databaseBuilder(
-        context,
-        BedDatabase::class.java,
-        "garden_db",
-    ).fallbackToDestructiveMigrationFrom().build()
+    fun provideAppDatabase(@ApplicationContext context: Context): BedDatabase =
+        Room.databaseBuilder(
+            context,
+            BedDatabase::class.java,
+            "garden_db",
+        ).fallbackToDestructiveMigrationFrom().build()
 
-//    @Singleton
+    //    @Singleton
 //    @Provides
 //    fun provideAppChangeDatabase(@ApplicationContext context: Context): ChangesDatabase
 //            = Room.databaseBuilder(
@@ -58,23 +57,22 @@ object AppModule {
 //
     @Singleton
     @Provides
-    fun provideBedDao(bedDatabase: BedDatabase): BedDao
-            = bedDatabase.bedDao()
-    @Singleton
-    @Provides
-    fun provideChangeDao(bedDatabase: BedDatabase): ChangeDao
-            = bedDatabase.changeDao()
-    @Singleton
-    @Provides
-    fun provideGalleryDao(bedDatabase: BedDatabase): GalleryDao
-            = bedDatabase.galleryDao()
-    @Singleton
-    @Provides
-    fun provideStatDao(bedDatabase: BedDatabase): StatisticDao
-            = bedDatabase.statisticDao()
+    fun provideBedDao(bedDatabase: BedDatabase): BedDao = bedDatabase.bedDao()
 
     @Singleton
     @Provides
-    fun provideNotificationDao(bedDatabase: BedDatabase): NotificationDao
-            = bedDatabase.notificationDao()
+    fun provideChangeDao(bedDatabase: BedDatabase): ChangeDao = bedDatabase.changeDao()
+
+    @Singleton
+    @Provides
+    fun provideGalleryDao(bedDatabase: BedDatabase): GalleryDao = bedDatabase.galleryDao()
+
+    @Singleton
+    @Provides
+    fun provideStatDao(bedDatabase: BedDatabase): StatisticDao = bedDatabase.statisticDao()
+
+    @Singleton
+    @Provides
+    fun provideNotificationDao(bedDatabase: BedDatabase): NotificationDao =
+        bedDatabase.notificationDao()
 }

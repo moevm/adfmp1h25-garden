@@ -24,6 +24,6 @@ interface StatisticDao {
     suspend fun updateStat(statistics: Statistics)
 
     @Query("SELECT * FROM stat_tbl WHERE bed_id == :id")
-    fun getStatByBed(id:String): Flow<List<Statistics>>
+    fun getStatByBed(id: String): Flow<List<Statistics>>
 
 }

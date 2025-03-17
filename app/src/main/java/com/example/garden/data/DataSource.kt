@@ -1,7 +1,6 @@
 package com.example.garden.data
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import com.example.garden.R
 import com.example.garden.models.Bed
 import com.example.garden.models.Notifications

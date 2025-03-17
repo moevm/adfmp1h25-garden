@@ -7,10 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.garden.models.Bed
-import com.example.garden.models.Changes
-import com.example.garden.models.Gallery
-import com.example.garden.models.Notifications
-import com.example.garden.models.Statistics
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -22,10 +18,10 @@ interface BedDao {
     fun getBedArchiveList(): Flow<List<Bed>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun  insertBed(bed: Bed)
+    suspend fun insertBed(bed: Bed)
 
     @Delete()
-    suspend fun  deleteBed(bed: Bed)
+    suspend fun deleteBed(bed: Bed)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateBed(bed: Bed)
