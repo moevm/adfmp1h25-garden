@@ -48,20 +48,16 @@ fun NotificationDetailScreen(navController: NavHostController, dbViewModel: DBVi
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.arrow_back),
                     contentDescription = null,
-
                     )
             }
             //TitleText(bed.id.toString())
         }
-
         HorizontalDivider(
             color = LightGreen,
             thickness = 2.dp,
             modifier = Modifier
                 .padding(vertical = 15.dp)
-
         )
-
         Column(modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp)) {
