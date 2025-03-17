@@ -59,7 +59,6 @@ fun HomeScreen(navController: NavHostController, bedViewModel: DBViewModel) {
                 }
             }
         },
-
         ) { innerPadding ->
         BottomNavGraph(
             navControllerBottom,
@@ -68,5 +67,4 @@ fun HomeScreen(navController: NavHostController, bedViewModel: DBViewModel) {
             bedViewModel
         )
     }
-
 }
