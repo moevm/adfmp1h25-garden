@@ -67,14 +67,11 @@ fun CalendarScreen(
     dbViewModel: DBViewModel,
     calendarViewModel: CalendarViewModel = hiltViewModel()
 ) {
-
-
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(White)
     ) {
-
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -87,17 +84,23 @@ fun CalendarScreen(
                 year = calendarViewModel.year.collectAsState().value,
                 listMonth = calendarViewModel.listMonth.value,
                 changeMonth = calendarViewModel::setMonth,
-                decYear = { if(!calendarViewModel.decYear()){
-                    Toast.makeText(context,
-                        context.getString(R.string.too_early_a_year), Toast.LENGTH_SHORT).show()
-                }},
-                incYear = { if(!calendarViewModel.incYear()){
-                    Toast.makeText(context,
-                        context.getString(R.string.too_late_a_year), Toast.LENGTH_SHORT).show()
-                }
+                decYear = {
+                    if (!calendarViewModel.decYear()) {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.too_early_a_year), Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 },
-
-                )
+                incYear = {
+                    if (!calendarViewModel.incYear()) {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.too_late_a_year), Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                },
+            )
             AddNotificationButton(
                 addNotification = dbViewModel::addNotification,
                 listBeds = dbViewModel.listBeds.collectAsState().value
@@ -109,7 +112,6 @@ fun CalendarScreen(
             thickness = 2.dp,
             modifier = Modifier
                 .padding(vertical = 15.dp)
-
         )
         Column(
             Modifier
@@ -131,7 +133,6 @@ fun CalendarScreen(
 //            Text(text = el.title)
 //
 //        }
-
     }
 }
 
@@ -139,7 +140,6 @@ fun CalendarScreen(
 fun Legend(
     legend: List<Pair<Int, Color>>
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -171,7 +171,6 @@ fun Legend(
                 )
             }
         }
-
     }
 }
 
