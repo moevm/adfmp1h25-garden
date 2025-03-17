@@ -130,7 +130,7 @@ class CalendarViewModel @Inject constructor(
     }
 
     fun incYear(): Boolean {
-        if (_year.value > Calendar.YEAR + 5) {
+        if (_year.value > getCurrentYear() + 5) {
             return false
         }
         _year.value++
@@ -139,12 +139,17 @@ class CalendarViewModel @Inject constructor(
     }
 
     fun decYear(): Boolean {
-        if (_year.value > Calendar.YEAR - 1) {
+        if (_year.value < getCurrentYear() - 1) {
             return false
         }
         _year.value--
         setListDays()
         return true
+    }
+
+    private fun getCurrentYear(): Int {
+        val calendar = Calendar.getInstance()
+        return calendar.get(Calendar.YEAR)
     }
 
     fun changeDate() = viewModelScope.launch {
