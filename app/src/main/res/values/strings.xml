@@ -68,6 +68,7 @@
     <string name="alert_title_dismiss_create">Подтвердить отмену создания</string>
     <string name="alert_title_dismiss_edit">Подтвердить отмену</string>
     <string name="no_beds_available">Тут пока нет грядок. Создайте, чтобы начать!</string>
+    <string name="no_notification_date_available">На выбранную дату пока не уведомлений. Создайте, чтобы начать!</string>
     <string name="my_beds">Мои грядки</string>
     <string name="image">Картинка</string>
     <string name="has_been_moved_to_the_archive">" была перемещена в архив"</string>
