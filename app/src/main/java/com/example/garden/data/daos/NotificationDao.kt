@@ -1,6 +1,5 @@
 package com.example.garden.data.daos
 
-import android.util.Log
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -24,7 +23,9 @@ interface NotificationDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateNotification(notifications: Notifications)
 
-    @Query("SELECT * FROM notification_tbl WHERE strftime('%Y', date(dateStart)) = :year AND strftime('%m', date(dateStart)) = :month " +
-           "OR strftime('%Y', dateEnd) = :year AND strftime('%m', dateEnd) = :month")
-    fun getNotificationByDate(year:String, month:String): Flow<List<Notifications>>
+    @Query(
+        "SELECT * FROM notification_tbl WHERE strftime('%Y', date(dateStart)) = :year AND strftime('%m', date(dateStart)) = :month " +
+                "OR strftime('%Y', dateEnd) = :year AND strftime('%m', dateEnd) = :month"
+    )
+    fun getNotificationByDate(year: String, month: String): Flow<List<Notifications>>
 }

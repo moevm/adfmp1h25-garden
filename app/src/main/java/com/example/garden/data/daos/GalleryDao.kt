@@ -18,11 +18,11 @@ interface GalleryDao {
     suspend fun insertImage(gallery: Gallery)
 
     @Delete()
-    suspend fun  deleteImage(gallery: Gallery)
+    suspend fun deleteImage(gallery: Gallery)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateImage(gallery: Gallery)
 
     @Query("SELECT * FROM gallery_tbl WHERE bed_id == :id")
-    fun getImagesByBed(id:String): Flow<List<Gallery>>
+    fun getImagesByBed(id: String): Flow<List<Gallery>>
 }
