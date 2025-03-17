@@ -29,5 +29,6 @@ fun BottomNavGraph(
         composable(Destination.Notifications.route) {
             NotificationScreen(navController, dbViewModel)
         }
+
     }
 }
