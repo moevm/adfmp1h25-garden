@@ -77,4 +77,5 @@
     <string name="restore_title">Восстановление грядки</string>
     <string name="restore_mes">Вы хотите восстановить</string>
     <string name="restore">Восстановить</string>
+    <string name="too_late_a_year">Слишком поздний год</string>
 </resources>

@@ -129,9 +129,13 @@ class CalendarViewModel @Inject constructor(
         setListDays()
     }
 
-    fun incYear() {
+    fun incYear(): Boolean {
+        if (_year.value > Calendar.YEAR + 5) {
+            return false
+        }
         _year.value++
         setListDays()
+        return true
     }
 
     fun decYear() {

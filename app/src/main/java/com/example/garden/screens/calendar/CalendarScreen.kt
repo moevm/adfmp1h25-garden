@@ -1,6 +1,7 @@
 package com.example.garden.screens.calendar
 
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -37,6 +38,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -79,13 +81,18 @@ fun CalendarScreen(
                 .padding(start = 20.dp, end = 20.dp, top = 50.dp),
             contentAlignment = Alignment.Center
         ) {
+            val context = LocalContext.current
             MonthYearPicker(
                 month = calendarViewModel.getMonth(),
                 year = calendarViewModel.year.collectAsState().value,
                 listMonth = calendarViewModel.listMonth.value,
                 changeMonth = calendarViewModel::setMonth,
                 decYear = calendarViewModel::decYear,
-                incYear = calendarViewModel::incYear,
+                incYear = { if(!calendarViewModel.incYear()){
+                    Toast.makeText(context,
+                        context.getString(R.string.too_late_a_year), Toast.LENGTH_SHORT).show()
+                }
+                },
 
                 )
             AddNotificationButton(
