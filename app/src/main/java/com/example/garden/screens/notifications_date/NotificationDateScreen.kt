@@ -131,7 +131,6 @@ fun NotificationDateScreen(navController: NavHostController, dbViewModel: DBView
             Spacer(Modifier.height(50.dp))
 
         }
-
     }
 
     Box(
