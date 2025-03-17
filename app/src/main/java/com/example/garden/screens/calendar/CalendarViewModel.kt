@@ -1,6 +1,7 @@
 package com.example.garden.screens.calendar
 
 import android.util.Log
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
@@ -18,7 +19,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import javax.inject.Inject
@@ -62,11 +65,12 @@ class CalendarViewModel @Inject constructor(
 //                }
             repository.getAllNotification().distinctUntilChanged()
                 .collect() { list ->
-                    if (list.isNullOrEmpty()) {
+                    if (list.isEmpty()) {
                         Log.d("Error", "empty list")
                     }
                     _listNotifications.value = list
-                    Log.d("DATETEST", list.toString())
+                    setListDays()
+                    //Log.d("DATETEST", list.toString())
                 }
         }
     }
@@ -77,7 +81,7 @@ class CalendarViewModel @Inject constructor(
         _listMonth.value = DataSource().getMonth()
         _year.value = calendar.get(Calendar.YEAR);
         _month.value = calendar.get(Calendar.MONTH);
-        setListDays()
+
     }
 
 
@@ -107,7 +111,7 @@ class CalendarViewModel @Inject constructor(
                 Day(
                     day = day,
                     color = getMoonStage(day),
-                    notification = false
+                    notification = checkDay(day)
                 )
             }
     }
@@ -134,12 +138,27 @@ class CalendarViewModel @Inject constructor(
         setListDays()
     }
 
+    fun checkDay(day:Int):Boolean{
+        if(day<=0)return false
 
-    fun changeDate() = viewModelScope.launch {
-        _date.value = Date(2026,3,21)
+        val sdf_year = SimpleDateFormat("yyyy")
+        val sdf_month = SimpleDateFormat("MM")
+        val sdf_day = SimpleDateFormat("dd")
+        val calendar = Calendar.getInstance()
+        calendar.set(_year.value, _month.value, day)
+        val date = Date(calendar.timeInMillis)
+
+        _listNotifications.value.forEach {
+            if(sdf_year.format(it.dateStart).toInt() <= sdf_year.format(date).toInt() &&
+                    sdf_year.format(date).toInt() <= sdf_year.format(it.dateEnd).toInt() &&
+                    sdf_month.format(it.dateStart).toInt() <= sdf_month.format(date).toInt() &&
+                    sdf_month.format(date).toInt() <= sdf_month.format(it.dateEnd).toInt() &&
+                    sdf_day.format(it.dateStart).toInt() <= sdf_day.format(date).toInt() &&
+                    sdf_day.format(date).toInt() <= sdf_day.format(it.dateEnd).toInt())
+                return true
+        }
+        return false
     }
-
-
 
 
 }

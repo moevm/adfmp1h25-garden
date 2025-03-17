@@ -82,4 +82,9 @@
     <string name="starodubov_maxim">Starodubov Maxim</string>
     <string name="about">About</string>
     <string name="sure_to_delete">Delete</string>
+    <string name="this_year">This year</string>
+    <string name="previous_year">Previous year</string>
+    <string name="other_years">Other years</string>
+    <string name="amount_too_much">Amount is too much</string>
+    <string name="unexpected_error">Unexpected error</string>
 </resources>

@@ -79,78 +79,61 @@ fun CalendarScreen(
     dbViewModel: DBViewModel,
     calendarViewModel: CalendarViewModel = hiltViewModel()
 ) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(White)
+    ) {
 
-    Box() {
-
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxSize()
-                .background(White)
+                .fillMaxWidth()
+                .padding(start = 20.dp, end = 20.dp, top = 50.dp),
+            contentAlignment = Alignment.Center
         ) {
+            MonthYearPicker(
+                month = calendarViewModel.getMonth(),
+                year = calendarViewModel.year.collectAsState().value,
+                listMonth = calendarViewModel.listMonth.value,
+                changeMonth = calendarViewModel::setMonth,
+                decYear = calendarViewModel::decYear,
+                incYear = calendarViewModel::incYear,
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp, top = 50.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                MonthYearPicker(
-                    month = calendarViewModel.getMonth(),
-                    year = calendarViewModel.year.collectAsState().value,
-                    listMonth = calendarViewModel.listMonth.value,
-                    changeMonth = calendarViewModel::setMonth,
-                    decYear = calendarViewModel::decYear,
-                    incYear = calendarViewModel::incYear,
-
-                    )
-                AddNotificationButton(
-                    addNotification = dbViewModel::addNotification,
-                    listBeds = dbViewModel.listBeds.collectAsState().value
                 )
-            }
-
-            HorizontalDivider(
-                color = LightGreen,
-                thickness = 2.dp,
-                modifier = Modifier
-                    .padding(vertical = 15.dp)
-
+            AddNotificationButton(
+                addNotification = dbViewModel::addNotification,
+                listBeds = dbViewModel.listBeds.collectAsState().value
             )
-            Column(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
-            ) {
-                DayOfWeek(calendarViewModel.listWeek.value)
-                DateGrid(
-                    calendarViewModel.listDays.collectAsState().value,
-                    onClick = {
-                        dbViewModel.saveDate(calendarViewModel.getDate(it))
-                        navController.navigate(Destination.NotificationDate.route)
-                    }
-                )
-                Legend(calendarViewModel.legend.value)
-            }
-
-            //        calendarViewModel.listNotification.collectAsState().value.forEach { el ->
-            //            Text(text = el.title)
-            //
-            //        }
-
         }
-        Column(
+
+        HorizontalDivider(
+            color = LightGreen,
+            thickness = 2.dp,
             modifier = Modifier
-                .fillMaxSize()
-                .padding(vertical = 120.dp, horizontal = 20.dp)
-                .wrapContentWidth(Alignment.End)
-                .wrapContentHeight(Alignment.Bottom)
+                .padding(vertical = 15.dp)
+
+        )
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp)
         ) {
-            Button(
-                onClick = { navController.navigate(Destination.About.route) },
-            ) {
-                Text(text = stringResource(R.string.about))
-            }
+            DayOfWeek(calendarViewModel.listWeek.value)
+            DateGrid(
+                calendarViewModel.listDays.collectAsState().value,
+                onClick = {
+                    dbViewModel.saveDate(calendarViewModel.getDate(it))
+                    navController.navigate(Destination.NotificationDate.route)
+                }
+            )
+            Legend(calendarViewModel.legend.value)
         }
+
+        //        calendarViewModel.listNotification.collectAsState().value.forEach { el ->
+        //            Text(text = el.title)
+        //
+        //        }
+
     }
 }
 

@@ -17,7 +17,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotificationViewModel @Inject constructor(
-    private val repository: BedRepository
-):ViewModel() {
 
+):ViewModel() {
+    private val _searchText = MutableStateFlow("")
+    val search = _searchText.asStateFlow()
+
+    fun searchChange(value:String){
+        _searchText.value = value
+    }
+
+    fun compare(title:String):Boolean{
+        return true
+    }
 }

@@ -15,6 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -32,7 +33,9 @@ class DBViewModel @Inject constructor(
     private val _notificationsList = MutableStateFlow<List<Notifications>>(emptyList())
     private val _archiveList = MutableStateFlow<List<Bed>>(emptyList())
     private val _date = MutableStateFlow<Date>(Date())
+    private val _bedById = MutableStateFlow<Bed?>(null)
     val archiveList = _archiveList.asStateFlow()
+
     //private val _bed_id = MutableStateFlow<String>("")
     private val _bed = MutableStateFlow(
         Bed(
@@ -56,6 +59,7 @@ class DBViewModel @Inject constructor(
     val bed get() = _bed
     val note get() = _note
     val date get() = _date
+    val bedById = _bedById.asStateFlow()
 
 
     val listBeds = _listBeds.asStateFlow()
@@ -90,6 +94,7 @@ class DBViewModel @Inject constructor(
 
         }
     }
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             repoBed.getAllNotification().distinctUntilChanged()
@@ -107,41 +112,44 @@ class DBViewModel @Inject constructor(
         _bed.value = bed_new
     }
 
-    fun saveNote(note_new:Notifications)=viewModelScope.launch() {
+    fun saveNote(note_new: Notifications) = viewModelScope.launch() {
         _note.value = note_new
     }
 
-    fun archiveBed(bed:Bed) = viewModelScope.launch {
+    fun archiveBed(bed: Bed) = viewModelScope.launch {
         var new_bed = bed
         new_bed.isArchive = true
         repoBed.updateBed(new_bed)
     }
 
-    fun saveDate(date: Date){
+    fun saveDate(date: Date) {
         _date.value = date
     }
 
 
+    fun updateNotification(notifications: Notifications) = viewModelScope.launch {
+        repoBed.updateNotification(notifications)
+    }
 
 
-    fun restoreBed(bed:Bed) = viewModelScope.launch {
+    fun restoreBed(bed: Bed) = viewModelScope.launch {
         var new_bed = bed
         new_bed.isArchive = false
         repoBed.updateBed(new_bed)
     }
 
-    fun deleteBed(bed:Bed) = viewModelScope.launch {
+    fun deleteBed(bed: Bed) = viewModelScope.launch {
         getStatByBedId(bed_id = bed.id.toString())
         getGalleryByBedId(bed_id = bed.id.toString())
         getChangesByBedId(bed_id = bed.id.toString())
 
-        listStatBed.value.forEach { stat->
+        listStatBed.value.forEach { stat ->
             repoBed.deleteStatistic(stat)
         }
-        listGalleryBed.value.forEach { img->
+        listGalleryBed.value.forEach { img ->
             repoBed.deleteImage(img)
         }
-        listChangesBed.value.forEach { change->
+        listChangesBed.value.forEach { change ->
             repoBed.deleteChange(change)
         }
         notifications
@@ -149,10 +157,11 @@ class DBViewModel @Inject constructor(
     }
 
 
-    fun addBed(value:Bed) = viewModelScope.launch {
+    fun addBed(value: Bed) = viewModelScope.launch {
 
-            repoBed.addBed(value)
+        repoBed.addBed(value)
     }
+
     fun updateBed(value: Bed) = viewModelScope.launch {
         _bed.value = value
         repoBed.updateBed(value)
@@ -169,6 +178,7 @@ class DBViewModel @Inject constructor(
             }
 
     }
+
     fun getGalleryByBedId(bed_id: String) = viewModelScope.launch(Dispatchers.IO) {
         //_bed_id.value = bed_id
         //Log.d("IMAGE LIST","add list")
@@ -181,6 +191,7 @@ class DBViewModel @Inject constructor(
             }
 
     }
+
     fun getChangesByBedId(bed_id: String) = viewModelScope.launch(Dispatchers.IO) {
         //_bed_id.value = bed_id
         repoBed.getChangeByBedId(bed_id).distinctUntilChanged()
@@ -194,21 +205,14 @@ class DBViewModel @Inject constructor(
     }
 
 
-    fun addStat() = viewModelScope.launch {
-        repoBed.addStatistic(
-            Statistics(
-                date = Date(2020358),
-                num = 19,
-                bed_id = _bed.value.id.toString()
-            )
-
-        )
+    fun addStat(statistics: Statistics) = viewModelScope.launch {
+        repoBed.addStatistic(statistics)
     }
 
     fun addNotification(
-        title:String,
-        bed_id:String,
-        description:String,
+        title: String,
+        bed_id: String,
+        description: String,
         dateStart: Date,
         dateEnd: Date,
     ) = viewModelScope.launch {
@@ -222,14 +226,15 @@ class DBViewModel @Inject constructor(
             )
         )
     }
+
     fun deleteNotification(notifications: Notifications) = viewModelScope.launch {
         repoBed.deleteNotification(notifications)
     }
 
     fun addImage(
-        img:Bitmap,
+        img: Bitmap,
         bed_id: String
-    ) = viewModelScope.launch{
+    ) = viewModelScope.launch {
         repoBed.addImage(
             Gallery(
                 img = img,
@@ -242,15 +247,15 @@ class DBViewModel @Inject constructor(
 
     fun deleteChange(changes: Changes) = viewModelScope.launch {
         repoBed.deleteChange(changes)
-        val c = if(changes.reason_type == R.string.type_reason_present) -1 else 1
+        val c = if (changes.reason_type == R.string.type_reason_present) -1 else 1
         val new_bed = Bed(
             id = _bed.value.id,
             title = _bed.value.title,
             sort = _bed.value.sort,
             isArchive = _bed.value.isArchive,
-            amount = _bed.value.amount + changes.amount*c,
+            amount = _bed.value.amount + changes.amount * c,
             description = _bed.value.description,
-            date_sowing =_bed.value.date_sowing
+            date_sowing = _bed.value.date_sowing
         )
         _bed.value = new_bed
         repoBed.updateBed(
@@ -259,11 +264,11 @@ class DBViewModel @Inject constructor(
     }
 
     fun addChanges(
-        date:Date,
+        date: Date,
         type: Int,
-        reason:String,
-        amount:String
-    ) = viewModelScope.launch{
+        reason: String,
+        amount: String
+    ) = viewModelScope.launch {
         repoBed.addChange(
             Changes(
                 date = date,
@@ -273,21 +278,30 @@ class DBViewModel @Inject constructor(
                 bed_id = bed.value.id.toString()
             )
         )
-        val c = if(type == R.string.type_reason_present) 1 else -1
+        val c = if (type == R.string.type_reason_present) 1 else -1
         val new_bed = Bed(
             id = _bed.value.id,
             title = _bed.value.title,
             sort = _bed.value.sort,
             isArchive = _bed.value.isArchive,
-            amount = _bed.value.amount + amount.toInt()*c,
+            amount = _bed.value.amount + amount.toInt() * c,
             description = _bed.value.description,
-            date_sowing =_bed.value.date_sowing
+            date_sowing = _bed.value.date_sowing
         )
         _bed.value = new_bed
         repoBed.updateBed(
             new_bed
         )
+
     }
+
+    fun getBedById(bed_id: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repoBed.getBedById(bed_id).collect() {
+                Log.d("BEDBYID_DB", it.toString())
+                _bedById.value = it
+            }
+        }
 
 
 }

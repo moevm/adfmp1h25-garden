@@ -40,6 +40,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.garden.R
 import com.example.garden.models.Bed
+import com.example.garden.models.Statistics
 import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
 import com.example.garden.screens.widgets.BottomButton
@@ -121,7 +122,6 @@ fun BedCreatingScreen(
                         bitmap = img.asImageBitmap(),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.rotate(90f)
                     )
             }
 
@@ -164,33 +164,46 @@ fun BedCreatingScreen(
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
         ) {
-            if (!amount.isDigitsOnly()) {
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.amount_must_be_a_number), Toast.LENGTH_SHORT
-                ).show()
-                return@BottomButton
-            }
-
             if (title.isNotEmpty() && sort.isNotEmpty() &&
                 date.isNotEmpty()
             ) {
-                val bed = Bed(
-                    title = title,
-                    description = desc,
-                    date_sowing = datePicker.selectedDateMillis?.let { Date(it) } ?: Date(),
-                    amount = getAmount(amount),
-                    sort = sort
-                )
-                dbViewModel.addBed(bed)
-                if (img != null)
-                    dbViewModel.addImage(img, bed.id.toString())
+                try {
+                    val bed = Bed(
+                        title = title,
+                        description = desc,
+                        date_sowing = datePicker.selectedDateMillis?.let { Date(it) } ?: Date(),
+                        amount = getAmount(amount),
+                        sort = sort,
+                        img = img
+                    )
+                    dbViewModel.addBed(bed)
+
+                    if (img != null)
+                        dbViewModel.addImage(img, bed.id.toString())
+                } catch (exception: NumberFormatException) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.amount_too_much), Toast.LENGTH_SHORT
+                    ).show()
+                    return@BottomButton
+                } catch (exception: IllegalArgumentException) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.amount_must_be_a_number), Toast.LENGTH_SHORT
+                    ).show()
+                    return@BottomButton
+                } catch (exception: Exception) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.unexpected_error), Toast.LENGTH_SHORT
+                    ).show()
+                    return@BottomButton
+                }
 
                 navController.navigate(Destination.Home.route)
             } else {
                 Toast.makeText(context, toast_mes, Toast.LENGTH_SHORT).show()
             }
-
         }
     }
     if (showImagePicker)
