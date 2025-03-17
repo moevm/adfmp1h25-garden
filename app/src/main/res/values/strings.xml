@@ -85,4 +85,6 @@
     <string name="this_year">Этот год</string>
     <string name="previous_year">Предыдуший год</string>
     <string name="other_years">За другие года</string>
+    <string name="amount_too_much">Количество слишком большое</string>
+    <string name="unexpected_error">Неопознанная ошибка</string>
 </resources>

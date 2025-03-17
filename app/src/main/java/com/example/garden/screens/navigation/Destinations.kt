@@ -30,10 +30,12 @@ sealed class BottomDestination(val destination: Destination, val icon: Int){
     data object BedsList:BottomDestination(Destination.BedsList, R.drawable.plant)
     data object Notification:BottomDestination(Destination.Notifications, R.drawable.notification)
     data object Archive:BottomDestination(Destination.Archive, R.drawable.archiive)
+    data object About:BottomDestination(Destination.About, R.drawable.about)
 }
 val bottomNav = listOf<BottomDestination>(
     BottomDestination.Calendar,
     BottomDestination.BedsList,
     BottomDestination.Notification,
-    BottomDestination.Archive
+    BottomDestination.Archive,
+    BottomDestination.About
 )
