@@ -77,5 +77,6 @@
     <string name="restore_title">Restore bed</string>
     <string name="restore_mes">You want to restore</string>
     <string name="restore">Restore</string>
-    <string name="too_late_a_year">Too late a year</string>
+    <string name="too_late_a_year">Too late a year!</string>
+    <string name="too_early_a_year">Too early a year!</string>
 </resources>
