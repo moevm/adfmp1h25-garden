@@ -51,7 +51,6 @@ fun ArchiveScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
 
         ) {
-
             Spacer(modifier = Modifier.size(20.dp))
             archiveList.forEach { bed ->
 
@@ -66,7 +65,6 @@ fun ArchiveScreen(
                         archiveViewModel.saveBed(bed)
                     }
                 )
-
             }
             Spacer(modifier = Modifier.size(60.dp))
         }
@@ -86,5 +84,4 @@ fun ArchiveScreen(
             )
         }
     }
-
 }

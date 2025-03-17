@@ -29,6 +29,4 @@ constructor(
     fun saveBed(value: Bed) {
         _bed.value = value
     }
-
-
 }
