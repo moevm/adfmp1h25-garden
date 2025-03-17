@@ -17,13 +17,13 @@ import java.util.UUID
 //        onDelete = androidx.room.ForeignKey.CASCADE
 //    )]
 )
-data class Statistics (
+data class Statistics(
     @PrimaryKey
     val id: UUID = UUID.randomUUID(),
     val date: Date,
     val num: Int,
     val bed_id: String,
-    val tmp_id:Int =0,
+    val tmp_id: Int = 0,
 )
 
 class BedWithStat {
