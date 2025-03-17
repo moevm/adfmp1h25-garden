@@ -155,6 +155,4 @@ class CalendarViewModel @Inject constructor(
     fun changeDate() = viewModelScope.launch {
         _date.value = Date(2026, 3, 21)
     }
-
-
 }
