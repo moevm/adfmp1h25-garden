@@ -145,9 +145,16 @@ fun BedEditScreen(
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
         ) {
-            if (title.isNotEmpty() && sort.isNotEmpty() && amount.isNotEmpty() &&
-                amount.isDigitsOnly() && desc.isNotEmpty() && date.isNotEmpty()
-            ) {
+            if (!amount.isDigitsOnly()) {
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.amount_must_be_a_number), Toast.LENGTH_SHORT
+                ).show()
+                return@BottomButton
+            }
+            if (title.isNotEmpty() && sort.isNotEmpty() &&
+                date.isNotEmpty()
+                ) {
                 var new_bed =
                     Bed(
                         id = bed.id,
