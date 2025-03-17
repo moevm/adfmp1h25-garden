@@ -68,7 +68,6 @@ fun BedsListScreen(
             .fillMaxWidth()
             .padding(bottom = 96.dp)
     ) {
-
         val onAddClick: () -> Unit = { navController.navigate(Destination.BedCreating.route) }
         Header(onAddClick = onAddClick)
 
@@ -84,7 +83,6 @@ fun BedsListScreen(
                 color = Color.Gray
             )
         } else {
-
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier
@@ -94,7 +92,6 @@ fun BedsListScreen(
                         16.dp
                     )
             )
-
             {
                 viewModel.listBeds.collectAsState().value.forEach { bed ->
 

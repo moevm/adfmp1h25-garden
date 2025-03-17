@@ -80,5 +80,4 @@ class BedRepository @Inject constructor(
     fun getNotificationByDate(year: String, month: String):
             Flow<List<Notifications>> =
         notificationDao.getNotificationByDate(year, month).flowOn(Dispatchers.IO).conflate()
-
 }
