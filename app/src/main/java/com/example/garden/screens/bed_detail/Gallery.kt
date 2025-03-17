@@ -1,9 +1,11 @@
 package com.example.garden.screens.bed_detail
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.content.MediaType.Companion.Text
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
@@ -15,6 +17,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +38,7 @@ import com.example.garden.models.Gallery
 import com.example.garden.screens.widgets.text.ChapterText
 import com.example.garden.ui.theme.Black
 import com.example.garden.ui.theme.White
+import java.text.SimpleDateFormat
 
 @Composable
 fun Gallery(listGallery: List<Gallery>, onAddClick: () -> Unit) {
@@ -67,7 +71,7 @@ fun Gallery(listGallery: List<Gallery>, onAddClick: () -> Unit) {
             )
         }
     }
-
+    val sdf = SimpleDateFormat("dd.MM.yyyy")
     if (galleryShow)
         Row(
             modifier = Modifier
@@ -77,18 +81,26 @@ fun Gallery(listGallery: List<Gallery>, onAddClick: () -> Unit) {
 
             ) {
             listGallery.forEach { img ->
-                Box(
-                    modifier = Modifier
-                        .size(75.dp)
-                        .clip(RoundedCornerShape(20))
-                        .rotate(90f)
-                ) {
-                    Image(
-                        bitmap = img.img.asImageBitmap(),
-                        contentDescription = "",
-                        contentScale = ContentScale.Crop
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    Box(
+                        modifier = Modifier
+                            .size(75.dp)
+                            .clip(RoundedCornerShape(20))
+                    ) {
+                        Image(
+                            bitmap = img.img.asImageBitmap(),
+                            contentDescription = "",
+                            contentScale = ContentScale.Crop
+                        )
+
+                    }
+                    Text(
+                        text = sdf.format(img.date)
                     )
                 }
+
             }
             Button(
                 onClick = onAddClick,

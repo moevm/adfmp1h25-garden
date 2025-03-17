@@ -24,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -43,7 +45,7 @@ fun BedItem(
     onDeleteClick: () -> Unit,
     modifier: Modifier = Modifier,
 
-) {
+    ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -72,11 +74,22 @@ fun BedItem(
 
 
 
-            Row(verticalAlignment = Alignment.Top,modifier = Modifier
-                .padding(12.dp)) {
-                Column(
-                    verticalArrangement = Arrangement.Center
-                ) {
+        Row(
+            verticalAlignment = Alignment.Top, modifier = Modifier
+                .padding(12.dp)
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Center
+            ) {
+                if (bed.img != null)
+                    Image( // TODO: другая картинка
+                        bed.img.asImageBitmap(),
+                        contentDescription = stringResource(R.string.image),
+                        modifier = Modifier
+                            .size(96.dp)
+                            .fillMaxSize()
+                    )
+                else
                     Image( // TODO: другая картинка
                         painterResource(R.drawable.image),
                         contentDescription = stringResource(R.string.image),
@@ -84,21 +97,21 @@ fun BedItem(
                             .size(96.dp)
                             .fillMaxSize()
                     )
-                }
-                Spacer(modifier = Modifier.width(16.dp))
-
-                Column(
-                    modifier = Modifier.padding(top = 5.dp)
-                ) {
-                    BigCardText(
-                        text = bed.title,
-                    )
-                    MediumCardText(
-                        text = bed.sort
-                    )
-                }
-
             }
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(
+                modifier = Modifier.padding(top = 5.dp)
+            ) {
+                BigCardText(
+                    text = bed.title,
+                )
+                MediumCardText(
+                    text = bed.sort
+                )
+            }
+
+        }
 //            SmallCardText(
 //                text = bed.description,
 //                fontSize = 15.sp,

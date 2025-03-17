@@ -79,4 +79,15 @@
     <string name="restore">Восстановить</string>
     <string name="too_late_a_year">Слишком поздний год!</string>
     <string name="too_early_a_year">Слишком ранний год!</string>
+    <string name="authors">Aвторы:</string>
+    <string name="vinogradova_margarita">Виноградова Маргарита</string>
+    <string name="horoshkova_alexandra">Хорошкова Александра</string>
+    <string name="starodubov_maxim">Стародубов Максим</string>
+    <string name="about">О приложении</string>
+    <string name="sure_to_delete">Вы уверены что хотите удалить</string>
+    <string name="this_year">Этот год</string>
+    <string name="previous_year">Предыдуший год</string>
+    <string name="other_years">За другие года</string>
+    <string name="amount_too_much">Количество слишком большое</string>
+    <string name="unexpected_error">Неопознанная ошибка</string>
 </resources>

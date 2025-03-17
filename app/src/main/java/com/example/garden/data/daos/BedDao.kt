@@ -26,7 +26,7 @@ interface BedDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateBed(bed: Bed)
 
-    @Query("SELECT * FROM bed_list_tbl WHERE id == :id")
-    fun getBedById(id: String): Flow<Bed?>
+    @Query("SELECT * FROM bed_list_tbl WHERE tmp_id == :id")
+    fun getBedById(id:String): Flow<Bed?>
 
 }

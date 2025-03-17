@@ -79,4 +79,15 @@
     <string name="restore">Restore</string>
     <string name="too_late_a_year">Too late a year!</string>
     <string name="too_early_a_year">Too early a year</string>
+    <string name="authors">Authors:</string>
+    <string name="vinogradova_margarita">Vinogradova Margarita</string>
+    <string name="horoshkova_alexandra">Horoshkova Alexandra</string>
+    <string name="starodubov_maxim">Starodubov Maxim</string>
+    <string name="about">About</string>
+    <string name="sure_to_delete">Delete</string>
+    <string name="this_year">This year</string>
+    <string name="previous_year">Previous year</string>
+    <string name="other_years">Other years</string>
+    <string name="amount_too_much">Amount is too much</string>
+    <string name="unexpected_error">Unexpected error</string>
 </resources>

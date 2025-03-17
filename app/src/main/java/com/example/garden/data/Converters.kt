@@ -22,10 +22,11 @@ class Converters {
     }
 
     @TypeConverter
-    fun bitmapToStart(bitmap: Bitmap): String {
+    fun bitmapToStart(bitmap: Bitmap?):String{
         val output = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, output)
-        return Base64.encodeToString(output.toByteArray(), Base64.DEFAULT)
+        bitmap?.compress(Bitmap.CompressFormat.JPEG,70,output)
+
+        return Base64.encodeToString(output.toByteArray(),Base64.DEFAULT)
     }
 
     @TypeConverter

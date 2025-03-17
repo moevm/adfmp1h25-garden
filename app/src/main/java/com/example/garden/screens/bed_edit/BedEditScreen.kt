@@ -143,27 +143,40 @@ fun BedEditScreen(
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
         ) {
-            if (!amount.isDigitsOnly()) {
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.amount_must_be_a_number), Toast.LENGTH_SHORT
-                ).show()
-                return@BottomButton
-            }
-            if (title.isNotEmpty() && sort.isNotEmpty() &&
-                date.isNotEmpty()
-                ) {
-                var new_bed =
-                    Bed(
-                        id = bed.id,
-                        title = title,
-                        description = desc,
-                        date_sowing = datePicker.selectedDateMillis?.let { Date(it) } ?: Date(),
-                        amount = amount.toInt(),
-                        sort = sort,
-                        isArchive = bed.isArchive
-                    )
-                dbViewModel.updateBed(new_bed)
+            if (title.isNotEmpty() && sort.isNotEmpty() && amount.isNotEmpty() &&
+                amount.isDigitsOnly() && desc.isNotEmpty() && date.isNotEmpty()
+            ) {
+                try {
+                    var new_bed =
+                        Bed(
+                            id = bed.id,
+                            title = title,
+                            description = desc,
+                            date_sowing = datePicker.selectedDateMillis?.let { Date(it) } ?: Date(),
+                            amount = amount.toInt(),
+                            sort = sort,
+                            isArchive = bed.isArchive
+                        )
+                    dbViewModel.updateBed(new_bed)
+                } catch (exception: NumberFormatException) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.amount_too_much), Toast.LENGTH_SHORT
+                    ).show()
+                    return@BottomButton
+                } catch (exception: IllegalArgumentException) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.amount_must_be_a_number), Toast.LENGTH_SHORT
+                    ).show()
+                    return@BottomButton
+                } catch (exception: Exception) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.unexpected_error), Toast.LENGTH_SHORT
+                    ).show()
+                    return@BottomButton
+                }
                 navController.navigate(Destination.BedDetail.route)
             } else {
                 Toast.makeText(context, toast_mes, Toast.LENGTH_SHORT).show()

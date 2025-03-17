@@ -184,24 +184,7 @@ fun BedDetailScreen(
                 )
 
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                ChapterText(stringResource(R.string.statistics))
-                IconButton(
-                    onClick = {
-
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.KeyboardArrowDown,
-                        contentDescription = null,
-                        modifier = Modifier.size(35.dp)
-                    )
-                }
-            }
+            Statistics(listChange.sortedBy { it.date }, bedDetailViewModel.getMax(listChange), bedDetailViewModel.getMin(listChange))
 
             Changes(
                 listChanges = listChange,
