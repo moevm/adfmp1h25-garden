@@ -121,7 +121,7 @@ fun ArchiveScreen(
     if (archiveViewModel.showWarningDelete.value) {
         bed?.title?.let {
             WarningAlertDialog(
-                title = stringResource(R.string.sure_to_delete) + " " + bed.title + " ?",
+                title = stringResource(R.string.sure_to_delete) + " " + bed.title + "?",
                 onConfirm = {
                     dbViewModel.deleteBed(bed)
                     archiveViewModel.changeWarningDeleteShow(false)
