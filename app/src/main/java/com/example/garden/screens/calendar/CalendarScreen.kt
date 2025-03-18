@@ -314,7 +314,8 @@ fun AddNotificationButton(
         mutableStateOf(false)
     }
 
-
+    val context = LocalContext.current
+    val alert_message = stringResource(R.string.create_bed_to_add_notification)
 
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -323,7 +324,15 @@ fun AddNotificationButton(
     ) {
         IconButton(
             onClick = {
-                addAlert = true
+                if (listBeds.isNotEmpty()) {
+                    addAlert = true
+                } else {
+                    Toast.makeText(
+                        context,
+                        alert_message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             },
             modifier = Modifier
                 .clip(RoundedCornerShape(percent = 50))
@@ -338,14 +347,6 @@ fun AddNotificationButton(
 
                 )
         }
-    }
-
-    if (addAlert && listBeds.isEmpty()) {
-        Toast.makeText(
-            LocalContext.current,
-            stringResource(R.string.create_bed_to_add_notification),
-            Toast.LENGTH_LONG
-        ).show()
     }
 
     if (addAlert && listBeds.isNotEmpty())
