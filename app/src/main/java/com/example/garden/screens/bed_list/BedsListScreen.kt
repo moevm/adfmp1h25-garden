@@ -27,6 +27,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,7 +50,9 @@ import com.example.garden.R
 import com.example.garden.models.Bed
 import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
+import com.example.garden.screens.widgets.ArchiveAlertDialog
 import com.example.garden.screens.widgets.BedItem
+import com.example.garden.screens.widgets.WarningAlertDialog
 import com.example.garden.screens.widgets.text.ChapterText
 import com.example.garden.screens.widgets.text.TitleText
 import com.example.garden.ui.theme.Black
@@ -60,6 +66,8 @@ fun BedsListScreen(
     bedListViewModel: BedListViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+
+    var bedToArchive: Bed? by remember { mutableStateOf<Bed?>(null) }
 
     val beds = viewModel.listBeds.collectAsState().value
     Column(
@@ -96,6 +104,7 @@ fun BedsListScreen(
                 viewModel.listBeds.collectAsState().value.forEach { bed ->
 
                     val deleteFunction: () -> Unit = {
+
                         viewModel.archiveBed(bed)
                         Toast.makeText(
                             context,
@@ -105,7 +114,7 @@ fun BedsListScreen(
                     }
                     BedItem(
                         bed = bed,
-                        onDeleteClick = deleteFunction,
+                        onDeleteClick = { bedToArchive = bed },
                         modifier = Modifier.clickable {
                             //Toast.makeText(context, el.id.toString(), Toast.LENGTH_SHORT).show()
                             //не удалять
@@ -119,6 +128,26 @@ fun BedsListScreen(
                 }
             }
         }
+    }
+
+    // INFO: saving to local variable to manage thread-safe assertion
+    val selectedBedToArchive = bedToArchive
+    if (selectedBedToArchive != null) {
+        WarningAlertDialog(
+            onConfirm = {
+                viewModel.archiveBed(selectedBedToArchive)
+                Toast.makeText(
+                    context,
+                    selectedBedToArchive.title + context.getString(R.string.has_been_moved_to_the_archive),
+                    Toast.LENGTH_SHORT
+                ).show()
+                bedToArchive = null
+            },
+            onDismiss = {
+                bedToArchive = null
+            },
+            title = stringResource(R.string.are_you_sure_you_want_to_archive_bed) + " " + selectedBedToArchive.title + "?"
+        )
     }
 }
 
