@@ -90,4 +90,6 @@
     <string name="other_years">За другие года</string>
     <string name="amount_too_much">Количество слишком большое</string>
     <string name="unexpected_error">Неопознанная ошибка</string>
+    <string name="bed_successfully_created">Грядка успешно создана</string>
+    <string name="bed_successfully_updated">Грядка успешно обновлена</string>
 </resources>

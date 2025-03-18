@@ -90,4 +90,6 @@
     <string name="other_years">Other years</string>
     <string name="amount_too_much">Amount is too much</string>
     <string name="unexpected_error">Unexpected error</string>
+    <string name="bed_successfully_created">Bed successfully created</string>
+    <string name="bed_successfully_updated">Bed successfully updated</string>
 </resources>
