@@ -340,7 +340,15 @@ fun AddNotificationButton(
         }
     }
 
-    if (addAlert)
+    if (addAlert && listBeds.isEmpty()) {
+        Toast.makeText(
+            LocalContext.current,
+            stringResource(R.string.create_bed_to_add_notification),
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    if (addAlert && listBeds.isNotEmpty())
         AddNotificationAlertDialog(
             onDismissRequest = {
                 addAlert = false
