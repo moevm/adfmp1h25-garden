@@ -177,6 +177,10 @@ fun BedEditScreen(
                     ).show()
                     return@BottomButton
                 }
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.bed_successfully_updated), Toast.LENGTH_SHORT
+                ).show()
                 navController.navigate(Destination.BedDetail.route)
             } else {
                 Toast.makeText(context, toast_mes, Toast.LENGTH_SHORT).show()
