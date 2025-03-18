@@ -92,4 +92,5 @@
     <string name="unexpected_error">Unexpected error</string>
     <string name="bed_successfully_created">Bed successfully created</string>
     <string name="bed_successfully_updated">Bed successfully updated</string>
+    <string name="create_bed_to_add_notification">Create bed to\nadd notification</string>
 </resources>
