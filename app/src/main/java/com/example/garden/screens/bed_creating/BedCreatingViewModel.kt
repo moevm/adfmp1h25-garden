@@ -59,5 +59,4 @@ class BedCreatingViewModel @Inject constructor() : ViewModel() {
     fun saveImage(value: Bitmap) {
         _image.value = value
     }
-
 }

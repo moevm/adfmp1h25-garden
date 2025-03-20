@@ -25,5 +25,4 @@ interface StatisticDao {
 
     @Query("SELECT * FROM stat_tbl WHERE bed_id == :id")
     fun getStatByBed(id: String): Flow<List<Statistics>>
-
 }

@@ -42,8 +42,6 @@ fun Statistics(listChanges: List<Changes>, max: Int, min: Int) {
     var statArrow by remember {
         mutableStateOf(0f)
     }
-
-
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -83,7 +81,6 @@ fun Statistics(listChanges: List<Changes>, max: Int, min: Int) {
 
 @Composable
 fun ChartBar(changes: Changes, height: Float, max: Int, min: Int) {
-
     val sdf = SimpleDateFormat("dd.MM")
     if (changes.reason_type == R.string.type_reason_present) {
 
@@ -156,7 +153,5 @@ fun ChartBar(changes: Changes, height: Float, max: Int, min: Int) {
                 )
 
         }
-
-
     }
 }

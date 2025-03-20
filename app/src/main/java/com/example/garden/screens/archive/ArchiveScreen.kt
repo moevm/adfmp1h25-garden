@@ -36,7 +36,6 @@ fun ArchiveScreen(
     val archiveListPrevYear = archiveViewModel.archiveListPrevYear.collectAsState().value
     val archiveListOtherYear = archiveViewModel.archiveListOtherYear.collectAsState().value
 
-
     LaunchedEffect(archiveList) {
         archiveViewModel.filter(archiveList)
     }
@@ -86,7 +85,6 @@ fun ArchiveScreen(
 
             ChapterText(stringResource(R.string.other_years))
             archiveListOtherYear.forEach { bed ->
-
                 BedItem(
                     bed = bed,
                     onDeleteClick = {
@@ -99,7 +97,6 @@ fun ArchiveScreen(
                     }
                 )
             }
-
             Spacer(modifier = Modifier.size(60.dp))
         }
     }
@@ -130,5 +127,4 @@ fun ArchiveScreen(
             )
         }
     }
-
 }

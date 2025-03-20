@@ -56,7 +56,6 @@ class DataSource {
         )
     }
 
-
     fun getWeek(): List<Int> {
         return listOf(
             R.string.monday,

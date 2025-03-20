@@ -48,7 +48,6 @@ fun Changes(
         mutableStateOf(0f)
     }
 
-
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,

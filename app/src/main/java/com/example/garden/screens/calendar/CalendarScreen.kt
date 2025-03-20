@@ -280,7 +280,6 @@ fun MonthYearPicker(
             fontWeight = FontWeight.SemiBold,
             color = FontBlackColor
         )
-
         IconButton(
             onClick = incYear
         ) {
@@ -292,7 +291,6 @@ fun MonthYearPicker(
                     .rotate(-90f)
             )
         }
-
     }
 }
 
@@ -354,8 +352,6 @@ fun AddNotificationButton(
             onConfirmation = addNotification,
             listBeds = listBeds
         )
-
-
 }
 
 
@@ -377,7 +373,6 @@ private fun Prev() {
             incYear = {}
         )
     }
-
 }
 
 @Composable
@@ -421,9 +416,6 @@ fun DateGrid(listDays: List<Day>, onClick: (Day) -> Unit) {
                             .align(Alignment.TopEnd)
                     )
             }
-
         }
-
-
     }
 }

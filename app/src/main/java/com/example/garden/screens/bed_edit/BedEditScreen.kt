@@ -85,7 +85,6 @@ fun BedEditScreen(
                     contentDescription = null
                 )
             }
-
         }
         HorizontalDivider(
             color = LightGreen,

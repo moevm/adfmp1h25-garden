@@ -27,6 +27,5 @@ interface BedDao {
     suspend fun updateBed(bed: Bed)
 
     @Query("SELECT * FROM bed_list_tbl WHERE tmp_id == :id")
-    fun getBedById(id:String): Flow<Bed?>
-
+    fun getBedById(id: String): Flow<Bed?>
 }

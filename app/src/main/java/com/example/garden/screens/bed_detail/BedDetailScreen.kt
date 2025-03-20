@@ -152,8 +152,6 @@ fun BedDetailScreen(
 
             }
         }
-
-
         HorizontalDivider(
             color = LightGreen,
             thickness = 2.dp,
@@ -180,8 +178,6 @@ fun BedDetailScreen(
                 },
 
                 )
-
-
             Statistics(
                 listChange.sortedBy { it.date },
                 bedDetailViewModel.getMax(listChange),
@@ -192,7 +188,6 @@ fun BedDetailScreen(
                 listChanges = listChange,
                 onDeleteClick = dbViewModel::deleteChange
             )
-
         }
     }
 
@@ -218,7 +213,6 @@ fun BedDetailScreen(
                 //alertImageShow = false
             }
         )
-
     if (alertShowAddChanges)
         ChangesAlertDialog(
             onDismiss = {
@@ -227,7 +221,6 @@ fun BedDetailScreen(
             },
             onConfirm = dbViewModel::addChanges,
         )
-
 }
 
 

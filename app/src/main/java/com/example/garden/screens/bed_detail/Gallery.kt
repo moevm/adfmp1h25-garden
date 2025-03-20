@@ -47,8 +47,6 @@ fun Gallery(listGallery: List<Gallery>, onAddClick: () -> Unit) {
     var galleryArrow by remember {
         mutableStateOf(0f)
     }
-
-
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -93,13 +91,11 @@ fun Gallery(listGallery: List<Gallery>, onAddClick: () -> Unit) {
                             contentDescription = "",
                             contentScale = ContentScale.Crop
                         )
-
                     }
                     Text(
                         text = sdf.format(img.date)
                     )
                 }
-
             }
             Button(
                 onClick = onAddClick,
@@ -114,6 +110,4 @@ fun Gallery(listGallery: List<Gallery>, onAddClick: () -> Unit) {
                 )
             }
         }
-
-
 }

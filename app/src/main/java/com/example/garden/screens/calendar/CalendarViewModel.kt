@@ -180,6 +180,4 @@ class CalendarViewModel @Inject constructor(
         }
         return false
     }
-
-
 }

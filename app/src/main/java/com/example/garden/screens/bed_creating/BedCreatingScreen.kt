@@ -148,8 +148,6 @@ fun BedCreatingScreen(
                 imeAction = ImeAction.Done
             )
         }
-
-
     }
     Box(
         modifier = Modifier
@@ -230,7 +228,6 @@ fun BedCreatingScreen(
                 navController.navigate(Destination.Home.route)
             }
         )
-
 }
 
 fun getAmount(amount: String): Int {
