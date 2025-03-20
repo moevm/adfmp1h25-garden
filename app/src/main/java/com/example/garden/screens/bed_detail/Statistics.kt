@@ -1,6 +1,5 @@
 package com.example.garden.screens.bed_detail
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
@@ -26,13 +24,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.garden.R
 import com.example.garden.models.Changes
 import com.example.garden.screens.widgets.text.ChapterText
-import com.example.garden.ui.theme.DarkGreen
 import com.example.garden.ui.theme.LightGreen
 import com.example.garden.ui.theme.White
 import java.text.SimpleDateFormat
@@ -91,37 +87,47 @@ fun ChartBar(changes: Changes, height: Float, max: Int, min: Int) {
     val sdf = SimpleDateFormat("dd.MM")
     if (changes.reason_type == R.string.type_reason_present) {
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.height(200.dp)) {
-            if(max - changes.amount != 0 )Box(
-                modifier = Modifier.weight((max - changes.amount) / height)
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.height(200.dp)
+        ) {
+            if (max - changes.amount != 0) Box(
+                modifier = Modifier
+                    .weight((max - changes.amount) / height)
                     .width(
                         30.dp,
                     )
                     .background(White),
             )
             Box(
-                modifier = Modifier.weight(changes.amount / height)
+                modifier = Modifier
+                    .weight(changes.amount / height)
                     .width(
                         30.dp,
                     )
                     .background(LightGreen),
                 contentAlignment = Alignment.Center
-            ){
+            ) {
                 Text(changes.amount.toString(), color = White)
             }
             Text(sdf.format(changes.date))
             Box(
-                modifier = Modifier.weight((height - min) / height)
+                modifier = Modifier
+                    .weight((height - min) / height)
                     .width(
                         30.dp,
                     )
                     .background(White),
             )
         }
-    }else{
-        Column(modifier = Modifier.height(200.dp),horizontalAlignment = Alignment.CenterHorizontally,) {
+    } else {
+        Column(
+            modifier = Modifier.height(200.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
             Box(
-                modifier = Modifier.weight((height - max) / height)
+                modifier = Modifier
+                    .weight((height - max) / height)
                     .width(
                         30.dp,
                     )
@@ -129,23 +135,25 @@ fun ChartBar(changes: Changes, height: Float, max: Int, min: Int) {
             )
             Text(sdf.format(changes.date))
             Box(
-                modifier = Modifier.weight(changes.amount / height)
+                modifier = Modifier
+                    .weight(changes.amount / height)
                     .width(
                         30.dp,
                     )
                     .background(LightGreen),
                 contentAlignment = Alignment.Center
-            ){
+            ) {
                 Text(changes.amount.toString(), color = White)
             }
-            if(min - changes.amount !=0)
-            Box(
-                modifier = Modifier.weight((min - changes.amount ) / height)
-                    .width(
-                        30.dp,
-                    )
-                    .background(White),
-            )
+            if (min - changes.amount != 0)
+                Box(
+                    modifier = Modifier
+                        .weight((min - changes.amount) / height)
+                        .width(
+                            30.dp,
+                        )
+                        .background(White),
+                )
 
         }
 

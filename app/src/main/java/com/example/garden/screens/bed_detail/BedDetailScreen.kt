@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.HorizontalDivider
@@ -39,7 +38,6 @@ import com.example.garden.screens.navigation.Destination
 import com.example.garden.screens.widgets.AddNotificationAlertDialog
 import com.example.garden.screens.widgets.ChangesAlertDialog
 import com.example.garden.screens.widgets.ImageAlertDialog
-import com.example.garden.screens.widgets.text.ChapterText
 import com.example.garden.screens.widgets.text.ContentText
 import com.example.garden.screens.widgets.text.DropMenuText
 import com.example.garden.screens.widgets.text.TitleText
@@ -184,7 +182,11 @@ fun BedDetailScreen(
                 )
 
 
-            Statistics(listChange.sortedBy { it.date }, bedDetailViewModel.getMax(listChange), bedDetailViewModel.getMin(listChange))
+            Statistics(
+                listChange.sortedBy { it.date },
+                bedDetailViewModel.getMax(listChange),
+                bedDetailViewModel.getMin(listChange)
+            )
 
             Changes(
                 listChanges = listChange,

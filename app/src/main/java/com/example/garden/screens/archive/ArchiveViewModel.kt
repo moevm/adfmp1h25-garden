@@ -35,7 +35,8 @@ constructor(
     init {
         _year.value = Calendar.getInstance().get(Calendar.YEAR)
     }
-    fun filter(list: List<Bed>){
+
+    fun filter(list: List<Bed>) {
         val sdf_year = SimpleDateFormat("yyyy")
         _archiveListThisYear.value = list.filter {
             sdf_year.format(it.date_sowing).toInt() == _year.value
@@ -48,11 +49,12 @@ constructor(
                     sdf_year.format(it.date_sowing).toInt() != _year.value - 1
         }
     }
-    fun changeWarningResolveShow(value:Boolean){
+
+    fun changeWarningResolveShow(value: Boolean) {
         _showWarningResolve.value = value
     }
 
-    fun changeWarningDeleteShow(value:Boolean){
+    fun changeWarningDeleteShow(value: Boolean) {
         _showWarningDelete.value = value
     }
 

@@ -1,7 +1,6 @@
 package com.example.garden.screens.bed_detail
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.content.MediaType.Companion.Text
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -83,7 +82,7 @@ fun Gallery(listGallery: List<Gallery>, onAddClick: () -> Unit) {
             listGallery.forEach { img ->
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
-                ){
+                ) {
                     Box(
                         modifier = Modifier
                             .size(75.dp)

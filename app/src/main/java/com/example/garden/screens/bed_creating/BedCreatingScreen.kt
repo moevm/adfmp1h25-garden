@@ -24,7 +24,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -40,7 +39,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.garden.R
 import com.example.garden.models.Bed
-import com.example.garden.models.Statistics
 import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
 import com.example.garden.screens.widgets.BottomButton

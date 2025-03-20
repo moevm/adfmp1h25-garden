@@ -37,17 +37,18 @@ class BedDetailViewModel @Inject constructor() : ViewModel() {
         _alertShowAddChanges.value = alertShowAddChanges
     }
 
-    fun getMax(list:List<Changes>):Int{
+    fun getMax(list: List<Changes>): Int {
         var max = 0
         list.forEach {
-            if(max<it.amount && it.reason_type == R.string.type_reason_present) max = it.amount
+            if (max < it.amount && it.reason_type == R.string.type_reason_present) max = it.amount
         }
         return max
     }
-    fun getMin(list:List<Changes>):Int{
+
+    fun getMin(list: List<Changes>): Int {
         var min = 0
         list.forEach {
-            if(min < it.amount && it.reason_type != R.string.type_reason_present) min = it.amount
+            if (min < it.amount && it.reason_type != R.string.type_reason_present) min = it.amount
         }
         return min
     }

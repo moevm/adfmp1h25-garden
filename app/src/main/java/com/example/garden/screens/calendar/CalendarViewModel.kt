@@ -1,7 +1,6 @@
 package com.example.garden.screens.calendar
 
 import android.util.Log
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
@@ -19,7 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -159,8 +157,9 @@ class CalendarViewModel @Inject constructor(
     fun changeDate() = viewModelScope.launch {
         _date.value = Date(2026, 3, 21)
     }
-    fun checkDay(day:Int):Boolean{
-        if(day<=0)return false
+
+    fun checkDay(day: Int): Boolean {
+        if (day <= 0) return false
 
         val sdf_year = SimpleDateFormat("yyyy")
         val sdf_month = SimpleDateFormat("MM")
@@ -170,12 +169,13 @@ class CalendarViewModel @Inject constructor(
         val date = Date(calendar.timeInMillis)
 
         _listNotifications.value.forEach {
-            if(sdf_year.format(it.dateStart).toInt() <= sdf_year.format(date).toInt() &&
-                    sdf_year.format(date).toInt() <= sdf_year.format(it.dateEnd).toInt() &&
-                    sdf_month.format(it.dateStart).toInt() <= sdf_month.format(date).toInt() &&
-                    sdf_month.format(date).toInt() <= sdf_month.format(it.dateEnd).toInt() &&
-                    sdf_day.format(it.dateStart).toInt() <= sdf_day.format(date).toInt() &&
-                    sdf_day.format(date).toInt() <= sdf_day.format(it.dateEnd).toInt())
+            if (sdf_year.format(it.dateStart).toInt() <= sdf_year.format(date).toInt() &&
+                sdf_year.format(date).toInt() <= sdf_year.format(it.dateEnd).toInt() &&
+                sdf_month.format(it.dateStart).toInt() <= sdf_month.format(date).toInt() &&
+                sdf_month.format(date).toInt() <= sdf_month.format(it.dateEnd).toInt() &&
+                sdf_day.format(it.dateStart).toInt() <= sdf_day.format(date).toInt() &&
+                sdf_day.format(date).toInt() <= sdf_day.format(it.dateEnd).toInt()
+            )
                 return true
         }
         return false
