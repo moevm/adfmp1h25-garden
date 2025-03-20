@@ -6,8 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.garden.screens.DBViewModel
-import com.example.garden.screens.archive.ArchiveScreen
 import com.example.garden.screens.about.AboutScreen
+import com.example.garden.screens.archive.ArchiveScreen
 import com.example.garden.screens.bed_list.BedsListScreen
 import com.example.garden.screens.calendar.CalendarScreen
 import com.example.garden.screens.notifications.NotificationScreen
@@ -30,7 +30,7 @@ fun BottomNavGraph(
         composable(Destination.Notifications.route) {
             NotificationScreen(navController, dbViewModel)
         }
-        composable(Destination.About.route){
+        composable(Destination.About.route) {
             AboutScreen()
         }
     }

@@ -16,12 +16,12 @@ sealed class Destination(val route: String) {
     data object About : Destination("About")
 }
 
-sealed class BottomDestination(val destination: Destination, val icon: Int){
-    data object Calendar:BottomDestination(Destination.Calendar, R.drawable.calendar)
-    data object BedsList:BottomDestination(Destination.BedsList, R.drawable.plant)
-    data object Notification:BottomDestination(Destination.Notifications, R.drawable.notification)
-    data object Archive:BottomDestination(Destination.Archive, R.drawable.archiive)
-    data object About:BottomDestination(Destination.About, R.drawable.about)
+sealed class BottomDestination(val destination: Destination, val icon: Int) {
+    data object Calendar : BottomDestination(Destination.Calendar, R.drawable.calendar)
+    data object BedsList : BottomDestination(Destination.BedsList, R.drawable.plant)
+    data object Notification : BottomDestination(Destination.Notifications, R.drawable.notification)
+    data object Archive : BottomDestination(Destination.Archive, R.drawable.archiive)
+    data object About : BottomDestination(Destination.About, R.drawable.about)
 }
 
 val bottomNav = listOf<BottomDestination>(

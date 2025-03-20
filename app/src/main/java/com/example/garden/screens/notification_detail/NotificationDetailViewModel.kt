@@ -4,11 +4,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.garden.models.Bed
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class NotificationDetailViewModel @Inject constructor():ViewModel() {
+class NotificationDetailViewModel @Inject constructor() : ViewModel() {
     private val _title = mutableStateOf("")
     private val _dateStart = mutableStateOf("")
     private val _dateEnd = mutableStateOf("")
@@ -21,19 +20,23 @@ class NotificationDetailViewModel @Inject constructor():ViewModel() {
     val desc get() = _desc
     val bed get() = _bed
 
-    fun changeTitle(value:String){
+    fun changeTitle(value: String) {
         _title.value = value
     }
-    fun changeDateStart(value:String){
+
+    fun changeDateStart(value: String) {
         _dateStart.value = value
     }
-    fun changeDateEnd(value:String){
+
+    fun changeDateEnd(value: String) {
         _dateEnd.value = value
     }
-    fun changeDesc(value:String){
+
+    fun changeDesc(value: String) {
         _desc.value = value
     }
-    fun changeBed(bed:Bed){
+
+    fun changeBed(bed: Bed) {
         _bed.value = bed
     }
 }

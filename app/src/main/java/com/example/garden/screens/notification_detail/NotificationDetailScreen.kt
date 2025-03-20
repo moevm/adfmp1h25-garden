@@ -7,17 +7,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -36,16 +29,13 @@ import com.example.garden.models.Notifications
 import com.example.garden.screens.DBViewModel
 import com.example.garden.screens.navigation.Destination
 import com.example.garden.screens.widgets.convertMillisToDate
-import com.example.garden.screens.widgets.text.ContentText
 import com.example.garden.screens.widgets.text.ContentTextField
 import com.example.garden.screens.widgets.text.DataTextField
 import com.example.garden.screens.widgets.text.ListTextField
-import com.example.garden.screens.widgets.text.TitleText
 import com.example.garden.screens.widgets.text.TitleTextField
 import com.example.garden.ui.theme.LightGreen
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,7 +71,7 @@ fun NotificationDetailScreen(
     }
     LaunchedEffect(dbViewModel.bedById) {
         Log.d("BEDBYID", dbViewModel.bedById.value.toString())
-        if(dbViewModel.bedById.value!=null){
+        if (dbViewModel.bedById.value != null) {
             notificationDetailViewModel.changeBed(dbViewModel.bedById.value!!)
         }
     }
@@ -114,7 +104,7 @@ fun NotificationDetailScreen(
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.arrow_back),
                     contentDescription = null,
-                    )
+                )
             }
             //TitleText(bed.id.toString())
         }
@@ -125,9 +115,11 @@ fun NotificationDetailScreen(
                 .padding(vertical = 15.dp)
         )
 
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp)) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
+        ) {
             TitleTextField(
                 label = "",
                 value = title,
