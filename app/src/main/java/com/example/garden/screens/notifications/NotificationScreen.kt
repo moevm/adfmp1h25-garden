@@ -67,7 +67,6 @@ fun NotificationScreen(
             .contains(textInput.lowercase())
 
     }
-
     Column(
         modifier = Modifier
             .fillMaxSize()

@@ -83,7 +83,6 @@ fun ImageAlertDialog(
         rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri: Uri? ->
             imageUri = uri
         }
-
     var checkPermission by remember {
         mutableStateOf(false)
     }
@@ -108,7 +107,6 @@ fun ImageAlertDialog(
             val source = ImageDecoder.createSource(context.contentResolver, it)
             bitmap.value = ImageDecoder.decodeBitmap(source)
         }
-
         bitmap.value?.let { btm ->
             onConfirmation(btm)
         }
@@ -131,7 +129,6 @@ fun ImageAlertDialog(
                     excludeFromSystemGesture = true,
                 )
             ) {
-
                 Column(
                     modifier = Modifier
                         .clip(RoundedCornerShape(20))
@@ -172,8 +169,7 @@ fun ImageAlertDialog(
                                         top = 15.dp,
                                         bottom = 30.dp
                                     ),
-
-                                )
+                            )
                             Text(
                                 text = stringResource(R.string.alert_gallery),
                                 color = FontBlackColor,
@@ -221,8 +217,6 @@ fun ImageAlertDialog(
                                     .padding(vertical = 10.dp)
                             )
                         }
-
-
                     }
 
                 }
@@ -249,7 +243,6 @@ fun ImageAlertDialog(
                     },
             )
     }
-
 }
 
 
@@ -258,7 +251,6 @@ fun CameraView(
     executor: Executor,
     onImageCaptured: (Bitmap) -> Unit,
 ) {
-
     val lensFacing = CameraSelector.LENS_FACING_BACK
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -279,10 +271,8 @@ fun CameraView(
             preview,
             imageCapture
         )
-
         preview.setSurfaceProvider(previewView.surfaceProvider)
     }
-
 
     Box(contentAlignment = Alignment.BottomCenter, modifier = Modifier.fillMaxSize()) {
         AndroidView({ previewView }, modifier = Modifier.fillMaxSize())
@@ -296,8 +286,6 @@ fun CameraView(
                     onImageCaptured = onImageCaptured,
                     executor = executor,
                 )
-
-
             },
             content = {
                 Icon(
@@ -364,14 +352,12 @@ private suspend fun Context.getCameraProvider(): ProcessCameraProvider =
         }
     }
 
-
 @androidx.compose.ui.tooling.preview.Preview
 @Composable
 private fun ImagePrev() {
     Box(modifier = Modifier.fillMaxSize()) {
         ImageAlertDialog({}, {})
     }
-
 }
 
 
@@ -385,7 +371,6 @@ fun PickImageGallery() {
         rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri: Uri? ->
             imageUri = uri
         }
-
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -400,7 +385,6 @@ fun PickImageGallery() {
                 val source = ImageDecoder.createSource(context.contentResolver, it)
                 bitmap.value = ImageDecoder.decodeBitmap(source)
             }
-
             bitmap.value?.let { btm ->
                 Image(
                     bitmap = btm.asImageBitmap(),
@@ -411,9 +395,7 @@ fun PickImageGallery() {
                 )
             }
         }
-
         Spacer(modifier = Modifier.height(12.dp))
-
         Button(onClick = { launcher.launch("image/*") }) {
             Text(text = "Pick Image")
         }

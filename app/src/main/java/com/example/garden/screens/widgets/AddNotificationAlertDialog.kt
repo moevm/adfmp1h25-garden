@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component1
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
@@ -47,7 +48,6 @@ fun AddNotificationAlertDialog(
     currentBed: Bed? = /*if(listBeds.isNotEmpty())listBeds[0] else*/ null
 ) {
     val (focusRequester) = FocusRequester.createRefs()
-
     val context = LocalContext.current
     var toast_text = stringResource(R.string.check_data)
     var name by remember {
@@ -102,14 +102,11 @@ fun AddNotificationAlertDialog(
                     label = stringResource(R.string.alert_add_event_end) + ":",
                     datePickerState = datePickerStateEnd
                 )
-
                 AlertTextField(
                     value = description,
                     onChange = { description = it },
                     label = stringResource(R.string.alert_add_event_description) + ":"
                 )
-
-
                 AlertListTextField(
                     value = bed?.title ?: "",
                     listBeds = listBeds,
@@ -119,7 +116,6 @@ fun AddNotificationAlertDialog(
                     },
                     imeAction = ImeAction.Done
                 )
-
             }
         },
         onDismissRequest = {
@@ -143,7 +139,6 @@ fun AddNotificationAlertDialog(
                     } else {
                         Toast.makeText(context, toast_text, Toast.LENGTH_SHORT).show()
                     }
-
                 }
             ) {
                 AlertConfirmText(
@@ -163,7 +158,6 @@ fun AddNotificationAlertDialog(
             }
         }
     )
-
 }
 
 
@@ -172,7 +166,6 @@ fun applyDateMask(input: String): TextFieldValue {
     if (input.length == 2) {
         newText += "."
     }
-
 
     var maskedInput = input
     if (maskedInput.length == 2)
@@ -189,12 +182,10 @@ fun applyDateMask(input: String): TextFieldValue {
     )
 }
 
-
 fun convertMillisToDate(millis: Long): String {
     val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     return formatter.format(Date(millis))
 }
-
 
 @Preview
 @Composable

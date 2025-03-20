@@ -32,7 +32,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.garden.models.Bed
 import com.example.garden.ui.theme.DarkGreen
@@ -72,7 +71,8 @@ fun AlertListTextField(
                 }
             },
             modifier = Modifier
-                .fillMaxWidth().focusRequester(focusRequester),
+                .fillMaxWidth()
+                .focusRequester(focusRequester),
             colors = TextFieldDefaults.colors(
                 unfocusedContainerColor = White,
                 focusedContainerColor = White,
@@ -89,7 +89,6 @@ fun AlertListTextField(
                 onNext = { focusManager.moveFocus(FocusDirection.Down) }
             )
         )
-
         DropdownMenu(
             expanded = showDropDown,
             onDismissRequest = {
@@ -163,7 +162,8 @@ fun AlertListReasonTextField(
                 }
             },
             modifier = Modifier
-                .fillMaxWidth().focusRequester(focusRequester),
+                .fillMaxWidth()
+                .focusRequester(focusRequester),
             colors = TextFieldDefaults.colors(
                 unfocusedContainerColor = White,
                 focusedContainerColor = White,
@@ -180,7 +180,6 @@ fun AlertListReasonTextField(
                 onNext = { focusManager.moveFocus(FocusDirection.Down) }
             )
         )
-
         DropdownMenu(
             expanded = showDropDown,
             onDismissRequest = {

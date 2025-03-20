@@ -45,14 +45,12 @@ fun ChangesAlertDialog(
     var type_reason by remember {
         mutableStateOf(R.string.none)
     }
-
     var reason by remember {
         mutableStateOf("")
     }
     var amount by remember {
         mutableStateOf("")
     }
-
     date = datePicker.selectedDateMillis?.let {
         convertMillisToDate(it)
     } ?: ""
@@ -76,7 +74,6 @@ fun ChangesAlertDialog(
                     onChange = { type_reason = it },
                     label = stringResource(R.string.type_reason) + ":"
                 )
-
                 AlertTextField(
                     value = reason,
                     onChange = { reason = it },
@@ -89,7 +86,6 @@ fun ChangesAlertDialog(
                     isNumber = true,
                     imeAction = ImeAction.Done
                 )
-
             }
         },
         onDismissRequest = {
@@ -100,7 +96,6 @@ fun ChangesAlertDialog(
                 onClick = {
                     if (reason.isNotEmpty() && amount.isNotEmpty() && amount.isDigitsOnly()
                         && date.isNotEmpty() && type_reason != R.string.none
-
                     ) {
                         onConfirm(
                             datePicker.selectedDateMillis?.let { Date(it) } ?: Date(0),
@@ -132,7 +127,6 @@ fun ChangesAlertDialog(
         }
     )
 }
-
 //@Preview
 //@Composable
 //private fun AlertChanges() {

@@ -17,7 +17,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,18 +24,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.garden.R
 import com.example.garden.models.Bed
 import com.example.garden.screens.widgets.text.BigCardText
 import com.example.garden.screens.widgets.text.MediumCardText
-import com.example.garden.screens.widgets.text.SmallCardText
 import com.example.garden.ui.theme.Black
 
 @Composable
@@ -71,9 +65,6 @@ fun BedItem(
                 tint = Black
             )
         }
-
-
-
         Row(
             verticalAlignment = Alignment.Top, modifier = Modifier
                 .padding(12.dp)
@@ -99,7 +90,6 @@ fun BedItem(
                     )
             }
             Spacer(modifier = Modifier.width(16.dp))
-
             Column(
                 modifier = Modifier.padding(top = 5.dp)
             ) {
@@ -110,7 +100,6 @@ fun BedItem(
                     text = bed.sort
                 )
             }
-
         }
 //            SmallCardText(
 //                text = bed.description,

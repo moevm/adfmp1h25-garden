@@ -114,7 +114,6 @@ fun NotificationDetailScreen(
             modifier = Modifier
                 .padding(vertical = 15.dp)
         )
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()

@@ -15,19 +15,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.garden.R
-import com.example.garden.models.Notifications
 import com.example.garden.screens.widgets.text.BigCardText
 import com.example.garden.screens.widgets.text.MediumCardText
 import com.example.garden.screens.widgets.text.SmallCardText
@@ -42,18 +37,13 @@ fun NotificationCard(
     onDeleteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // TODO: is it ok?????
     val sdf = SimpleDateFormat("dd.MM.yyyy")
-
-
-
     Box(
         modifier = modifier
             .fillMaxWidth()
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(10.dp))
             .background(color = Color.White)
     ) {
-
         Icon(
             imageVector = Icons.Default.Close,
             null,
@@ -64,12 +54,9 @@ fun NotificationCard(
                 .wrapContentWidth(Alignment.End)
                 .clickable { onDeleteClick() }
         )
-
-
         Column(
             modifier = Modifier
                 .padding(12.dp)
-
         ) {
             BigCardText(
                 text = title

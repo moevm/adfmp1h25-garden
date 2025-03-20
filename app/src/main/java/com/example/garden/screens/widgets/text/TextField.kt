@@ -88,7 +88,6 @@ fun TitleTextField(
             onNext = { focusManager.moveFocus(FocusDirection.Down) }
         )
     )
-
 }
 
 @Composable
@@ -130,7 +129,6 @@ fun ContentTextField(
             onNext = { focusManager.moveFocus(FocusDirection.Down) }
         )
     )
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -144,7 +142,6 @@ fun DataTextField(
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     var showDatePicker by remember { mutableStateOf(false) }
-
 
     OutlinedTextField(
         value = value,
@@ -163,7 +160,8 @@ fun DataTextField(
             }
         },
         modifier = Modifier
-            .fillMaxWidth().focusRequester(focusRequester),
+            .fillMaxWidth()
+            .focusRequester(focusRequester),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = White,
             focusedContainerColor = White,
@@ -268,7 +266,8 @@ fun ListTextField(
                 }
             },
             modifier = Modifier
-                .fillMaxWidth().focusRequester(focusRequester),
+                .fillMaxWidth()
+                .focusRequester(focusRequester),
             colors = TextFieldDefaults.colors(
                 unfocusedContainerColor = White,
                 focusedContainerColor = White,
@@ -290,7 +289,6 @@ fun ListTextField(
                 color = FontBlackColor,
             ),
         )
-
         DropdownMenu(
             expanded = showDropDown,
             onDismissRequest = {

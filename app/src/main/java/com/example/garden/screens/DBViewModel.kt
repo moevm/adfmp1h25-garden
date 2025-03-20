@@ -59,13 +59,11 @@ class DBViewModel @Inject constructor(
     val date get() = _date
     val bedById = _bedById.asStateFlow()
 
-
     val listBeds = _listBeds.asStateFlow()
     val listStatBed = _listStatBed.asStateFlow()
     val listGalleryBed = _listGalleryBed.asStateFlow()
     val listChangesBed = _listChangesBed.asStateFlow()
     val notifications = _notificationsList.asStateFlow()
-
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -76,7 +74,6 @@ class DBViewModel @Inject constructor(
                     }
                     _listBeds.value = list
                 }
-
         }
     }
 
@@ -89,7 +86,6 @@ class DBViewModel @Inject constructor(
                     }
                     _archiveList.value = list
                 }
-
         }
     }
 
@@ -124,11 +120,9 @@ class DBViewModel @Inject constructor(
         _date.value = date
     }
 
-
     fun updateNotification(notifications: Notifications) = viewModelScope.launch {
         repoBed.updateNotification(notifications)
     }
-
 
     fun restoreBed(bed: Bed) = viewModelScope.launch {
         var new_bed = bed
@@ -154,9 +148,7 @@ class DBViewModel @Inject constructor(
         repoBed.deleteBed(bed)
     }
 
-
     fun addBed(value: Bed) = viewModelScope.launch {
-
         repoBed.addBed(value)
     }
 
@@ -174,7 +166,6 @@ class DBViewModel @Inject constructor(
                 }
                 _listStatBed.value = list
             }
-
     }
 
     fun getGalleryByBedId(bed_id: String) = viewModelScope.launch(Dispatchers.IO) {
@@ -187,7 +178,6 @@ class DBViewModel @Inject constructor(
                 }
                 _listGalleryBed.value = list
             }
-
     }
 
     fun getChangesByBedId(bed_id: String) = viewModelScope.launch(Dispatchers.IO) {
@@ -199,7 +189,6 @@ class DBViewModel @Inject constructor(
                 }
                 _listChangesBed.value = list
             }
-
     }
 
 
@@ -240,7 +229,6 @@ class DBViewModel @Inject constructor(
                 bed_id = bed_id
             )
         )
-
     }
 
     fun deleteChange(changes: Changes) = viewModelScope.launch {
@@ -290,7 +278,6 @@ class DBViewModel @Inject constructor(
         repoBed.updateBed(
             new_bed
         )
-
     }
 
     fun getBedById(bed_id: String) =
@@ -300,6 +287,4 @@ class DBViewModel @Inject constructor(
                 _bedById.value = it
             }
         }
-
-
 }
